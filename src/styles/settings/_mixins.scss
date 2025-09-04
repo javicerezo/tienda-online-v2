@@ -1,0 +1,80 @@
+@use './variables' as v;
+@use 'sass:map';
+
+// RESPONSIVE
+@mixin telefono-m {
+    @media (min-width: map.get(v.$medidas, telefono-m)){
+        @content;
+    }
+}
+@mixin telefono-l {
+    @media (min-width: map.get(v.$medidas, telefono-l)){
+        @content;
+    }
+}
+@mixin tablet {
+    @media (min-width: map.get(v.$medidas, tablet)){
+        @content;
+    }
+}
+@mixin desktop {
+    @media (min-width: map.get(v.$medidas, desktop)){
+        @content;
+    }
+}
+@mixin desktop-l {
+    @media (min-width: map.get(v.$medidas, desktop-l)){
+        @content;
+    }
+}
+@mixin dark-mode {
+    @media (prefers-color-scheme: dark){
+        @content;
+    }
+}
+
+// GRID
+@mixin grid ($num-columnas, $espaciado-gap) {
+    display: grid;
+    grid-template-columns: repeat($num-columnas, 1fr);
+    gap: $espaciado-gap;
+}
+// este mixin rellena todo el contenedor cuando tiene pocos elementos
+@mixin grid-auto-fit ($tamano-imagen: 17.5rem, $espaciado-gap) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax($tamano-imagen, 1fr));
+    gap: $espaciado-gap;
+}
+// este mixin NO rellena todo el contenedos cuando tiene pocos elementos
+@mixin grid-auto-fill ($tamano-imagen: 17.5rem, $espaciado-gap) {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax($tamano-imagen, 1fr));
+    gap: $espaciado-gap;
+}
+
+// FLEX
+@mixin flex ($flex-direction, $flex-wrap, $justify-content:null, $align-items:null) {
+    display: flex;
+    flex-flow: $flex-direction $flex-wrap;
+    justify-content: $justify-content;
+    align-items: $align-items;
+}
+
+// NEOMORFISMO
+// https://neumorphism.io/ para usar los colores en fondo-sombra1-sombra2
+@mixin neomorfismo ($color-fondo, $color-borde, $radio-borde, $efecto-sombra:null, $eje, $color-sombra1, $color-sombra2) {
+    background-color: $color-fondo;
+    border: 2px solid $color-borde; // NORMALMENTE EL COLOR SOBRE EL QUE SE POSA EL BOTON
+    border-radius: $radio-borde;
+    box-shadow: $efecto-sombra $eje $eje ($eje*2) $color-sombra1, $efecto-sombra (-$eje) (-$eje) ($eje*2) $color-sombra2;
+    transition: all 1s ease;
+}
+
+// POSITION
+@mixin position ($position, $top:null, $right:null, $bottom:null, $left:null) {
+    position: $position;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+}
