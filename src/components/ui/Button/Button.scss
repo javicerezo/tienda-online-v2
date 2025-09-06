@@ -1,0 +1,28 @@
+@use '../../../styles/settings/variables' as v;
+@use '../../../styles/settings/mixins' as m;
+
+.Button {
+    @include m.flex (row, nowrap, center, center);
+    padding: .625rem 1.5625rem;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    // i {
+    //     padding-left: 2rem;
+    // }
+    &--amarillo {
+        background-color: var(--color-fondo);
+        transition: color 0.5s ease, background-color 0.5s ease;
+        &:hover {
+            background-color: var(--color-negro);
+            color: var(--color-blanco);            
+            i {
+                color: var(--color-blanco);
+            }
+        }
+        i {
+            color: var(--color-negro);
+        }
+    }
+}
