@@ -1,0 +1,38 @@
+@use '../../../styles/settings/variables' as v;
+@use '../../../styles/settings/mixins' as m;
+
+.Footer {
+    background-color: var(--color-negro);  
+    padding: 2rem 0;      
+    &-contenedor {
+        margin: 0 auto;
+        width: 90%;
+        color: var(--color-gris);
+        @include m.flex (column, nowrap, space-between, center);
+        @include m.tablet {
+            width: 75%;
+        }
+    }
+    &-ul {
+        @include m.flex (row, nowrap, center, center);
+        padding-bottom: 1rem;
+    }
+    &-li {
+        padding: 0 1rem;
+        font-size: 1.5em;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        @include m.tablet {
+            font-size: 2em;
+        }
+        &:hover {
+            color: var(--color-gris-claro);
+        }
+    }
+    &-copy {
+        font-size: 0.85em;
+        @include m.tablet {
+            font-size: 1em;
+        }
+    }
+}

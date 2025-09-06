@@ -16,21 +16,19 @@
     --color-texto-formulario:  #723f00;
     --color-texto-formulario2: #556575;
     --color-borde-cesta: #4a4a4a,
+
+
+
+    --font-helvetica: Helvetica, Arial, sans-serif;
+    --font-verdana: Verdana, Geneva, sans-serif;
 }
 
 
 /*  tamaños para media queries (desde este tamaño en adelante, ej: @media (min-width: $tablet) */
 $medidas: (
-    "telefono-xs": 200px,
-    "telefono-m": 320px, // la mayoría de los telefonos están en 400px aprox
-    "telefono-xl": 480px, //por encima pasamos a tablet
-    "tablet": 768px,
-    "desktop": 960px, // por encima pasamos a ordenador
-    "desktop-m": 1024px,
-    "desktop-xl": 1440px
-);
-
-$fuentes: (
-    "tipo-principal": Helvetica Arial sans-serif,
-    "tipo-secundaria": Verdana
+    "telefono-m": 20rem,
+    "telefono-l": 26.5625rem, //por encima pasamos a tablet vertital/móvil horizontal
+    "tablet": 48rem, // por encima pasamos pantalla pequeña/pantalla-z
+    "desktop": 65rem, // por encima pasamos pantalla estandar
+    "desktop-l": 90rem
 );

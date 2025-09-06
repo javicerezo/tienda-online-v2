@@ -1,19 +1,9 @@
-import { Header } from '../components/Header/Header';
-import { Footer } from '../components/Footer/Footer';
+import { Header } from '../components/layout/Header/Header';
+import { Footer } from '../components/layout/Footer/Footer';
 
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "../styles/app.scss";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Tienda de montaña",
@@ -27,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body>
           <Header />
           {children}
           <Footer />
