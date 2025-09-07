@@ -1,0 +1,130 @@
+@use '../../../styles/settings/variables' as v;
+@use '../../../styles/settings/mixins' as m;
+
+.ProductsVisited {
+    padding: 0.5rem;
+    position: relative;
+    margin: 0 auto;
+    @include m.tablet {
+        padding: 1.5rem 0;
+    }
+    @include m.desktop {
+        padding: 3rem 0;
+    }
+    &__contenedor {
+        width: 90%;
+        position: relative;
+        margin: 0 auto;
+        overflow: hidden;
+        @include m.flex (column, nowrap, center, center);
+        @include m.tablet {
+            width: 80%;
+        }
+    }
+    &__h2 {
+        font-size: 1.5em;
+        @include m.desktop {
+            font-size: 2em;
+        }
+    }
+    &__botones {
+        font-size: 1.5em;
+        cursor: pointer;
+        @include m.tablet {
+            display: none;
+        }
+    }
+    &__boton1 {
+        @include m.position(absolute, 50%, null, null, 1rem);
+    }
+    &__boton2 {
+        @include m.position(absolute, 50%, 1rem, null, null);
+    }
+    &__grid {
+        margin: 1rem 0 0 0;
+        transform: translateX(var(--slide-transform));
+        transition: var(--transition);
+        @include m.flex(row, nowrap, flex-start, center);
+        @include m.tablet {
+            margin: 1.5rem 0;
+            transform: translateX(0);
+        }
+        @include m.tablet {
+            @include m.grid (3, 0);
+        }
+        @include m.desktop {
+            @include m.grid (4, 0);
+        }
+    }
+    &__li {
+        min-width: 100%;
+        @include m.flex (column, nowrap, space-between, center);
+        position: relative;
+        border-radius: 5px;
+        &:hover {
+            border: 1px solid map-get(v.$colores, color-gris);
+        }
+        @include m.tablet {
+            min-width: auto;
+        }
+        &-descuento {
+            @include m.position (absolute, 0.3rem, 7rem, null, null);
+            background-color: map-get(v.$colores, color-fondo);
+            width: 3.125em;
+            height: 3.125em;
+            border-radius: 50% 50% 50% 0;
+            @include m.tablet {
+                right: 0.3rem;
+            }
+            p {
+                @include m.flex (row, nowrap, center, center);
+                line-height: 3.125em;
+                width: 100%;
+                font-size: 1.1em;
+                font-weight: bold;
+            }
+        }
+        &-img {
+            cursor: pointer;
+            max-width: 12.5rem;
+        }
+        &-contenido {
+            position: relative;
+            padding: .625rem;
+            @include m.flex (column, nowrap, center, center);
+            &--mod {
+                @include m.flex (row, nowrap, center, flex-start); 
+            }  
+            &--mod:first-child {
+                min-height: 3.25rem;
+            }
+            p {
+                font-size: 0.9em;
+                @include m.telefonoXL {
+                    font-size: 1em;
+                }
+            }          
+        }
+        &-titulo {
+            padding: 0.5rem;
+            text-transform: capitalize;
+            span {
+                text-transform: capitalize;
+                font-weight: bold;
+            }
+        }
+        &-precio {
+            font-size: 1.2em;
+            color: map-get(v.$colores, color-precios);
+            &--old {
+                padding: 0 10px;
+                font-size: .9rem;
+                text-decoration: line-through;
+            }    
+        }
+        &-button {
+            margin-top: 0.5rem;
+            font-size: 0.8em;
+        }
+    }
+}
