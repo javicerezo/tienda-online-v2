@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/Button/Button';
-import './Portada.scss';
+import './Top.scss';
 
-export const Portada = () => {
+export const Top = () => {
     return (
         <section className="Portada">
             <div className="Portada-foto">
@@ -9,7 +9,7 @@ export const Portada = () => {
             <div className="Portada-cesta c-cesta js-cesta">
             </div>
             <div className='Portada-boton'>
-                <Button title={"ver ofertas"} enlace='Items'/>
+                <Button title={"ver ofertas"} enlace='Products'/>
             </div>
         </section>
     );
