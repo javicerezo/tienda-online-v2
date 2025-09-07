@@ -8,7 +8,9 @@ export const Portada = () => {
             </div> 
             <div className="Portada-cesta c-cesta js-cesta">
             </div>
-            <Button title={"ver ofertas"}/>
+            <div className='Portada-boton'>
+                <Button title={"ver ofertas"} enlace='Items'/>
+            </div>
         </section>
     );
 }

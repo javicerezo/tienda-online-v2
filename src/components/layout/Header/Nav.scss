@@ -1,0 +1,78 @@
+@use '../../../styles/settings/variables' as v;
+@use '../../../styles/settings/mixins' as m;
+
+.Nav {
+    display: none;
+    background-color:var(--color-negro);
+    color: var(--color-blanco);
+    width: 100%;
+    padding: 1rem;
+    @include m.position (absolute, (2.8243rem + 2.5rem), null, null, null);
+    @include m.tablet {
+        top: (4.499rem + 2.5rem);
+    }
+    @include m.desktop {
+        width: 85%; 
+        border-radius: 5px;
+        padding: 0rem;
+        @include m.flex (row, nowrap, center, center);
+        @include m.position (absolute, (6.8244rem - 1.0625rem), null, null, null);
+    }
+    &--mod {
+        display: block;
+    }
+    &-ul {
+        @include m.desktop {
+            @include m.flex (row, nowrap, space-around, center);
+        }
+    }
+    &-li {
+        position: relative;
+        @include m.flex (column, nowrap, center, center);
+        padding: .3125rem 1.375rem;
+        margin-top: .375rem;
+        @include m.desktop {
+            border-right: 1px solid #444;
+        }
+        &:hover {
+            background-color: var(--color-blanco);
+            color: var(--color-negro);
+            border-radius: 10px 10px 0 0;
+            .Nav-subnav {
+                display: block;
+                z-index: 100;
+            }
+        }
+    }
+    &-li:last-child {
+        border-right: none;
+    }
+    &-encabezado {
+        @include m.flex (row, nowrap, space-between, center);
+        
+    }
+    &-categoria {
+        text-transform: uppercase;
+        font-size: 1rem;
+    }
+    &-icon {
+        margin-left: 1rem;
+    }
+    &-subnav {
+        display: none;
+        @include m.position (absolute, 1.6875rem, null, null, 0);
+        width: 100%;
+        padding: 0.7rem;
+        background-color: var(--color-blanco);
+        color: var(--color-negro);
+        border-radius: 0 0 5px 5px;
+        &-li {
+            margin: 0.5rem;
+            cursor: pointer;
+            transition: all 0.6s ease;
+        }
+        &-li:hover {
+            color: var(--color-fondo-hover);
+        }
+    }
+}

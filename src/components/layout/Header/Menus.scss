@@ -1,0 +1,187 @@
+@use '../../../styles/settings/variables' as v;
+@use '../../../styles/settings/mixins' as m;
+
+.Menus {
+    @include m.flex (row, nowrap, center, center);
+    padding: 0.1rem;
+    @include m.tablet {
+        padding: 0.1rem 1rem;
+    }
+    p {
+        font-size: .8125em;
+        margin-right: 1rem;
+    }
+    @include m.tablet {
+        &-cuenta, &-ayuda {
+            @include m.flex (row, nowrap, center, center);
+        }
+    }
+    &-cuenta, &-ayuda, &-cesta {
+        @include m.flex (row, nowrap, center, center);
+        padding: 0.5rem;
+        position: relative;
+        &:hover {
+            background: rgb(24,24,24);
+            background: linear-gradient(180deg, rgba(24,24,24,1) 16%, rgba(74,74,74,1) 77%);
+            color: var(--color-blanco);
+            border-radius: 10px 10px 0 0;
+            z-index: 70;
+            .Menus-submenus {
+                visibility: visible;
+                pointer-events: unset;
+                height: auto;
+                z-index: 70;
+            }
+            .Menus-cesta-numero {
+                color: var(--color-blanco);
+            }
+        }
+    }
+    &-cesta {
+        &-p, &-i {
+            display: none;
+            @include m.tablet {
+                display: block;
+            }
+        }
+        &-dibujo {
+            position: relative;
+            &:first-child {
+                margin-right: 1rem;
+                font-size: 1.1rem;
+            }
+        }
+        &-numero {
+            @include m.flex (row, nowrap, center, flex-start);
+            width: 100%;
+            height: auto;
+            font-size: 0.8em;
+            font-weight: bold;
+            color: var(--color-fondo-iconos);
+            position: absolute;
+            top: 1px;
+            left: 2px;
+            z-index: 70;
+            align-content: center;
+            margin-top: 1px;
+            pointer-events: none;
+        }
+    }
+    &-submenus {
+        visibility: hidden;
+        pointer-events: none;
+    }
+}
+
+
+
+.Submenus {
+    &-contenedor {
+        min-width: 16rem;
+        background-color: var(--color-blanco);
+        color: var(--color-negro);
+        padding: 0.5rem;
+        border: 3px solid var(--color-borde-cesta);
+        border-radius: 3px 0 3px 3px;
+        &--mod {
+            max-height: 31.25rem;
+            overflow-y: scroll;
+        }
+        @include m.telefono-m{
+            min-width: 17rem;
+        }
+        @include m.telefono-l {
+            min-width: 18.75rem;
+        }
+        @include m.tablet {
+            min-width: 20rem;
+        }
+    }
+    
+    &-cuenta, &-ayuda, &-cesta {
+        @include m.position (absolute, 2rem, 0, null, null);
+        &-secciones {
+            @include m.flex (column, nowrap, center, flex-start); 
+            border-bottom: 1px dotted #000;
+            padding: .5rem;
+            &--mod {
+                @include m.flex (row, nowrap, flex-start, center);    
+            }
+            &--mod2 {
+                @include m.flex (row, nowrap, space-around, center);
+            }
+        }
+        &-secciones:last-child {
+            border-bottom: none;
+        }
+        &-button {
+            margin-bottom: 0.5rem;
+            padding: 0.625rem;
+        }
+        &-h4 {
+            font-weight: bold;
+            padding: 0.3rem 0 0.8rem 0;
+        }
+        &-p:hover {
+            cursor: pointer;
+            color: lightblue;
+        } 
+        &-span {
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            &--old {
+                text-decoration:line-through;
+                font-size: 0.8125em;
+                font-weight: normal;
+            }
+        }
+        &-img {
+            max-width: 30%;
+        }
+        &-contenido {
+            max-width: 70%;
+        }
+        &-precios {
+            @include m.flex (row, nowrap, space-around, center);
+            padding: 0.5rem 0;   
+        }
+        &-eliminar {
+            color: blue;
+            border-left: 1px solid #000;
+            margin-left: 0.4rem;
+            padding-left: 0.4rem;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+    &-cesta {
+        @include m.position (absolute, 2.6rem, 0, null, null);
+        height: auto;
+    }
+    &-separador {
+        border-top: 1px solid #000;
+        width: 100%;
+        background-color: #f1f1f1;
+        @include m.flex (row, nowrap, flex-end, center);
+        padding: 0.2rem 1rem 0.2rem 0.2rem;
+        text-transform: uppercase;
+        font-size: 0.8em;
+    }
+    &-resultado {
+        margin-top: 0.5rem;
+        @include m.flex (row, nowrap, flex-end, center);
+        &-button{
+            font-size: 0.8rem;
+        }
+    }
+    &-ver-cesta {
+        color: blue;
+        margin: 0 1rem;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+

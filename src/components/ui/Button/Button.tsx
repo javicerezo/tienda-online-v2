@@ -2,10 +2,11 @@ import './Button.scss';
 
 interface Props {
     title: string;
+    enlace: string;
 }
 
-export const Button = ({ title }: Props ) => {
+export const Button = ({ title, enlace }: Props ) => {
     return (
-        <a className="Button Button--amarillo Portada-boton js-portada-boton" href="#c-item">{title}</a>
+        <a className="Button Button--amarillo" href={enlace}>{title}</a>
     );
 }

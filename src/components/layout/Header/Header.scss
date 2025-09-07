@@ -1,0 +1,343 @@
+@use '../../../styles/settings/variables' as v;
+@use '../../../styles/settings/mixins' as m;
+
+.Header {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    background-color:var(--color-fondo);
+    position: relative;
+    z-index: 80;
+    &--fixed {
+        position: fixed;
+    }
+    @include m.flex (column, nowrap, center, center);
+    &-cabecera {
+        @include m.flex (row, nowrap, space-between, center);
+        width: 100%;
+        @include m.telefono-l {
+            width: 95%;
+        }
+        @include m.tablet {
+            width: 95%;
+        }
+        @include m.desktop {
+            width: 80%;
+        }
+    }
+    &-burger {
+        padding: 0.5rem;
+        svg {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+        @include m.desktop{
+            display: none;
+        }
+    }
+    &-img {
+        @include m.flex (column, nowrap, flex-start, flex-start);
+        display: none;
+        @include m.tablet {
+            display: block;
+            cursor: pointer;
+            max-width: 9rem;
+        }
+    }
+    &-h2 {
+        font-size: 0.7em;
+        text-transform: uppercase;
+        @include m.tablet {
+            font-size: 1em;
+        }
+        @include m.desktop {
+            @include m.position(relative, -1rem, null, null, null);
+        }
+    }
+    &-enlaces {
+        display: none;
+        @include m.desktop {
+            @include m.flex(row, nowrap, center, center);
+            @include m.position(absolute, null, null, 1.0625rem, null);
+        }
+    }
+    &-a {
+        position: relative;
+        background-color: var(--color-fondo-iconos);
+        padding: 0.4rem 0.8rem;
+        margin: 0 0.1rem 0 0.1rem;
+        border-top: 1px solid var(--color-fondo);
+        border-right: 1px solid var(--color-fondo);
+        border-left: 1px solid var(--color-fondo);
+        border-radius: 15px 15px 0 0;
+        &:hover {
+            text-decoration-line: underline;
+        }
+        &--activo {
+            background-color:var(--color-negro);
+            color: var(--color-blanco);
+        }
+    }
+    &-centro {
+        padding: 0.5rem;
+        @include m.desktop {
+            @include m.position(relative, -1rem, -2rem, null, null);
+            @include m.flex (row, nowrap, center, center);
+            padding: 0.5rem;
+            border-radius: 10px;
+            background-color:var(--color-fondo-iconos);
+        }
+    }
+    &-input {
+        display: none;
+        border: none;
+        @include m.desktop{
+            display: block
+        }
+    }
+    &-der {
+        @include m.flex (column, nowrap, center, center);
+        @include m.tablet {
+            margin: 0.5rem;
+        }
+    }
+    &-derArriba {
+        @include m.flex (row, nowrap, center, center);
+        @include m.position (absolute, 2.8243rem, 0, null, 0);
+        background-color: var(--color-negro);
+        color: var(--color-blanco);
+
+        p {
+            font-size: 0.7em;
+            margin-left: 0.5rem;
+        }
+        span {
+            font-weight: bold;
+            font-style: italic;
+        }
+        @include m.tablet {
+            @include m.position(absolute, 4.0744rem, 0, null, 0);
+        }
+        @include m.desktop {
+            position: inherit;
+            background-color: var(--color-fondo);
+            color: var(--color-negro);
+            border: 1px solid var(--color-fondo-iconos);
+            border-radius: 5px;
+        }
+    }
+    &-caja {
+        @include m.flex (row, nowrap, center, center);
+        margin: 0.5rem;
+        width: 100%;
+        &:last-child {
+            border-left: 1px solid var(--color-fondo-iconos);
+            padding-left: 1rem;
+        }
+    }
+}
+
+.Cesta {
+    opacity: 0;
+    visibility: hidden;
+    height: 0px;
+    transition: all 1s ease;
+    &--mod {
+        opacity: 1;
+        visibility: visible;
+        width: 100%;
+        position: absolute;
+        top: 12vh;
+        height: 88vh;
+        @include m.tablet {
+            top: 16vh;
+            height: 84vh;
+        }
+    }
+    &-screen {
+        z-index: 79;
+        position: fixed;
+        width: 100%;
+        top: 12vh;
+        height: 88vh;
+        background-color: vaar(--color-negro);
+        @include m.tablet {
+            top: 16vh;
+            height: 84vh;
+        }
+    }
+    &-contenedor {
+        padding: 0.5rem;
+        @include m.tablet {
+            padding: 3rem 2rem 1rem;
+        }
+    }
+    &-cabecera {
+        @include m.flex(row, nowrap, space-between, center);
+        border-bottom: 1px solid var(--color-borde-cesta);
+        padding-bottom: 0.5rem;
+        @include m.tablet {
+            padding-bottom: 1rem;
+        }
+    }
+    &-h2 {
+        font-size: 1em;
+        @include m.tablet {
+            font-size: 1.5em;
+        }
+    }
+    &-close {
+        cursor: pointer;
+        max-width: 20%;
+        font-size: 1.2em;
+        @include m.tablet {
+            font-size: 1.5em;
+        }
+    }
+    &-p {
+        font-size: 0.7em;
+        margin: 0.3rem 0;
+        @include m.tablet {
+            font-size: 0.9em;
+            margin: 0.5rem 0;
+        }
+    }
+    &-contenedor-table {
+        max-height: 17.5em;
+        overflow-y: scroll;
+        background-color: #fff;
+    }
+    &-table {
+        width: 100%;
+        height: auto;
+    }
+    &-thead {
+        background: rgb(24,24,24);
+        background: linear-gradient(180deg, rgba(24,24,24,1) 16%, rgba(74,74,74,1) 77%);
+        color: var(--color-negro);
+        font-size: 0.8em;
+        border-radius: 5px;
+    }
+    &-tr {
+        display: table-row;
+        border-bottom: 1px solid var(--color-gris);
+    }
+    &-tr:last-child {
+        border-bottom: none;
+    }
+    &-th, &-td {
+        display: table-cell;
+        text-align: center;
+        padding: 0.5rem 1.5rem;
+        vertical-align: top;
+        font-size: 0.8em;
+    }
+    &-td:first-child {
+        @include m.flex(row, nowrap, center, center);
+    }
+    &-td:last-child {
+        font-weight: bold;
+    }
+    &-tbody {
+        &-picture {
+            @include m.flex (row, nowrap, center, center);
+        }
+        &-img {
+            margin-right: 1rem;
+            width: auto;
+            max-width: 100px;
+            @include m.tablet {
+                margin-right: 0;
+                max-width: 150px
+            }
+        }
+        &-descripcion {
+            @include m.flex (column, nowrap, center, flex-start);
+        }
+        &-iconos {
+            @include m.flex(row, nowrap, flex-start, center);
+        }
+        &-p, &-a, &-iconos{
+            padding: 0.15rem 0.5rem;
+            span {
+                font-weight: bold;
+            }
+        }
+        &-p:nth-child(2) {
+            color:var(--color-gris);
+        }
+        &-p:nth-child(3) {
+            color:var(--color-precios);
+        }
+        &-a {
+            color: blue;
+        }
+        &-precio {
+            padding: 0.2rem 0.5rem;
+            &--mod {
+                display: none;
+            }
+        }
+        &-precio:nth-child(2), &-precio:nth-child(3){
+            color: var(--color-gris);
+        }
+    }
+    &-resultado {
+        @include m.flex(column-reverse, nowrap, center, center);
+        padding: 0.5rem;
+        @include m.telefono-l {
+            @include m.flex(row, nowrap, center, flex-end);
+            padding: 1rem;
+        }
+    }
+    &-detalle {
+        @include m.flex(column, nowrap, center, flex-end);
+        font-size: 0.7em;
+        padding: 0 0 1rem 0;
+        @include m.tablet {
+            padding: 0 0 0 1rem;
+            font-size: 0.8em;
+        }
+        &-p {
+            padding: 0.1rem;
+            span {
+                color: var(--color-gris);
+            }
+        }
+        &-p:nth-child(3) {
+            padding-top: 0.8rem;
+            font-weight: bold;
+        }
+    }
+    &-caja-botones {
+        @include m.flex(column, nowrap, center, flex-start);
+        @include m.tablet {
+            @include m.flex(row, nowrap, flex-end, center);
+        }
+    }
+    &-tramitar {
+        i {
+            font-size: 0.7rem;
+            margin-left: 0.5rem;
+            @include m.tablet {
+                font-size: 1rem;
+            }
+        }
+        margin-top: 0.5rem;
+        @include m.tablet {
+            margin-top: 0;
+        }
+    }
+    &-boton {
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 0.7em;
+        cursor: pointer;
+        @include m.tablet {
+            font-size: 0.8em;
+            margin: 0 1rem 0 0;
+        }
+    }
+}
+
