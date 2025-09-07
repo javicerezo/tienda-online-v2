@@ -7,6 +7,6 @@ interface Props {
 
 export const Button = ({ title, enlace }: Props ) => {
     return (
-        <a className="Button Button--amarillo" href={enlace}>{title}</a>
+        <a className="Button Button--amarillo" href={`#${enlace}`}>{title}</a>
     );
 }

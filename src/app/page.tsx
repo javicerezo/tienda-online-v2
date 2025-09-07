@@ -1,10 +1,11 @@
-import { Portada } from "../components/layout/Portada/Portada";
-
+import { Products } from "@/components/layout/Products/Products";
+import { Top } from "../components/layout/Top/Top";
 
 export default function Home() {
   return (
     <>
-      <Portada />
+      <Top />
+      <Products />
     </>
   );
 }
