@@ -6,6 +6,7 @@
  * @returns retorna un array de números aleatorios de 'longArray' posiciones
  */
 export function arrayNumRandom(longArray: number, limitSup: number): number[] {
+  // con set me aseguro que el array no tenga repetidos
   const numeros = new Set<number>();
 
   while (numeros.size < longArray) {

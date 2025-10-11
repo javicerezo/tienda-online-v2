@@ -8,9 +8,11 @@ import { productProps } from "../types/product";
  */
 export function arrayProductList (arrayBD: productProps[], arrayAleatorio: number[]) {
     const arrayReturn: productProps[] = [];
+
     arrayAleatorio.forEach( id => {
         const obj = arrayBD.filter( elemento => elemento.id === id);
         arrayReturn.push(obj[0]);
     })
+    
     return arrayReturn;
 }
