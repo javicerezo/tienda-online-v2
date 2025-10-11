@@ -1,4 +1,3 @@
-import { Header } from '../components/layout/Header/Header';
 import { Footer } from '../components/layout/Footer/Footer';
 
 import type { Metadata } from "next";
@@ -18,7 +17,6 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body>
-          <Header />
           {children}
           <Footer />
       </body>
