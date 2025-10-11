@@ -1,11 +1,19 @@
+'use client'
+
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
+
 import { Nav } from './Nav';
 import { Menus } from './Menus';
 
 import { FaBars, FaSearch, FaTruck, FaBox } from "react-icons/fa";
 import './Header.scss';
-import Image from 'next/image';
 
 export const Header = () => {
+    const pathName = usePathname();
+
     return (
         <header className="Header">
             <div className="Header-cabecera">
@@ -25,9 +33,15 @@ export const Header = () => {
                 <div className="Header-contenedorTitulo">
                     <h2 className="Header-h2">Esquí y montaña</h2>
                     <div className="Header-enlaces">
-                        <a className="Header-a Header-a--activo" href="/Home">La tienda</a>
-                        <a className="Header-a" href="/Blog">Blog escalada</a>
-                        <a className="Header-a" href="/Club">Club montaña</a>
+                        <Link 
+                            className={`Header-a ${pathName === "/" ? "Header-a--activo" : ""} `}
+                            href="/">La tienda</Link>
+                        <Link 
+                            className={`Header-a ${pathName === "/blog" ? "Header-a--activo" : ""} `} 
+                            href="/blog" target='_blank'>Blog escalada</Link>
+                        <Link 
+                            className={`Header-a ${pathName === "/club" ? "Header-a--activo" : ""} `} 
+                            href="/club" target='_blank'>Club montaña</Link>
                     </div>
                 </div>
                 <div className="Header-centro">

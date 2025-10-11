@@ -13,7 +13,7 @@ export const Menus = () => {
                     <div className="Submenus-cuenta Submenus-contenedor">
                         <div className="Submenus-cuenta-secciones">
                             <div className="Submenus-cuenta-button">
-                                <Button title="log in" enlace=""/> 
+                                <Button title="log in" enlace="/login"/> 
                             </div>
                             <p className="Submenus-cuenta-p">
                                 <span className="Submenus-cuenta-span">¿Eres nuevo?</span>Crear una cuenta

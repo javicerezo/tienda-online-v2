@@ -1,0 +1,80 @@
+@use '../../../styles/settings/variables' as v;
+@use '../../../styles/settings/mixins' as m;
+
+
+.Newsletter {
+    margin: 1rem auto;
+    @include m.tablet {
+        margin: 3rem 0 1rem;
+    }
+    &-contenedor {
+        max-width: 31.25rem;
+        margin: 0 auto;
+        padding: 0 1rem;
+        @include m.tablet {
+            width: 50%;
+        }
+    }
+    &-h2 {
+        font-size: 1.5em;
+        @include m.desktop{
+            font-size: 2em;
+            }
+    }
+    &-h4 {
+        font-size: 0.85em;
+        padding: 0.5rem 0;
+        @include m.tablet {
+            font-size: 1em;
+            padding: 1rem 0;
+        }
+        @include m.desktop {
+            padding: 1.5rem 0;
+        }
+    }
+    &-form {
+        position: relative;
+        @include m.flex (column, nowrap, space-between, center);
+    }
+    &-input {
+        width: 100%;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 1.5rem 1.2rem 1rem;
+        font-size: 1.1em;    
+    }
+    &-label {
+        @include m.position (absolute, 1.5rem, null, null, 1.5rem);
+        color: var(--color-gris);
+        font-size: 1.1em;
+        pointer-events: none;
+        transition: all 0.5s ease;
+        &--mod{
+            top: .5rem;
+            left: .5rem;
+            right: null;
+            font-size: 0.75em;
+        }
+    }
+    &-form-radio {
+        padding: 1rem;
+        display: none;
+        &--mod {
+            display: flex;
+            @include m.flex (row, nowrap, center, center);
+        }
+    }
+    &-radio {
+        padding: 0 1rem;
+        @include m.flex (row, nowrap, center, center);
+        label {
+            padding-left: .3125rem;
+        }
+    }
+    &-boton {
+        margin: 2rem 1rem;
+    }
+    &-spinner {
+        @include m.flex(row, nowrap, center, center);
+    }
+}

@@ -62,14 +62,14 @@
         position: relative;
         border-radius: 5px;
         &:hover {
-            border: 1px solid map-get(v.$colores, color-gris);
+            border: 1px solid var(--color-gris);
         }
         @include m.tablet {
             min-width: auto;
         }
         &-descuento {
             @include m.position (absolute, 0.3rem, 7rem, null, null);
-            background-color: map-get(v.$colores, color-fondo);
+            background-color: var(--color-fondo);
             width: 3.125em;
             height: 3.125em;
             border-radius: 50% 50% 50% 0;
@@ -100,7 +100,7 @@
             }
             p {
                 font-size: 0.9em;
-                @include m.telefonoXL {
+                @include m.telefono-l {
                     font-size: 1em;
                 }
             }          
@@ -115,7 +115,7 @@
         }
         &-precio {
             font-size: 1.2em;
-            color: map-get(v.$colores, color-precios);
+            color: var(--color-precios);
             &--old {
                 padding: 0 10px;
                 font-size: .9rem;
