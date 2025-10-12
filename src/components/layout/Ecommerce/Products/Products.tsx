@@ -14,8 +14,9 @@ import { Paragraph } from '@/components/ui/Paragraph/Paragraph';
 import { ProductModal } from './ProductModal';
 
 export const Products = () => {
+    const [ cartList, setCartList ] = useState<product[]>([]);
     const [ productList, setProductList ] = useState<product[]>([]);
-    const [ modal, setModal ] = useState<product | null>();
+    const [ modal, setModal ] = useState<product | null>(null);
     
     useEffect(() => {
         // la idea es calcular los 8 numeros aleatorios y mostrar solo esos 8 items
@@ -23,6 +24,9 @@ export const Products = () => {
         setProductList(arrayProductList(materialDeportivo, arrayNum));
         
     }, []);
+
+    console.log(cartList)
+    console.log(modal)
 
     return (
         <section className="Products" id="Products">
@@ -32,7 +36,7 @@ export const Products = () => {
                 <ul className="Products-grid">
                     { productList.length === 0
                         ? (
-                            <Paragraph text='Cargando items ...'/>
+                            <Paragraph text='Cargando items ...' styleGreen={false}/>
                         ) : (
                             productList.map( element => (
                                 <ProductCard 
@@ -44,19 +48,23 @@ export const Products = () => {
                                     descuento={element.descuento}
                                     id={element.id}
                                     handleModal={ () => setModal(element) }
-                                    handleCart={ () => setProductList([...element]) }
-                                    />
+                                    handleCart={ () => setCartList([element]) }
+                                />
                             ))
                         )
                     }    
                 </ul>
             </div>   
-
-            <ProductModal 
-                product={modal}
-                isOpen={!!modal} 
-                onClose={ () => setModal(null) }
-            />     
+            
+            <div className={`ProductModal ${modal ? "ProductModal--show" : ""}`}>
+                {modal && (
+                    <ProductModal 
+                        product={modal}
+                        onClose={ () => setModal(null) }
+                        handleCart={ () => setCartList([modal]) }
+                    />     
+                )}
+            </div>
         </section>
     );
 }

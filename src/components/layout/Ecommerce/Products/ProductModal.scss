@@ -1,0 +1,202 @@
+@use '@/styles/settings/variables' as v;
+@use '@/styles/settings/mixins' as m;
+
+.ProductModal {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1s ease, visibility 1s ease;
+    &--show {
+        opacity: 1;
+        visibility: visible;
+    }
+    &-screen{
+        @include m.position (fixed, 0, 0, 0, 0);
+        z-index: 201;
+        @include m.flex (column, nowrap, center, center);
+        background-color: #111111bd;
+    }
+    &-li {
+        @include m.flex (column, nowrap, center, center);
+        position: relative;
+        padding: 1rem;
+        background-color: var(--color-blanco);
+        color: var(--color-negro);
+        border-radius: 5px;
+        width: 95%;
+        height: 95%;
+        @include m.telefono-l {
+            @include m.flex (row, nowrap, space-around, center);
+            height: 80%;
+        }
+        @include m.tablet {
+            width: 85%;
+            height: 85%;
+        }
+        @include m.desktop {
+            width: 70%;
+            height: 90%;
+        }
+    }
+    &-descuento {
+        @include m.flex (row, nowrap, center, center);
+        @include m.position (absolute, 1.5rem, 1.5rem, null, null);
+        background-color: var(--color-fondo);
+        border-radius: 50% 50% 50% 0;
+        width: 3em;
+        height: 3em;
+        @include m.telefono-l {
+            top: 2.5rem;
+            left: 13rem;
+        }
+        @include m.tablet {
+            width: 5em;
+            height: 5em;
+            left: 19rem;
+        }
+        @include m.desktop {
+            top: 2rem;
+            left: 20rem;
+        }
+        p {
+            font-size: 1em;
+            font-weight: bold;
+            @include m.tablet {
+                font-size: 1.5em;
+            }
+        }
+        &--none {
+            display: none;
+        }
+    }
+    &-img {
+        cursor: default;
+        @include m.telefono-m {
+            max-width: 15rem;
+        }
+        @include m.telefono-l {
+            max-width: 20rem;
+        }
+        @include m.tablet {
+            max-width: 23.75rem;
+        }
+    }
+    &-contenido {
+        width: 100%;
+        margin-top: 4rem;
+        @include m.telefono-m {
+            width: 80%;
+        }
+        @include m.telefono-l {
+            width: 100%;
+            max-width: 11.875rem;
+            margin-top: 0;
+        }
+        @include m.tablet {
+            width: auto;
+            min-width: 250px;
+        }
+        @include m.tablet {
+            min-width: 300px;
+        }
+        position: relative;
+        padding: 0.5rem;
+        // @include m.neomorfismo (5px, 2px, map-get(v.$colores, color-secundario-2), map-get(v.$colores, color-secundario-2), map-get(v.$colores, color-primario));
+        @include m.flex (column, nowrap, center, center);
+        &--mod {
+            @include m.flex (row, nowrap, center, center); 
+            padding-bottom: 0.5rem;
+        }  
+    }
+    &-caracteristicas {
+        width: 100%;
+        @include m.flex(column, nowrap, center, flex-start);
+        padding: 0.1rem 0;
+        @include m.tablet {
+            padding: 0.3rem 0;
+        }
+        &-p {
+            font-size: 0.6em;
+            padding: 0.1rem 0;
+            @include m.tablet {
+                font-size: 1em;
+                padding: 0.2rem 0;
+            }
+            span {
+                font-weight: bold;
+            }
+            &--mod {
+                color: blue;
+                font-weight: lighter;
+                font-size: 0.6em;
+                @include m.tablet {
+                    font-size: 0.9em;
+                }
+            }
+        }
+    }
+    &-titulo {
+        font-size: 0.9em;
+        padding: 0.3rem;
+        @include m.tablet {
+            font-size: 1.7em;
+            padding: 0.5rem;
+        }
+        span {
+            text-transform: capitalize;
+            font-weight: bold;
+        }
+    }
+    &-precio {
+        font-size: 1.7em;
+        padding: 0.2rem;
+        font-weight: bold;
+        color: var(--color-precios);
+        @include m.tablet {
+            font-size: 2.5em;
+            padding: 0.5rem;
+        }
+        &--old {
+            font-size: 1em;
+            text-decoration: line-through;
+            padding-right: 1rem;
+            @include m.tablet {
+                font-size: 1.4em;
+            }
+        }
+        &--descuento {
+            font-size: 1em;
+            color: var(--color-gris);
+            @include m.tablet {
+                font-size: 1.4em;
+            }
+        }
+    }
+    &-button {
+        padding-top: 0.8rem;
+        padding-bottom: 0;
+        font-size: 0.7em;
+        @include m.telefono-l {
+            padding-top: 1rem;
+        }
+        @include m.tablet {
+            font-size: 1em;
+            padding-top: 2rem;
+        }
+    }
+    &-mensaje {
+        position: absolute;
+        bottom: 1.5rem;
+        font-size: 1.5em;
+        @include m.telefono-l {
+            bottom: 3rem;
+        }
+    }
+    &-buttonX {
+        @include m.position (absolute, 2rem, 2rem, null, null);
+        font-size: 1.5rem;
+        cursor: pointer;
+        @include m.tablet {
+            font-size: 2rem;
+        }
+    }
+}

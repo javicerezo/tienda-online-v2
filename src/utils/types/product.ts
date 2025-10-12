@@ -21,7 +21,7 @@ export interface productCardProps {
 }
 
 export interface productModalProps  {
-    product: product | null;
-    isOpen: boolean;
+    product: product;
     onClose: () => void;
+    handleCart: () => void;
 }
