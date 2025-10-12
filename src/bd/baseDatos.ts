@@ -1,7 +1,7 @@
-import type { productProps } from "@/utils/types/product";
+import type { product } from "@/utils/types/product";
 
 // materialDeportivo es la base de datos
-export const materialDeportivo: productProps[] = [
+export const materialDeportivo: product[] = [
     {
         marca: 'Roxi',
         nombre: 'Liberty Hoodie W',

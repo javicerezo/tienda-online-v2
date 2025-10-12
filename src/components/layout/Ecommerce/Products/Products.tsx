@@ -1,6 +1,8 @@
 'use client'
 
 import { ProductCard } from './ProductCard';
+import { Paragraph } from '@/components/ui/Paragraph/Paragraph';
+import { ProductModal } from './ProductModal';
 
 import { useEffect, useState } from 'react';
 import { arrayNumRandom } from '@/utils/functions/arrayNumRandom';
@@ -10,23 +12,16 @@ import { materialDeportivo } from '@/bd/baseDatos'
 import type { product } from '@/utils/types/product';
 
 import './Products.scss';
-import { Paragraph } from '@/components/ui/Paragraph/Paragraph';
-import { ProductModal } from './ProductModal';
 
 export const Products = () => {
-    const [ cartList, setCartList ] = useState<product[]>([]);
     const [ productList, setProductList ] = useState<product[]>([]);
     const [ modal, setModal ] = useState<product | null>(null);
     
     useEffect(() => {
         // la idea es calcular los 8 numeros aleatorios y mostrar solo esos 8 items
         const arrayNum: number[] = arrayNumRandom(8, materialDeportivo.length);
-        setProductList(arrayProductList(materialDeportivo, arrayNum));
-        
+        setProductList(arrayProductList(materialDeportivo, arrayNum));   
     }, []);
-
-    console.log(cartList)
-    console.log(modal)
 
     return (
         <section className="Products" id="Products">
@@ -48,7 +43,6 @@ export const Products = () => {
                                     descuento={element.descuento}
                                     id={element.id}
                                     handleModal={ () => setModal(element) }
-                                    handleCart={ () => setCartList([element]) }
                                 />
                             ))
                         )
@@ -56,15 +50,12 @@ export const Products = () => {
                 </ul>
             </div>   
             
-            <div className={`ProductModal ${modal ? "ProductModal--show" : ""}`}>
-                {modal && (
-                    <ProductModal 
-                        product={modal}
-                        onClose={ () => setModal(null) }
-                        handleCart={ () => setCartList([modal]) }
-                    />     
-                )}
-            </div>
+            {modal && (
+                <ProductModal 
+                    product={modal}
+                    onClose={ () => setModal(null) }
+                />     
+            )}
         </section>
     );
 }

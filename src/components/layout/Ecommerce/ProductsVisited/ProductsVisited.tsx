@@ -7,15 +7,11 @@ import { ProductModal } from '../Products/ProductModal';
 import type { product } from '@/utils/types/product';
 
 import './ProductsVisited.scss';
+import { cargarStorage } from '@/utils/functions/storage';
 
 export const ProductsVisited = () => {
-    const [ visitedList, setVisitedList ] = useState<product[] | null>([]);
-    const [ cartList, setCartList ] = useState<product[]>([]);
     const [ modal, setModal ] = useState<product | null>(null);
-
-    const stop = () => {
-        console.log("NO HAGAS NADA CON ESTE CLIC")
-    }
+    const visitedList = cargarStorage("visitedList");
 
     return (
         <section className="ProductsVisited">
@@ -23,7 +19,7 @@ export const ProductsVisited = () => {
                 <div className="ProductsVisited-contenedor">
                     <h2 className="ProductsVisited-h2">Últimos productos que has visitado</h2>
                     <ul className="ProductsVisited-grid">
-                        { visitedList?.map( element => (
+                        { visitedList?.map( (element: product) => (
                                 <ProductCard 
                                     key={element.id}
                                     marca={element.marca}
@@ -33,8 +29,6 @@ export const ProductsVisited = () => {
                                     descuento={element.descuento}
                                     id={element.id}
                                     handleModal={ () => setModal(element) }
-                                    handleCart={ () => setCartList([element]) }
-                                    onclick={() => stop() }
                                 />
                             ))
                         }    
@@ -46,7 +40,6 @@ export const ProductsVisited = () => {
                 <ProductModal 
                     product={modal}
                     onClose={ () => setModal(null) }
-                    handleCart={ () => setCartList([modal]) }
                 />     
             )}
         </section>

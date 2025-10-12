@@ -17,11 +17,11 @@ export interface productCardProps {
     descuento: number;    
     id: number;
     handleModal: () => void;
-    handleCart: () => void;
 }
 
 export interface productModalProps  {
     product: product;
     onClose: () => void;
-    handleCart: () => void;
 }
+
+
