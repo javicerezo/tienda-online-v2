@@ -1,7 +1,7 @@
 @use '@/styles/settings/variables' as v;
 @use '@/styles/settings/mixins' as m;
 
-.Product {
+.ProductCard {
     @include m.flex (column, nowrap, space-between, center);
     position: relative;
     border-radius: 5px;

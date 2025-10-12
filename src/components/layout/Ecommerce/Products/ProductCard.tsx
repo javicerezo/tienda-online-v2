@@ -23,11 +23,11 @@ export const ProductCard = ( { marca, nombre, imagen, precio, descuento, id, han
     }, [showMessage]);
 
     return (
-        <li className="Product">
-            <div className={`Product-descuento ${descuento == 0 ? "Product-descuento--none" : ""} `}>
+        <li className="ProductCard">
+            <div className={`ProductCard-descuento ${descuento == 0 ? "ProductCard-descuento--none" : ""} `}>
                 <p>{descuento}%</p>
             </div>
-            <div className='Product-img' onClick={ handleModal }>
+            <div className='ProductCard-img' onClick={ handleModal }>
                 <Image 
                     width='200' height='300' 
                     src={imagen} 
@@ -35,26 +35,26 @@ export const ProductCard = ( { marca, nombre, imagen, precio, descuento, id, han
                     alt={`imagen del producto ${id}`} 
                 />
             </div>                        
-            <div className='Product-contenido'>
-                <div className='Product-contenido--mod'>
-                    <p className='Product-titulo'><span>{marca}</span></p>
-                    <p className='Product-titulo'>{nombre}</p>
+            <div className='ProductCard-contenido'>
+                <div className='ProductCard-contenido--mod'>
+                    <p className='ProductCard-titulo'><span>{marca}</span></p>
+                    <p className='ProductCard-titulo'>{nombre}</p>
                 </div>
-                <div className ='Product-contenido--mod'>
+                <div className ='ProductCard-contenido--mod'>
                     { descuento === 0 
                         ? (
-                            <p className='Product-precio'>{precio}€</p>                        
+                            <p className='ProductCard-precio'>{precio}€</p>                        
                         ) : (
-                            <div className='Product-contenedorPrecios'>
-                                <p className='Product-precio Product-precio--color'>{precioNew}€</p>  
-                                <p className='Product-precio--old'>{precio}€</p>                        
+                            <div className='ProductCard-contenedorPrecios'>
+                                <p className='ProductCard-precio ProductCard-precio--color'>{precioNew}€</p>  
+                                <p className='ProductCard-precio--old'>{precio}€</p>                        
                             </div>
                         )
                     }
                 </div>
-                <button className="Product-button Button Button--amarillo" data-id={id} onClick={ addProduct }>Añadir a la cesta</button>                    
+                <button className="ProductCard-button Button Button--amarillo" data-id={id} onClick={ addProduct }>Añadir a la cesta</button>                    
             </div>
-            <div className="Product-mensaje">
+            <div className="ProductCard-mensaje">
                 {showMessage && (
                     <Paragraph text={"producto añadido al carrito"} styleGreen={true}/>
                 )}
