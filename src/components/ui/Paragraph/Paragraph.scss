@@ -1,0 +1,20 @@
+
+
+.Paragraph {
+    font-family: var(--font-textos);
+    width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 0.5rem;
+    &--error {
+        color: red;
+    }
+    &--exito {
+        color: green;
+    }
+    &--alerta {
+        color: var(--color-fondo-hover);
+    }
+
+}
