@@ -24,6 +24,9 @@
             font-size: 1.1em;
             font-weight: bold;
         }
+        &--none {
+            display: none;
+        }
     }
     &-img {
         cursor: pointer;
@@ -54,14 +57,20 @@
             font-weight: bold;
         }
     }
+    &-contenedorPrecios {
+        @include m.flex(row, nowrap, space-between, center);
+    }
     &-precio {
-        font-size: 1.2em;
-        color: var(--color-precios);
+        scale: calc(1.2);
+        font-weight: bold;
         &--old {
+            scale: calc(0.95);
             padding: 0 10px;
-            font-size: .9rem;
             text-decoration: line-through;
-        }    
+        }
+        &--color {
+            color: var(--color-precios);
+        } 
     }
     &-button {
         margin-top: 0.5rem;
