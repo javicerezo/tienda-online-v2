@@ -7,7 +7,7 @@ export const Top = () => {
             <div className="Portada-foto">
             </div>
             <div className='Portada-boton'>
-                <Button title={"ver ofertas"} enlace='Products'/>
+                <Button title={"ver ofertas"} enlace='#Products'/>
             </div>
         </section>
     );
