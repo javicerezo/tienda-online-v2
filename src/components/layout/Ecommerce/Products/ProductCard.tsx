@@ -4,14 +4,23 @@ import Image from 'next/image';
 import type { productCardProps } from '@/utils/types/product';
 
 import './ProductCard.scss';
+import { useEffect, useState } from 'react';
+import { Paragraph } from '@/components/ui/Paragraph/Paragraph';
 
 export const ProductCard = ( { marca, nombre, imagen, precio, descuento, id, handleModal, handleCart }: productCardProps ) => {
     const precioNew: number = roundResult(precio * ((100-descuento)/100));
+    const [ showMesage, setShowMesage ] = useState<boolean>(false);
 
     const addProduct = () => {
         handleCart();
-        console.log("AÑADIENDO PRODUCTO A LA CESTA.")
+        setShowMesage(true);
     }
+
+    useEffect( () => {
+        setTimeout( () => {
+            setShowMesage(false);
+        }, 3000)
+    }, [showMesage]);
 
     return (
         <li className="Product">
@@ -45,7 +54,11 @@ export const ProductCard = ( { marca, nombre, imagen, precio, descuento, id, han
                 </div>
                 <button className="Product-button Button Button--amarillo" data-id={id} onClick={ addProduct }>Añadir a la cesta</button>                    
             </div>
-            <div className="Product-mensaje"></div>
+            <div className="Product-mensaje">
+                {showMesage && (
+                    <Paragraph text={"produco añadido al carrito"} styleGreen={true}/>
+                )}
+            </div>
         </li>
     )
 }
