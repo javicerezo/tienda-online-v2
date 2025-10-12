@@ -1,26 +1,26 @@
 import { roundResult } from '@/utils/functions/roundResult';
+import { Paragraph } from '@/components/ui/Paragraph/Paragraph';
 
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import type { productCardProps } from '@/utils/types/product';
 
 import './ProductCard.scss';
-import { useEffect, useState } from 'react';
-import { Paragraph } from '@/components/ui/Paragraph/Paragraph';
 
 export const ProductCard = ( { marca, nombre, imagen, precio, descuento, id, handleModal, handleCart }: productCardProps ) => {
     const precioNew: number = roundResult(precio * ((100-descuento)/100));
-    const [ showMesage, setShowMesage ] = useState<boolean>(false);
+    const [ showMessage, setShowMessage ] = useState<boolean>(false);
 
     const addProduct = () => {
         handleCart();
-        setShowMesage(true);
+        setShowMessage(true);
     }
 
     useEffect( () => {
         setTimeout( () => {
-            setShowMesage(false);
+            setShowMessage(false);
         }, 3000)
-    }, [showMesage]);
+    }, [showMessage]);
 
     return (
         <li className="Product">
@@ -55,8 +55,8 @@ export const ProductCard = ( { marca, nombre, imagen, precio, descuento, id, han
                 <button className="Product-button Button Button--amarillo" data-id={id} onClick={ addProduct }>Añadir a la cesta</button>                    
             </div>
             <div className="Product-mensaje">
-                {showMesage && (
-                    <Paragraph text={"produco añadido al carrito"} styleGreen={true}/>
+                {showMessage && (
+                    <Paragraph text={"producto añadido al carrito"} styleGreen={true}/>
                 )}
             </div>
         </li>
