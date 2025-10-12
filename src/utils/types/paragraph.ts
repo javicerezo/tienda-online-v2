@@ -4,4 +4,5 @@
  */
 export interface ParagraphProps  {
     text: string | undefined;
+    styleGreen: boolean;
 } 

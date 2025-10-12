@@ -7,14 +7,10 @@
     text-transform: uppercase;
     font-weight: bold;
     padding: 0.5rem;
-    &--error {
+    &--red {
         color: red;
     }
-    &--exito {
+    &--green {
         color: green;
     }
-    &--alerta {
-        color: var(--color-fondo-hover);
-    }
-
 }
