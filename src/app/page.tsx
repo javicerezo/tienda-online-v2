@@ -75,9 +75,13 @@ export default function Home() {
       <Products 
         addToCart={addToCart}
         addToVisited={addToVisited}
-      />
+        />
       <Advantages />
-      <ProductsVisited />
+      <ProductsVisited 
+        visited={visited}
+        addToCart={addToCart}
+        addToVisited={addToVisited}
+      />
       <Newsletter />
     </>
   );

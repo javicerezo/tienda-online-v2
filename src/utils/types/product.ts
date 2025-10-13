@@ -28,4 +28,9 @@ export interface productModalProps  {
     addToCart: (item: product) => void;
 }
 
+export interface productVisitedProps {
+    visited: product[]
+    addToCart: (item: product) => void;
+    addToVisited: (item: product) => void;
+}
 
