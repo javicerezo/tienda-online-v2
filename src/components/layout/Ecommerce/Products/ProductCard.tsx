@@ -8,7 +8,7 @@ import type { product, productCardProps } from '@/utils/types/product';
 
 import './ProductCard.scss';
 
-export const ProductCard = ({ product, addToCart }: productCardProps) => {
+export const ProductCard = ({ product, addToCart, addToVisited }: productCardProps) => {
     const { brand, name, image, price, desc, id } = product;
     const [ modal, setModal ] = useState<product | null>(null);
 
@@ -21,9 +21,10 @@ export const ProductCard = ({ product, addToCart }: productCardProps) => {
         addToCart(product); 
     }
 
+    // MOSTRAMOS EL MODAL Y AGREGAMOS EL PRODUCTO A LOS VISITADOS
     const handleClickProduct = (product: product) => {
-        // Mostramos el modal y agregamos al storage como producto visitado.
         setModal(product);
+        addToVisited(product)
     }
 
     useEffect( () => {

@@ -11,7 +11,7 @@ import type { product, productsProps } from '@/utils/types/product';
 
 import './Products.scss';
 
-export const Products = ({ addToCart }: productsProps) => {
+export const Products = ({ addToCart, addToVisited }: productsProps) => {
     const [ productList, setProductList ] = useState<product[]>([]);
     
     useEffect(() => {
@@ -35,6 +35,7 @@ export const Products = ({ addToCart }: productsProps) => {
                                     key={element.id}
                                     product={element}
                                     addToCart={addToCart}
+                                    addToVisited={addToVisited}
                                 />
                             ))
                         )

@@ -13,6 +13,7 @@ import type { product, productCart } from "@/utils/types/product";
 
 export default function Home() {
   const [ cart, setCart ] = useState<productCart[]>([]);
+  const [ visited, setVisited ] = useState<product[]>([]);
 
   /**
    * Revisa si un item existe en el carrito (si no existe lo agrega completo, si sí existe agrega +1 en la cantidad)
@@ -22,7 +23,6 @@ export default function Home() {
     const itemExist = cart.findIndex( element => element.id === item.id );
     
     if(itemExist < 0) { // no existe...agregamos
-      
       const newItem: productCart = {...item, quantity: 1};
       setCart( prevCart => [...prevCart, newItem]);
     } else {
@@ -34,13 +34,37 @@ export default function Home() {
 
   /**
    * Elimina un item del carrito de compra
-   * @param es el item que se quiere eliminar
+   * @param number es el numero del id del producto que se quiere eliminar de la cesta
    */
   const eliminateToCart = (number: number) => {
     const updatedCart = cart.filter( element => element.id !== number)
     setCart(updatedCart);
   }
 
+  /**
+   * Añade un producto a la lista de visitados (si no lo hemos visitado antes ya). 
+   * La longitud máxima del array será de 6 productos, cuando el usuario vea más de 6 artículos,
+   * se eliminará el elemento de cola para agregar el nuevo producto.
+   * @param item es el producto
+   * @returns 
+   */
+  const addToVisited = (item: product) => {
+    const itemExist = visited.some( element => element.id === item.id);
+    
+    if (itemExist === false) {
+        if(visited.length < 6) {
+          const updatedVisited = [...visited, item];
+          setVisited(updatedVisited);
+        }
+        else {
+          const updatedVisited = [...visited];
+          updatedVisited.shift(); // elimina el último elemento
+          updatedVisited.push(item);
+          setVisited(updatedVisited)
+        }
+    }
+  }
+  
   return (
     <>
       <Header 
@@ -50,6 +74,7 @@ export default function Home() {
       <Top />
       <Products 
         addToCart={addToCart}
+        addToVisited={addToVisited}
       />
       <Advantages />
       <ProductsVisited />

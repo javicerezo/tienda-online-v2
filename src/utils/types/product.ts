@@ -14,10 +14,12 @@ export interface productCart extends product {
 
 export interface productsProps {
     addToCart: (item: product) => void;
+    addToVisited: (item: product) => void;
 }
 export interface productCardProps{
     product: product;
     addToCart: (item: product) => void;
+    addToVisited: (item: product) => void;
 }
 
 export interface productModalProps  {
