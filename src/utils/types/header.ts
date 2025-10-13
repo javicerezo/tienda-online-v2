@@ -7,3 +7,7 @@ export interface headerProps {
 export interface menuProps {
     cart: productCart[];
 }
+
+export interface cartCardProps {
+    product: productCart;
+}
