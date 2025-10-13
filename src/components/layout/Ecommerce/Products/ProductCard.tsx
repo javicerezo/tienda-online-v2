@@ -1,19 +1,29 @@
-import { roundResult } from '@/utils/functions/roundResult';
+import { roundResult } from '@/utils/hooks/roundResult';
 import { Paragraph } from '@/components/ui/Paragraph/Paragraph';
+import { ProductModal } from './ProductModal';
 
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import type { productCardProps } from '@/utils/types/product';
+import type { product, productCardProps } from '@/utils/types/product';
 
 import './ProductCard.scss';
 
-export const ProductCard = ( { marca, nombre, imagen, precio, descuento, id, handleModal, handleCart }: productCardProps ) => {
-    const precioNew: number = roundResult(precio * ((100-descuento)/100));
+export const ProductCard = ({ product, addToCart }: productCardProps) => {
+    const { brand, name, image, price, desc, id } = product;
+    const [ modal, setModal ] = useState<product | null>(null);
+
+    const newPrice: number = roundResult(price * ((100-desc)/100));
     const [ showMessage, setShowMessage ] = useState<boolean>(false);
 
-    const addProduct = () => {
-        handleCart();
+    // MOTRAMOS EL MENSAJE Y AÑADIMOS AL CARRITO
+    const handleBuyProduct = (product: product) => {
         setShowMessage(true);
+        addToCart(product); //no hace falta pasarle cart desde page.tsx, la función setCart está asociada a cart y en todo momento sabe lo que tiene escrito dentro
+    }
+
+    const handleClickProduct = (product: product) => {
+        // Mostramos el modal y agregamos al storage como producto visitado.
+        setModal(product);
     }
 
     useEffect( () => {
@@ -24,41 +34,49 @@ export const ProductCard = ( { marca, nombre, imagen, precio, descuento, id, han
 
     return (
         <li className="ProductCard">
-            <div className={`ProductCard-descuento ${descuento == 0 ? "ProductCard-descuento--none" : ""} `}>
-                <p>{descuento}%</p>
+            <div className={`ProductCard-descuento ${desc == 0 ? "ProductCard-descuento--none" : ""} `}>
+                <p>{desc}%</p>
             </div>
-            <div className='ProductCard-img' onClick={ handleModal }>
+            <div className='ProductCard-img' onClick={ () => handleClickProduct(product) }>
                 <Image 
                     width='200' height='300' 
-                    src={imagen} 
+                    src={image} 
                     loading="lazy" 
                     alt={`imagen del producto ${id}`} 
                 />
             </div>                        
             <div className='ProductCard-contenido'>
                 <div className='ProductCard-contenido--mod'>
-                    <p className='ProductCard-titulo'><span>{marca}</span></p>
-                    <p className='ProductCard-titulo'>{nombre}</p>
+                    <p className='ProductCard-titulo'><span>{brand}</span></p>
+                    <p className='ProductCard-titulo'>{name}</p>
                 </div>
                 <div className ='ProductCard-contenido--mod'>
-                    { descuento === 0 
+                    { desc === 0 
                         ? (
-                            <p className='ProductCard-precio'>{precio}€</p>                        
+                            <p className='ProductCard-precio'>{price}€</p>                        
                         ) : (
                             <div className='ProductCard-contenedorPrecios'>
-                                <p className='ProductCard-precio ProductCard-precio--color'>{precioNew}€</p>  
-                                <p className='ProductCard-precio--old'>{precio}€</p>                        
+                                <p className='ProductCard-precio ProductCard-precio--color'> {newPrice}€</p>  
+                                <p className='ProductCard-precio--old'>{price}€</p>                        
                             </div>
                         )
                     }
                 </div>
-                <button className="ProductCard-button Button Button--amarillo" data-id={id} onClick={ addProduct }>Añadir a la cesta</button>                    
+                <button className="ProductCard-button Button Button--amarillo" data-id={id} onClick={ () => handleBuyProduct(product) }>Añadir a la cesta</button>                    
             </div>
             <div className="ProductCard-mensaje">
                 {showMessage && (
                     <Paragraph text={"producto añadido al carrito"} styleGreen={true}/>
                 )}
             </div>
+
+            {/* CADA PRODUCTCARD SERÁ LA ENCARGADA DE LLAMAR AL COMPONENTE PRODUCTMODAL SI EL USUARIO HACE CLIC ENCIMA */}
+            {modal && (
+                <ProductModal 
+                    product={modal}
+                    onClose={ () => setModal(null) }
+                />     
+            )}
         </li>
     )
 }
