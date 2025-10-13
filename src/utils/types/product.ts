@@ -1,22 +1,23 @@
 // Es el type de cada item de producto
 export interface product {
-    marca: string;                    
-    nombre: string;            
-    tipo: string;            
-    imagen: string;            
-    precio: number;           
-    descuento: number;    
+    brand: string;                    
+    name: string;            
+    type: string;            
+    image: string;            
+    price: number;           
+    desc: number;    
     id: number;
 }
+export interface productCart extends product {
+    quantity: number;
+}
 
-export interface productCardProps {
-    marca: string;                    
-    nombre: string;            
-    imagen: string;            
-    precio: number;           
-    descuento: number;    
-    id: number;
-    handleModal: () => void;
+export interface productsProps {
+    addToCart: (item: product) => void;
+}
+export interface productCardProps{
+    product: product;
+    addToCart: (item: product) => void;
 }
 
 export interface productModalProps  {
