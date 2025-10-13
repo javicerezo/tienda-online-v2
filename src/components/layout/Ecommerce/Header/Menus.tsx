@@ -7,6 +7,9 @@ import { FaCaretDown, FaShoppingCart, FaPhone, FaCommentDots, FaEnvelope } from 
 import './Menus.scss';
 
 export const Menus = ( {cart}: menuProps ) => {
+    const totalQuantity = cart.reduce( (total, product) => total += product.quantity, 0);
+    const totalPrice = cart.reduce( (total, product) => total += product.quantity*product.price, 0);
+    
     return (
         <div className='Menus'>
             <div className="Menus-cuenta">
@@ -69,9 +72,11 @@ export const Menus = ( {cart}: menuProps ) => {
             <div className="Menus-cesta">
                 <div className="Menus-cesta-dibujo">
                     <FaShoppingCart />
-                    <div className="Menus-cesta-numero">
-                        {/* AQUÍ INSERTO DIMÁMICAMENTE EL NÚMERO DE PRODUCTOS */}
-                    </div>
+                    {cart.length !== 0 && (
+                        <div className="Menus-cesta-numero">
+                            <p>{totalQuantity}</p>
+                        </div>
+                    )}
                 </div>
                 <p className="Menus-cesta-p">Cesta</p>
                 <FaCaretDown />
@@ -94,7 +99,7 @@ export const Menus = ( {cart}: menuProps ) => {
                         </ul>
                         {cart.length !== 0 && (
                             <div>
-                                <div className="Submenus-separador">total: 99 €</div>
+                                <div className="Submenus-separador">{`total: ${totalPrice}€`}</div>
                                 <div className="Submenus-resultado">
                                     <a href="#" className="Submenus-ver-cesta">Ver la cesta</a>
                                     <button className="Button Button--amarillo Submenus-resultado-button">tramitar</button>
