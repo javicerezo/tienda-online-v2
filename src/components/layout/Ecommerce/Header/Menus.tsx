@@ -1,9 +1,12 @@
+import { Button } from "@/components/ui/Button/Button";
+import { menuProps } from "@/utils/types/header";
+import { Cart } from "./Cart";
+import { Paragraph } from "@/components/ui/Paragraph/Paragraph";
 import { FaCaretDown, FaShoppingCart, FaPhone, FaCommentDots, FaEnvelope } from "react-icons/fa";
 
 import './Menus.scss';
-import { Button } from "@/components/ui/Button/Button";
 
-export const Menus = () => {
+export const Menus = ( {cart}: menuProps ) => {
     return (
         <div className='Menus'>
             <div className="Menus-cuenta">
@@ -74,12 +77,30 @@ export const Menus = () => {
                 <FaCaretDown />
                 <div className="Menus-submenus Submenus">
                     <div className="Submenus-cesta Submenus-contenedor Submenus-contenedor--mod">
-                        <ul className="js-submenus-cesta">
-                            
+                        <ul className="Submenus-ul">
+                            {cart.length === 0 ? (
+                                <Paragraph 
+                                    text={"En este momento no hay productos en tu cesta."}
+                                    styleGreen={false}    
+                                />
+                            ) : (
+                                cart.map( product => (
+                                    <Cart 
+                                        key={product.id}
+                                        product={product}
+                                    />
+                                ))
+                            )}
                         </ul>
-                        <div >
-                            {/* AQUÍ INSERTO DINÁMIECAMENTE LOS PRODUCTOS DEL CARRITO */}
-                        </div>
+                        {cart.length !== 0 && (
+                            <div>
+                                <div className="Submenus-separador">total: 99 €</div>
+                                <div className="Submenus-resultado">
+                                    <a href="#" className="Submenus-ver-cesta">Ver la cesta</a>
+                                    <button className="Button Button--amarillo Submenus-resultado-button">tramitar</button>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

@@ -1,17 +1,17 @@
 'use client'
 
-import Image from 'next/image';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-
-
 import { Nav } from './Nav';
 import { Menus } from './Menus';
-
+import Image from 'next/image';
+import Link from 'next/link';
 import { FaBars, FaSearch, FaTruck, FaBox } from "react-icons/fa";
+
+import { usePathname } from 'next/navigation';
+
+import type{ headerProps } from '@/utils/types/header';
 import './Header.scss';
 
-export const Header = () => {
+export const Header = ( {cart}: headerProps ) => {
     const pathName = usePathname();
 
     return (
@@ -59,7 +59,9 @@ export const Header = () => {
                             <p><span>Devoluciones</span><br></br> gratis hasta 30 días</p>
                         </div>
                     </div>
-                    <Menus />
+                    <Menus 
+                        cart={cart}
+                    />
                 </div>
             </div>
 

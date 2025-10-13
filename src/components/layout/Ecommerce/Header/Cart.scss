@@ -1,0 +1,59 @@
+@use '@/styles/settings/variables' as v;
+@use '@/styles/settings/mixins' as m;
+
+.Cart { 
+    @include m.position (absolute, 2.6rem, 0, null, null);
+    height: auto;
+    &-secciones {
+        @include m.flex (column, nowrap, center, flex-start); 
+        border-bottom: 1px dotted #000;
+        padding: .5rem;
+        &--mod2 {
+            @include m.flex (row, nowrap, space-around, center);
+        }
+    }
+    &-secciones:last-child {
+        border-bottom: none;
+    }
+    &-button {
+        margin-bottom: 0.5rem;
+        padding: 0.625rem;
+    }
+    &-h4 {
+        font-weight: bold;
+        padding: 0.3rem 0 0.8rem 0;
+    }
+    &-p:hover {
+        cursor: pointer;
+        color: lightblue;
+    } 
+    &-span {
+        font-size: 1.2em;
+        font-weight: bold;
+        cursor: pointer;
+        &--old {
+            text-decoration:line-through;
+            font-size: 0.8125em;
+            font-weight: normal;
+        }
+    }
+    &-img {
+        max-width: 30%;
+    }
+    &-contenido {
+        max-width: 70%;
+    }
+    &-precios {
+        @include m.flex (row, nowrap, space-around, center);
+        padding: 0.5rem 0;   
+    }
+    &-eliminar {
+        color: blue;
+        border-left: 1px solid #000;
+        margin-left: 0.4rem;
+        padding-left: 0.4rem;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
