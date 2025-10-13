@@ -18,7 +18,7 @@ export const ProductCard = ({ product, addToCart }: productCardProps) => {
     // MOTRAMOS EL MENSAJE Y AÑADIMOS AL CARRITO
     const handleBuyProduct = (product: product) => {
         setShowMessage(true);
-        addToCart(product); //no hace falta pasarle cart desde page.tsx, la función setCart está asociada a cart y en todo momento sabe lo que tiene escrito dentro
+        addToCart(product); 
     }
 
     const handleClickProduct = (product: product) => {
@@ -62,7 +62,7 @@ export const ProductCard = ({ product, addToCart }: productCardProps) => {
                         )
                     }
                 </div>
-                <button className="ProductCard-button Button Button--amarillo" data-id={id} onClick={ () => handleBuyProduct(product) }>Añadir a la cesta</button>                    
+                <button className="ProductCard-button Button Button--amarillo" onClick={ () => handleBuyProduct(product) }>Añadir a la cesta</button>                    
             </div>
             <div className="ProductCard-mensaje">
                 {showMessage && (
@@ -75,6 +75,7 @@ export const ProductCard = ({ product, addToCart }: productCardProps) => {
                 <ProductModal 
                     product={modal}
                     onClose={ () => setModal(null) }
+                    addToCart={addToCart}
                 />     
             )}
         </li>

@@ -23,6 +23,7 @@ export interface productCardProps{
 export interface productModalProps  {
     product: product;
     onClose: () => void;
+    addToCart: (item: product) => void;
 }
 
 
