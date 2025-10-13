@@ -32,11 +32,20 @@ export default function Home() {
     }
   }
 
-  console.log(cart)
+  /**
+   * Elimina un item del carrito de compra
+   * @param es el item que se quiere eliminar
+   */
+  const eliminateToCart = (number: number) => {
+    const updatedCart = cart.filter( element => element.id !== number)
+    setCart(updatedCart);
+  }
+
   return (
     <>
       <Header 
         cart={cart}
+        eliminateToCart={eliminateToCart}
       />
       <Top />
       <Products 

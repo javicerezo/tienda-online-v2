@@ -6,7 +6,7 @@ import { FaCaretDown, FaShoppingCart, FaPhone, FaCommentDots, FaEnvelope } from 
 
 import './Menus.scss';
 
-export const Menus = ( {cart}: menuProps ) => {
+export const Menus = ( {cart, eliminateToCart}: menuProps ) => {
     const totalQuantity = cart.reduce( (total, product) => total += product.quantity, 0);
     const totalPrice = cart.reduce( (total, product) => total += product.quantity*product.price, 0);
     
@@ -93,6 +93,7 @@ export const Menus = ( {cart}: menuProps ) => {
                                     <Cart 
                                         key={product.id}
                                         product={product}
+                                        eliminateToCart={eliminateToCart}
                                     />
                                 ))
                             )}

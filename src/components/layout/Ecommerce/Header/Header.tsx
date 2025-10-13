@@ -11,7 +11,7 @@ import { usePathname } from 'next/navigation';
 import type{ headerProps } from '@/utils/types/header';
 import './Header.scss';
 
-export const Header = ( {cart}: headerProps ) => {
+export const Header = ( {cart, eliminateToCart}: headerProps ) => {
     const pathName = usePathname();
 
     return (
@@ -61,6 +61,7 @@ export const Header = ( {cart}: headerProps ) => {
                     </div>
                     <Menus 
                         cart={cart}
+                        eliminateToCart={eliminateToCart}
                     />
                 </div>
             </div>

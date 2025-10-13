@@ -5,7 +5,7 @@ import { roundResult } from "@/utils/hooks/roundResult";
 import type { cartCardProps } from "@/utils/types/header";
 import './Cart.scss';
 
-export const Cart = ( {product}: cartCardProps ) => {
+export const Cart = ( {product, eliminateToCart}: cartCardProps ) => {
     const { brand, name, image, price, desc, id, quantity } = product;
     const newPrice: number = roundResult(price * ((100-desc)/100));
 
@@ -25,7 +25,7 @@ export const Cart = ( {product}: cartCardProps ) => {
                     <p><span className="Cart-span">{newPrice} €</span></p>
                     <p>${desc}%) - <span className="Cart-span--old">{price}€</span></p>
                 </div>
-                <p>Cantidad:{quantity} <a href="#"  className="Cart-eliminar">Eliminar</a></p>
+                <p>Cantidad:{quantity} <a href="#"  className="Cart-eliminar" onClick={() => eliminateToCart(id) }>Eliminar</a></p>
             </div>
         </li>
     )
