@@ -72,11 +72,13 @@ export const Menus = ( {cart, eliminateToCart}: menuProps ) => {
             <div className="Menus-cesta">
                 <div className="Menus-cesta-dibujo">
                     <FaShoppingCart />
-                    {cart.length !== 0 && (
-                        <div className="Menus-cesta-numero">
+                    <div className="Menus-cesta-numero">
+                        {cart.length !== 0 ? (
                             <p>{totalQuantity}</p>
-                        </div>
-                    )}
+                        ) : (
+                            <p>0</p>  
+                        )}
+                    </div>
                 </div>
                 <p className="Menus-cesta-p">Cesta</p>
                 <FaCaretDown />
