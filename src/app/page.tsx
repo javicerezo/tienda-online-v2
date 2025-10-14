@@ -6,6 +6,7 @@ import { Products } from "@/components/layout/Ecommerce/Products/Products";
 import { Advantages } from "@/components/layout/Ecommerce/Advantages/Advantages";
 import { ProductsVisited } from "@/components/layout/Ecommerce/ProductsVisited/ProductsVisited";
 import { Newsletter } from "@/components/layout/Ecommerce/Newsletter/Newsletter";
+
 import { useVisited } from "@/utils/hooks/useVisited";
 import { useCart } from "@/utils/hooks/useCart";
 

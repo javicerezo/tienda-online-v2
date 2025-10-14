@@ -10,9 +10,9 @@ import './ProductCard.scss';
 
 export const ProductCard = ({ product, addToCart, addToVisited }: productCardProps) => {
     const { brand, name, image, price, desc, id } = product;
-    const [ modal, setModal ] = useState<product | null>(null);
-
     const newPrice: number = roundResult(price * ((100-desc)/100));
+    
+    const [ modal, setModal ] = useState<product | null>(null);
     const [ showMessage, setShowMessage ] = useState<boolean>(false);
 
     // MOTRAMOS EL MENSAJE Y AÑADIMOS AL CARRITO

@@ -1,9 +1,7 @@
-
 import { ProductCard } from '../Products/ProductCard';
 
 import type { productVisitedProps } from '@/utils/types/product';
 import './ProductsVisited.scss';
-// import { cargarStorage } from '@/utils/functions/storage';
 
 export const ProductsVisited = ( {visited, addToCart, addToVisited }: productVisitedProps ) => {
     const visitedInverse = [...visited].reverse();
