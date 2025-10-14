@@ -5,10 +5,11 @@ import { Paragraph } from "@/components/ui/Paragraph/Paragraph";
 import { FaCaretDown, FaShoppingCart, FaPhone, FaCommentDots, FaEnvelope } from "react-icons/fa";
 
 import './Menus.scss';
+import { roundResult } from "@/utils/hooks/roundResult";
 
 export const Menus = ( {cart, eliminateToCart}: menuProps ) => {
     const totalQuantity = cart.reduce( (total, product) => total += product.quantity, 0);
-    const totalPrice = cart.reduce( (total, product) => total += product.quantity*product.price, 0);
+    const totalPrice = roundResult(cart.reduce( (total, product) => total += product.quantity*product.price, 0));
     
     return (
         <div className='Menus'>
