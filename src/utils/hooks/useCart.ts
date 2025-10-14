@@ -7,8 +7,8 @@ export const useCart = () => {
     const [ cart, setCart ] = useState<productCart[]>([]);
     
     useEffect( () => {
-    const localStorageCart = loadStorage('cart');
-    setCart(localStorageCart);
+        const localStorageCart = loadStorage('cart');
+        setCart(localStorageCart);
     }, []);
 
     // UseEffect se encarga de actualizar los datos del storage cada vez que cambia el state de visited o cart
@@ -38,9 +38,9 @@ export const useCart = () => {
      * Elimina un item del carrito de compra
      * @param number es el numero del id del producto que se quiere eliminar de la cesta
      */
-    const removeToCart = (number: number) => {
+    const removeToCart = (number: productCart['id']) => {
         const updatedCart = cart.filter( element => element.id !== number)
-    setCart(updatedCart);
+        setCart(updatedCart);
     }
  
     return { cart, addToCart, removeToCart }
