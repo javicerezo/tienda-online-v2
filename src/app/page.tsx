@@ -7,16 +7,34 @@ import { Advantages } from "@/components/layout/Ecommerce/Advantages/Advantages"
 import { ProductsVisited } from "@/components/layout/Ecommerce/ProductsVisited/ProductsVisited";
 import { Newsletter } from "@/components/layout/Ecommerce/Newsletter/Newsletter";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { loadStorage, saveStorage } from "@/utils/hooks/storage";
 
 import type { product, productCart } from "@/utils/types/product";
 
 export default function Home() {
   const [ cart, setCart ] = useState<productCart[]>([]);
   const [ visited, setVisited ] = useState<product[]>([]);
+  
+  useEffect( () => {
+    const localStorageCart = loadStorage('cart');
+    const localStorageVisited = loadStorage('visited');
+    setCart(localStorageCart);
+    setVisited(localStorageVisited);
+  }, []);
+
+  // UseEffect se encarga de actualizar los datos del storage cada vez que cambia el state de visited o cart
+  useEffect( () => {
+    saveStorage('cart', cart);
+  }, [cart]);
+  
+  useEffect( () => {
+    saveStorage('visited', visited);
+  }, [visited]);
 
   /**
    * Revisa si un item existe en el carrito (si no existe lo agrega completo, si sí existe agrega +1 en la cantidad)
+   * y lo guarda a localStorage
    * @param item es el item (producto que se agrega en el carrito de compra)
    */
   const addToCart = (item: product) => {
