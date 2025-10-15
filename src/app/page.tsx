@@ -15,7 +15,7 @@ import { useSeeker } from "@/utils/hooks/useSeeker";
 export default function Home() {
   const { cart, addToCart, removeToCart } = useCart();
   const { visited, addToVisited} = useVisited();
-  const { showSeeker, openSeeker, closeSeeker } = useSeeker();
+  const { showSeeker, openSeeker, closeSeeker, searchProductseeker } = useSeeker();
   
   return (
     <>
@@ -41,6 +41,9 @@ export default function Home() {
         <Seeker 
           showSeeker={showSeeker}
           onClose={closeSeeker}
+          searchProductseeker={searchProductseeker}
+          addToCart={addToCart}
+          addToVisited={addToVisited}
         />
       )}
     </>

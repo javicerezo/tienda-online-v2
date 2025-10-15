@@ -1,7 +1,7 @@
 import type { product } from "@/utils/types/product";
 
 // materialDeportivo es la base de datos
-export const materialDeportivo: product[] = [
+export const Data_Base: product[] = [
     {
         brand: 'Roxi',
         name: 'Liberty Hoodie W',

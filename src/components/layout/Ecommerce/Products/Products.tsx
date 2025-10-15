@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { arrayNumRandom } from '@/utils/hooks/arrayNumRandom';
 import { arrayProductList } from '@/utils/hooks/arrayProductList';
 
-import { materialDeportivo } from '@/bd/baseDatos'
+import { Data_Base } from '@/data/data';
 import type { product, productsProps } from '@/utils/types/product';
 
 import './Products.scss';
@@ -16,8 +16,8 @@ export const Products = ({ addToCart, addToVisited }: productsProps) => {
     
     useEffect(() => {
         // la idea es calcular los 8 numeros aleatorios y mostrar solo esos 8 items
-        const arrayNum: number[] = arrayNumRandom(8, materialDeportivo.length);
-        setProductList(arrayProductList(materialDeportivo, arrayNum));   
+        const arrayNum: number[] = arrayNumRandom(8, Data_Base.length);
+        setProductList(arrayProductList(Data_Base, arrayNum));   
     }, []);
 
     return (

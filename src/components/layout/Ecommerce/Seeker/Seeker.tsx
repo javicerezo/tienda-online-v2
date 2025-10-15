@@ -1,13 +1,22 @@
-
 import Image from 'next/image';
 import { FaSearch } from 'react-icons/fa';
 
+import { useEffect, useRef, useState } from 'react';
+
 import type { seekerProps } from '@/utils/types/seeker';
 import './Seeker.scss';
-import { useEffect, useRef } from 'react';
+import { product } from '@/utils/types/product';
+import { Paragraph } from '@/components/ui/Paragraph/Paragraph';
+import { ProductCard } from '../Products/ProductCard';
 
-export const Seeker = ({onClose, showSeeker}: seekerProps) => {
+export const Seeker = ({ showSeeker, onClose, searchProductseeker, addToCart, addToVisited }: seekerProps) => {
     const seekerContainerRef = useRef<HTMLDivElement>(null);
+    const [ matchArray, setMatchArray ] = useState<product[]>([]);
+
+    const onChange = (e: string) => {
+        const array = searchProductseeker(e);
+        setMatchArray(array);
+    }
 
     useEffect( () => {
         setTimeout(() => {
@@ -38,7 +47,7 @@ export const Seeker = ({onClose, showSeeker}: seekerProps) => {
                         </a>
                     </div>
                     <div className="Seeker-form">
-                        <input className="Seeker-input" id="buscador" type="text" placeholder="Buscar..." />
+                        <input className="Seeker-input" id="buscador" type="text" placeholder="Buscar..." onChange={ (e) => onChange(e.target.value) }/>
                         <FaSearch />
                     </div>
                     <button className="Seeker-close" onClick={handleClose}>✕</button>
@@ -59,7 +68,18 @@ export const Seeker = ({onClose, showSeeker}: seekerProps) => {
                     <div className='Seeker-productos-buscar'>
                         <p className='Seeker-p'>Productos recomendados</p>
                         <ul className='Seeker-ul-buscar js-buscador-ul-buscar'>
-                            {/* {   INSERTAR DINÁMICAMENTE LOS PRODUCTOS QUE COINCIDEN CON EL BUSCADOR      } */}
+                            {matchArray.length === 0 ? (
+                                <Paragraph text={"No hay coincidencias"} styleGreen={false}/>
+                            ) : (
+                                matchArray.map( element => (
+                                    <ProductCard 
+                                        key={element.id}
+                                        product={element}
+                                        addToCart={addToCart}
+                                        addToVisited={addToVisited}
+                                    />
+                                ))
+                            )}
                         </ul>
                     </div>
                 </div>
