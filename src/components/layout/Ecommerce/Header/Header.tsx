@@ -21,7 +21,7 @@ export const Header = ( {cart, eliminateToCart, openSeeker}: headerProps ) => {
     }
 
     return (
-        <header className={`Header ${showMenuBars ? "Header--fixed" : ""}`}>
+        <header className="Header">
             <div className="Header-cabecera">
                 <div className="Header-burger" >
                     <FaBars onClick={openMenuBars}/>

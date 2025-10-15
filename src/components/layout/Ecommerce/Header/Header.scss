@@ -9,9 +9,6 @@
     background-color:var(--color-fondo);
     position: relative;
     z-index: 80;
-    &--fixed {
-        position: fixed;
-    }
     @include m.flex (column, nowrap, center, center);
     &-cabecera {
         @include m.flex (row, nowrap, space-between, center);
