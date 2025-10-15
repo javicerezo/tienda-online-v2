@@ -122,7 +122,7 @@
             font-style: italic;
         }
         @include m.tablet {
-            @include m.position(absolute, 4.0744rem, 0, null, 0);
+            @include m.position(absolute, 3.9494rem, 0, null, 0);
         }
         @include m.desktop {
             position: inherit;

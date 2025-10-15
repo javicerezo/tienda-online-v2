@@ -1,17 +1,19 @@
-import { ProductCard } from '../Products/ProductCard';
+import { ProductCard } from './ProductCard';
 
 import type { productVisitedProps } from '@/utils/types/product';
-import './ProductsVisited.scss';
+import '../Products/Products.scss';
 
 export const ProductsVisited = ( {visited, addToCart, addToVisited }: productVisitedProps ) => {
     const visitedInverse = [...visited].reverse();
 
     return (
-        <section className="ProductsVisited">
+        <section className="Products">
             { visited.length !== 0 && (
-                <div className="ProductsVisited-contenedor">
-                    <h2 className="ProductsVisited-h2">Últimos productos que has visitado</h2>
-                    <ul className="ProductsVisited-ul">
+                <>
+                    <div className="Products-contenedorTitulos">
+                        <h2 className="Products-h2">Últimos productos que has visitado</h2>
+                    </div>
+                    <ul className="Products-ul">
                         { visitedInverse.map( element => (
                                 <ProductCard 
                                     key={element.id}
@@ -22,7 +24,7 @@ export const ProductsVisited = ( {visited, addToCart, addToVisited }: productVis
                             ))
                         }    
                     </ul>
-                </div>   
+                </>   
             )} 
         </section>
     )

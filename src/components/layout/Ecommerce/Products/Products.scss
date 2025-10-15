@@ -20,6 +20,13 @@
             font-size: 2rem;
         }
     }
+    &-h2 {
+        font-size: 1.5rem;
+        @include m.desktop {
+            font-size: 2rem;
+            margin-bottom: 1rem
+        }
+    }
     &-h4 {
         font-size: 0.85em;
         padding: 0.5rem 0;
@@ -38,7 +45,7 @@
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         @include m.desktop {
-            @include m.grid (4, 0);
+            @include m.grid (4, 1rem);
         }
     }
 }
