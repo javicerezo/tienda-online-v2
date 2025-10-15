@@ -2,19 +2,16 @@
 @use '@/styles/settings/mixins' as m;
 
 .Seeker {
+    z-index: 110;
     opacity: 0;
     visibility: hidden;
     height: 0px;
-    transition: all 1s ease;
+    @include m.position (fixed, 0, 0, 0, 0);
+    transition: all 0.5s ease;
     &--show {
         opacity: 1;
         visibility: visible;
         height: 100vh;
-    }
-    &-screen {
-        z-index: 110;
-        @include m.position (fixed, 0, 0, 0, 0);
-        background-color: #111111bd;
     }
     &-contenedor {
         height: 100%;
