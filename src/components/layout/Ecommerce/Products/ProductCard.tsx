@@ -1,4 +1,4 @@
-import { roundResult } from '@/utils/hooks/roundResult';
+import { roundResult } from '@/utils/functions/roundResult';
 import { useState } from 'react';
 
 import { Paragraph } from '@/components/ui/Paragraph/Paragraph';

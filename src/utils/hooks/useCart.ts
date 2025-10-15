@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { loadStorage, saveStorage } from "@/utils/hooks/storage";
+import { loadStorage, saveStorage } from "@/utils/functions/storage";
 
 import type { product, productCart } from "@/utils/types/product";
 

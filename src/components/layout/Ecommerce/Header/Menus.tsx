@@ -4,8 +4,10 @@ import { Cart } from "./Cart";
 import { Paragraph } from "@/components/ui/Paragraph/Paragraph";
 import { FaCaretDown, FaShoppingCart, FaPhone, FaCommentDots, FaEnvelope } from "react-icons/fa";
 
+import { roundResult } from "@/utils/functions/roundResult";
+
+
 import './Menus.scss';
-import { roundResult } from "@/utils/hooks/roundResult";
 
 export const Menus = ( {cart, eliminateToCart}: menuProps ) => {
     const totalQuantity = cart.reduce( (total, product) => total += product.quantity, 0);
@@ -106,7 +108,7 @@ export const Menus = ( {cart, eliminateToCart}: menuProps ) => {
                                 <div className="Submenus-separador">{`total: ${totalPrice}€`}</div>
                                 <div className="Submenus-resultado">
                                     <a href="#" className="Submenus-ver-cesta">Ver la cesta</a>
-                                    <button className="Button Button--amarillo Submenus-resultado-button">tramitar</button>
+                                    <button className="Button Button--amarillo Submenus-resultado-button">pagar</button>
                                 </div>
                             </div>
                         )}

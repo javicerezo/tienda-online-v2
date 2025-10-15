@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { loadStorage, saveStorage } from "./storage";
+import { loadStorage, saveStorage } from "../functions/storage";
 
 import type { product } from "../types/product";
 

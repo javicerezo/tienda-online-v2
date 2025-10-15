@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { roundResult } from "@/utils/hooks/roundResult";
+import { roundResult } from "@/utils/functions/roundResult";
 
 import type { cartCardProps } from "@/utils/types/header";
 import './Cart.scss';

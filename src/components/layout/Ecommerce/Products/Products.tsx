@@ -3,8 +3,8 @@ import { ProductCard } from './ProductCard';
 import { Paragraph } from '@/components/ui/Paragraph/Paragraph';
 
 import { useEffect, useState } from 'react';
-import { arrayNumRandom } from '@/utils/hooks/arrayNumRandom';
-import { arrayProductList } from '@/utils/hooks/arrayProductList';
+import { arrayNumRandom } from '@/utils/functions/arrayNumRandom';
+import { arrayProductList } from '@/utils/functions/arrayProductList';
 
 import { Data_Base } from '@/data/data';
 import type { product, productsProps } from '@/utils/types/product';

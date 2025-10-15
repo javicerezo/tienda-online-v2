@@ -7,10 +7,10 @@ import Link from 'next/link';
 import { FaBars, FaSearch, FaTruck, FaBox } from "react-icons/fa";
 
 import { usePathname } from 'next/navigation';
+import { useState } from 'react';
 
 import type{ headerProps } from '@/utils/types/header';
 import './Header.scss';
-import { useState } from 'react';
 
 export const Header = ( {cart, eliminateToCart, openSeeker}: headerProps ) => {
     const pathName = usePathname();

@@ -1,6 +1,6 @@
 import { createPortal } from "react-dom";   // Para el modal se monte encima del body (no solo encima del componente Proyect)
 
-import { roundResult } from "@/utils/hooks/roundResult";
+import { roundResult } from "@/utils/functions/roundResult";
 import { useEffect, useRef, useState } from 'react';
 
 import { Paragraph } from "@/components/ui/Paragraph/Paragraph";
