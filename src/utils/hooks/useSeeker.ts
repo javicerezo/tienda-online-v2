@@ -20,21 +20,16 @@ export const useSeeker = () => {
      * @returns retorna un array de productos coincidentes a esa palabra
      */
     const searchProductseeker = (string: string) => {
-            const newArray: product[] = [];
-            string = string.toLowerCase();
-    
-            Data_Base.forEach( articulo => {
-                const marcador = (`${articulo.brand} ${articulo.name} ${articulo.type}`).toLowerCase();
-                const productoRepetido = newArray.some( art => art.id === articulo.id);
-    
-                if (marcador.includes(string)) {
-                    if (productoRepetido == false) { // producto no repetido, lo agrego
-                        newArray.push(articulo);
-                    }
-                } 
-            });
-            return newArray;
-        }
+        const newArray = new Set<product>();
+
+        Data_Base.forEach( element => {
+            const match = (`${element.brand} ${element.name} ${element.type}`).toLowerCase();
+            if (match.includes(string.toLowerCase())) {
+                newArray.add(element);
+            } 
+        });
+        return Array.from(newArray);
+    }
 
     return { showSeeker, openSeeker, closeSeeker, searchProductseeker };
 }

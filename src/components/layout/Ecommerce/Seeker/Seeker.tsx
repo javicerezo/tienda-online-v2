@@ -69,7 +69,7 @@ export const Seeker = ({ showSeeker, onClose, searchProductseeker, addToCart, ad
                         <p className='Seeker-p'>Productos recomendados</p>
                         <ul className='Seeker-ul-buscar js-buscador-ul-buscar'>
                             {matchArray.length === 0 ? (
-                                <Paragraph text={"No hay coincidencias"} styleGreen={false}/>
+                                <Paragraph text={"¿Qué es lo que estás buscando?"} styleGreen={false}/>
                             ) : (
                                 matchArray.map( element => (
                                     <ProductCard 
