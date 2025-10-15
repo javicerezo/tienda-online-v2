@@ -16,7 +16,7 @@
         border-radius: 5px;
         padding: 0rem;
         @include m.flex (row, nowrap, center, center);
-        @include m.position (absolute, (6.8244rem - 1.0625rem), null, null, null);
+        @include m.position (absolute, (7.175rem - 1.0625rem), null, null, null);
     }
     &--mod {
         display: block;

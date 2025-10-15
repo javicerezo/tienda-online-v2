@@ -91,6 +91,7 @@
     }
     &-input {
         display: none;
+        cursor: pointer;
         border: none;
         @include m.desktop{
             display: block
