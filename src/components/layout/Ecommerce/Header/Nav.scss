@@ -2,14 +2,17 @@
 @use '@/styles/settings/mixins' as m;
 
 .Nav {
-    display: none;
-    background-color:var(--color-negro);
+    background-color: #292929;
     color: var(--color-blanco);
     width: 100%;
     padding: 1rem;
-    @include m.position (absolute, (2.8243rem + 2.5rem), null, null, null);
+    opacity: 0;
+    visibility: hidden;
+    height: 0px;
+    transition: all 0.5s ease;
+    @include m.position (absolute, (2.7494rem + 2.4006rem), null, null, null);
     @include m.tablet {
-        top: (4.499rem + 2.5rem);
+        top: (3.9494rem + 2.4006rem);
     }
     @include m.desktop {
         width: 85%; 
@@ -18,8 +21,10 @@
         @include m.flex (row, nowrap, center, center);
         @include m.position (absolute, (7.175rem - 1.0625rem), null, null, null);
     }
-    &--mod {
-        display: block;
+    &--show {
+        opacity: 1;
+        visibility: visible;
+        height: auto;
     }
     &-ul {
         @include m.desktop {

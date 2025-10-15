@@ -1,9 +1,11 @@
-import './Nav.scss';
 import { FaCaretDown } from "react-icons/fa";
 
-export const Nav = () => {
+import type { navProps } from '@/utils/types/header';
+import './Nav.scss';
+
+export const Nav = ( {showMenuBars}:navProps ) => {
     return (
-        <nav className="Nav js-nav">
+        <nav className={`Nav ${showMenuBars ? "Nav--show" : ""}`}>
             <ul className="Nav-ul">
                 <li className="Nav-li">
                     <div className="Nav-encabezado">

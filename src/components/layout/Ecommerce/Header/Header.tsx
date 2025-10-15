@@ -10,15 +10,21 @@ import { usePathname } from 'next/navigation';
 
 import type{ headerProps } from '@/utils/types/header';
 import './Header.scss';
+import { useState } from 'react';
 
 export const Header = ( {cart, eliminateToCart, openSeeker}: headerProps ) => {
     const pathName = usePathname();
+    const [ showMenuBars, setShowMenuBars ] = useState<boolean>(false);
+
+    const openMenuBars = () => {
+        setShowMenuBars(!showMenuBars);
+    }
 
     return (
-        <header className="Header">
+        <header className={`Header ${showMenuBars ? "Header--fixed" : ""}`}>
             <div className="Header-cabecera">
-                <div className="Header-burger">
-                    <FaBars />
+                <div className="Header-burger" >
+                    <FaBars onClick={openMenuBars}/>
                 </div>
                 <div className="Header-img">
                     <Image 
@@ -64,7 +70,9 @@ export const Header = ( {cart, eliminateToCart, openSeeker}: headerProps ) => {
                 </div>
             </div>
 
-            <Nav />
+            <Nav 
+                showMenuBars={showMenuBars}
+            />
         </header>
     );
 }

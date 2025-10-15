@@ -16,7 +16,7 @@ export default function Home() {
   const { cart, addToCart, removeToCart } = useCart();
   const { visited, addToVisited} = useVisited();
   const { showSeeker, openSeeker, closeSeeker, searchProductseeker } = useSeeker();
-  
+
   return (
     <>
       <Header 
