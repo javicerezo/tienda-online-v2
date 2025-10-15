@@ -15,8 +15,8 @@ export const Menus = ( {cart, eliminateToCart}: menuProps ) => {
         <div className='Menus'>
             <div className="Menus-cuenta">
                 <p>Cuenta</p>
-                <FaCaretDown />
-                <div className="Menus-submenus Submenus ">
+                <FaCaretDown className="Menus-cuenta-iconoFlecha"/>
+                <div className="Menus-submenus ">
                     <div className="Submenus-cuenta Submenus-contenedor">
                         <div className="Submenus-cuenta-secciones">
                             <div className="Submenus-cuenta-button">
@@ -42,8 +42,8 @@ export const Menus = ( {cart, eliminateToCart}: menuProps ) => {
             </div>
             <div className="Menus-ayuda">
                 <p>Ayuda</p>
-                <FaCaretDown />
-                <div className="Menus-submenus Submenus">
+                <FaCaretDown className="Menus-ayuda-iconoFlecha"/>
+                <div className="Menus-submenus">
                     <div className="Submenus-ayuda Submenus-contenedor">
                         <h4 className="Submenus-ayuda-h4">¿Necestias ayuda?</h4>
                         <div className="Submenus-ayuda-secciones Submenus-ayuda-secciones--mod">
@@ -72,7 +72,7 @@ export const Menus = ( {cart, eliminateToCart}: menuProps ) => {
             </div>
             <div className="Menus-cesta">
                 <div className="Menus-cesta-dibujo">
-                    <FaShoppingCart />
+                    <FaShoppingCart/>
                     <div className="Menus-cesta-numero">
                         {cart.length !== 0 ? (
                             <p>{totalQuantity}</p>
@@ -82,8 +82,8 @@ export const Menus = ( {cart, eliminateToCart}: menuProps ) => {
                     </div>
                 </div>
                 <p className="Menus-cesta-p">Cesta</p>
-                <FaCaretDown />
-                <div className="Menus-submenus Submenus">
+                <FaCaretDown className="Menus-cesta-iconoFlecha"/>
+                <div className="Menus-submenus">
                     <div className="Submenus-cesta Submenus-contenedor Submenus-contenedor--mod">
                         <ul className="Submenus-ul">
                             {cart.length === 0 ? (

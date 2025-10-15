@@ -21,14 +21,12 @@ export const Header = ( {cart, eliminateToCart, openSeeker}: headerProps ) => {
                     <FaBars />
                 </div>
                 <div className="Header-img">
-                    <a href="https://javicerezo.github.io/tienda-online-v2/" target="_blank">
-                        <Image 
-                            width='140' height='60' 
-                            src="/assets/imgs/logo.svg" 
-                            alt="logo tienda deportes montaña" 
-                            loading="lazy" 
-                        />
-                    </a>
+                    <Image 
+                        width='140' height='60' 
+                        src="/assets/imgs/logo.svg" 
+                        alt="logo tienda deportes montaña" 
+                        loading="lazy" 
+                    />
                 </div>
                 <div className="Header-contenedorTitulo">
                     <h2 className="Header-h2">Esquí y montaña</h2>

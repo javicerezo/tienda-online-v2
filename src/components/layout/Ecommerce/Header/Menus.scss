@@ -16,6 +16,7 @@
             @include m.flex (row, nowrap, center, center);
         }
     }
+    
     &-cuenta, &-ayuda, &-cesta {
         @include m.flex (row, nowrap, center, center);
         padding: 0.5rem;
@@ -35,6 +36,18 @@
             .Menus-cesta-numero {
                 color: var(--color-negro);
             }
+        }
+        &-iconoFlecha {
+            display: none;
+            @include m.tablet {
+                display: block;
+            }
+        }
+    }
+    &-cuenta, &-ayuda {
+        display: none;
+        @include m.tablet {
+             @include m.flex (row, nowrap, center, center);
         }
     }
     &-cesta {
@@ -96,9 +109,12 @@
             min-width: 20rem;
         }
     }
-    
-    &-cuenta, &-ayuda, &-cesta {
-        @include m.position (absolute, 2rem, 0, null, null);
+     
+    &-cuenta, &-ayuda {
+        @include m.position (absolute, 1.8125rem, 0, null, null);
+        @include m.desktop {
+            top: 2rem;
+        }
         &-secciones {
             @include m.flex (column, nowrap, center, flex-start); 
             border-bottom: 1px dotted #000;
@@ -155,7 +171,14 @@
             }
         }
     }
-    &-separador {
+    
+    &-cesta {
+        @include m.position (absolute, 2.75rem, 0, null, null);
+        // @include m.desktop {
+        //     top: 2.75rem;
+        // }
+    }
+        &-separador {
         border-top: 1px solid #000;
         width: 100%;
         background-color: #f1f1f1;

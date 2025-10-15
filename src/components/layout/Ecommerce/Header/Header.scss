@@ -39,16 +39,17 @@
     &-img {
         @include m.flex (column, nowrap, flex-start, flex-start);
         display: none;
-        @include m.tablet {
+        @include m.desktop {
             display: block;
-            cursor: pointer;
             max-width: 9rem;
         }
     }
     &-h2 {
         font-size: 0.7em;
         text-transform: uppercase;
+        display: none;
         @include m.tablet {
+            display: block;
             font-size: 1em;
         }
         @include m.desktop {
@@ -80,17 +81,22 @@
         }
     }
     &-centro {
-        padding: 0.5rem;
+        display: none;
+        padding: 0.2rem;
+        border-radius: 10px;
+        background-color:var(--color-fondo-iconos);
+        @include m.telefono-m {
+            @include m.flex (row, nowrap, center, center);
+        }
+        @include m.tablet {
+            padding: 0.5rem;
+        }
         @include m.desktop {
             @include m.position(relative, -1rem, -2rem, null, null);
-            @include m.flex (row, nowrap, center, center);
-            padding: 0.5rem;
-            border-radius: 10px;
-            background-color:var(--color-fondo-iconos);
         }
     }
     &-input {
-        display: none;
+        // display: none;
         cursor: pointer;
         border: none;
         @include m.desktop{
@@ -138,6 +144,10 @@
         }
     }
 }
+
+
+
+// CREAR EN PÁGINA NUEVA ES LA CESTA DE LA COMPRA (NO EL CARRITO)
 
 .Cesta {
     opacity: 0;
