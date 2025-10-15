@@ -2,7 +2,7 @@
 @use '@/styles/settings/mixins' as m;
 
 .ProductsVisited {
-    padding: 0.5rem 0;
+    margin: 1rem;
     @include m.tablet {
         padding: 1.5rem 0;
     }
@@ -11,8 +11,9 @@
     }
     &-contenedor {
         margin: 0 1rem;
-        @include m.flex (column, nowrap, center, center);
+        @include m.flex (column, nowrap, flex-start, center);
         @include m.tablet {
+            @include m.flex (column, nowrap, center, center);
             width: 80%;
             margin: 0 auto;
         }
@@ -21,21 +22,17 @@
         font-size: 1.5rem;
         @include m.desktop {
             font-size: 2rem;
+            margin-bottom: 1rem
         }
     }
-    &-grid {
-        @include m.grid (1, 0);
-        @include m.telefono-m {
-            @include m.grid (2, 0);
-        }
-        @include m.telefono-l {
-            padding: 1rem;
-        }
-        @include m.tablet {
-            @include m.grid (3, 0);
-        }
+    &-ul {
+        @include m.flex(row, nowrap, flex-start, center);
+        gap: 1rem;
+        margin: 1rem;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
         @include m.desktop {
-            @include m.grid (4, 0);
+            @include m.grid (4, 1rem);
         }
     }
 }

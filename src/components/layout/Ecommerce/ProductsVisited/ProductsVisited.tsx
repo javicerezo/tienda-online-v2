@@ -11,7 +11,7 @@ export const ProductsVisited = ( {visited, addToCart, addToVisited }: productVis
             { visited.length !== 0 && (
                 <div className="ProductsVisited-contenedor">
                     <h2 className="ProductsVisited-h2">Últimos productos que has visitado</h2>
-                    <ul className="ProductsVisited-grid">
+                    <ul className="ProductsVisited-ul">
                         { visitedInverse.map( element => (
                                 <ProductCard 
                                     key={element.id}

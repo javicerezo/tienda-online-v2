@@ -22,26 +22,26 @@ export const Products = ({ addToCart, addToVisited }: productsProps) => {
 
     return (
         <section className="Products" id="Products">
-            <div className="Products-contenedor">
+            <div className='Products-contenedorTitulos'>
                 <h1 className="Products-h1">Ropa y material de esquí y montaña</h1>
                 <h4 className="Products-h4">Desde 1995, más de 20 años de experiencia en la venta de material técnico de esquí y montaña por internet.</h4>
-                <ul className="Products-ul">
-                    { productList.length === 0
-                        ? (
-                            <Paragraph text='Cargando items ...' styleGreen={false}/>
-                        ) : (
-                            productList.map( element => (
-                                <ProductCard 
-                                    key={element.id}
-                                    product={element}
-                                    addToCart={addToCart}
-                                    addToVisited={addToVisited}
-                                />
-                            ))
-                        )
-                    }    
-                </ul>
-            </div>   
+            </div>
+            <ul className="Products-ul">
+                { productList.length === 0
+                    ? (
+                        <Paragraph text='Cargando items ...' styleGreen={false}/>
+                    ) : (
+                        productList.map( element => (
+                            <ProductCard 
+                                key={element.id}
+                                product={element}
+                                addToCart={addToCart}
+                                addToVisited={addToVisited}
+                            />
+                        ))
+                    )
+                }    
+            </ul> 
         </section>
     );
 }
