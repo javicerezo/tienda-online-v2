@@ -1,11 +1,11 @@
 import { roundResult } from '@/utils/hooks/roundResult';
+import { useState } from 'react';
+
 import { Paragraph } from '@/components/ui/Paragraph/Paragraph';
 import { ProductModal } from './ProductModal';
-
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import type { product, productCardProps } from '@/utils/types/product';
 
+import type { product, productCardProps } from '@/utils/types/product';
 import './ProductCard.scss';
 
 export const ProductCard = ({ product, addToCart, addToVisited }: productCardProps) => {
@@ -19,6 +19,10 @@ export const ProductCard = ({ product, addToCart, addToVisited }: productCardPro
     const handleBuyProduct = (product: product) => {
         setShowMessage(true);
         addToCart(product); 
+
+        setTimeout( () => {
+            setShowMessage(false);
+        }, 3000)
     }
 
     // MOSTRAMOS EL MODAL Y AGREGAMOS EL PRODUCTO A LOS VISITADOS
@@ -26,12 +30,6 @@ export const ProductCard = ({ product, addToCart, addToVisited }: productCardPro
         setModal(product);
         addToVisited(product)
     }
-
-    useEffect( () => {
-        setTimeout( () => {
-            setShowMessage(false);
-        }, 3000)
-    }, [showMessage]);
 
     return (
         <li className="ProductCard">

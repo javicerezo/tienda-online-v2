@@ -1,44 +1,49 @@
 import { createPortal } from "react-dom";   // Para el modal se monte encima del body (no solo encima del componente Proyect)
 
 import { roundResult } from "@/utils/hooks/roundResult";
+import { useEffect, useRef, useState } from 'react';
+
 import { Paragraph } from "@/components/ui/Paragraph/Paragraph";
-import { useEffect, useState, useRef } from 'react';
-
 import Image from 'next/image';
-import type { productModalProps, product } from "@/utils/types/product";
 
+import type { productModalProps, product } from "@/utils/types/product";
 import './ProductModal.scss';
 
 export const ProductModal = ( {product, onClose, addToCart }: productModalProps)  => {
-    const newPrice: number = roundResult(product.price * ((100-product.desc)/100));
+    const  refContainerModal = useRef<HTMLDivElement | null>(null);
     const [ showMessage, setShowMessage ] = useState<boolean>(false);
-    const  refContainerModal = useRef<HTMLDivElement| null>(null);
+
+    const newPrice: number = roundResult(product.price * ((100-product.desc)/100));
 
     // MOTRAMOS EL MENSAJE Y AÑADIMOS AL CARRITO
     const handleBuyProduct = (product: product) => {
         setShowMessage(true);
         addToCart(product); 
-    }
 
-    useEffect( () => {
         setTimeout( () => {
             setShowMessage(false);
         }, 3000)
-    }, [showMessage]);
+    }
 
     useEffect( () => {
         const timer = setTimeout( () => {
-            if(refContainerModal.current) {
-                refContainerModal.current.classList.add("ProductModal--show");
-            }
-        }, 200);
+            if(refContainerModal.current) refContainerModal.current.classList.add("ProductModal--show");
+        }, 300);
 
         // Limpiamos el timeOut del useEffect
         return (() => clearTimeout(timer));
     }, []);
 
+    const handleClose = () => {
+        if(refContainerModal.current) refContainerModal.current.classList.remove("ProductModal--show");
+        
+        setTimeout( () => {
+            onClose();
+        }, 300);
+    }
+
     return createPortal (
-        <div className="ProductModal" ref={refContainerModal}>
+        <section className="ProductModal" ref={refContainerModal}>
             <div className="ProductModal-screen">
                 <div className='ProductModal-li'>
                     <div className={`ProductModal-descuento ${product.desc === 0 ? "ProductModal-descuento--none" : ""} `}>
@@ -80,7 +85,7 @@ export const ProductModal = ( {product, onClose, addToCart }: productModalProps)
                             <button className='Button Button--amarillo' onClick={() => handleBuyProduct(product)}>Añadir a la cesta</button>
                         </div>                   
                     </div>
-                    <button className="ProductModal-buttonX" onClick={onClose}>✕</button>
+                    <button className="ProductModal-buttonX" onClick={handleClose}>✕</button>
                     <div className='ProductModal-mensaje'>
                         {showMessage && (
                             <Paragraph text={"producto añadido al carrito"} styleGreen={true}/>
@@ -88,7 +93,7 @@ export const ProductModal = ( {product, onClose, addToCart }: productModalProps)
                     </div> 
                 </div>
             </div>
-        </div>
+        </section>
         ,
         document.body    // Para el modal se monte encima del body (no solo encima del componente Proyect)
     )
