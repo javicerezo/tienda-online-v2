@@ -41,6 +41,13 @@
         @include m.desktop {
             @include m.flex (column, nowrap, flex-start, center);
         }
+        svg {
+            display: none;
+            @include m.tablet {
+                display: block;
+                padding: 0.5rem;
+            }
+        }
     }
     &-icon {
         font-size: 1.5rem;

@@ -67,7 +67,7 @@ export const Seeker = ({ showSeeker, onClose, searchProductseeker, addToCart, ad
                     </div>
                     <div className='Seeker-productos-buscar'>
                         <p className='Seeker-p'>Productos recomendados</p>
-                        <ul className='Seeker-ul-buscar js-buscador-ul-buscar'>
+                        <ul className='Seeker-ul-buscar'>
                             {matchArray.length === 0 ? (
                                 <Paragraph text={"¿Qué es lo que estás buscando?"} styleGreen={false}/>
                             ) : (
