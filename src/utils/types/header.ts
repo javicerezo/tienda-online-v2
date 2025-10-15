@@ -15,7 +15,13 @@ export interface navProps {
     showMenuBars: boolean;
 }
 
-export interface cartCardProps {
+export interface miniCartProps {
     product: productCart;
     eliminateToCart: (number: productCart['id']) => void;
+}
+
+export interface cartProps {
+    cart: productCart[];
+    eliminateToCart: (number: productCart['id']) => void;
+    onClose: () => void
 }

@@ -1,7 +1,7 @@
 @use '@/styles/settings/variables' as v;
 @use '@/styles/settings/mixins' as m;
 
-.Cart { 
+.MiniCart { 
     @include m.position (absolute, 2.6rem, 0, null, null);
     height: auto;
     &-secciones {
