@@ -11,7 +11,7 @@ import { usePathname } from 'next/navigation';
 import type{ headerProps } from '@/utils/types/header';
 import './Header.scss';
 
-export const Header = ( {cart, eliminateToCart}: headerProps ) => {
+export const Header = ( {cart, eliminateToCart, openSeeker}: headerProps ) => {
     const pathName = usePathname();
 
     return (
@@ -44,8 +44,8 @@ export const Header = ( {cart, eliminateToCart}: headerProps ) => {
                             href="/club" target='_blank'>Club montaña</Link>
                     </div>
                 </div>
-                <div className="Header-centro">
-                    <input className="Header-input" id="buscador" type="text" placeholder="Buscar..." />
+                <div className="Header-centro" onClick={openSeeker}>
+                    <input className="Header-input" id="buscador" type="text" placeholder="Buscar..."/>
                     <FaSearch />
                 </div>
                 <div className="Header-der">

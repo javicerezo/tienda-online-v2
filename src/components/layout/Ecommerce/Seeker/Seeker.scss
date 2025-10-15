@@ -1,0 +1,209 @@
+@use '@/styles/settings/variables' as v;
+@use '@/styles/settings/mixins' as m;
+
+.Seeker {
+    opacity: 0;
+    visibility: hidden;
+    height: 0px;
+    transition: all 1s ease;
+    &--show {
+        opacity: 1;
+        visibility: visible;
+        height: 100vh;
+    }
+    &-screen {
+        z-index: 110;
+        @include m.position (fixed, 0, 0, 0, 0);
+        background-color: #111111bd;
+    }
+    &-contenedor {
+        height: 100%;
+        width: 100%;
+        background-color: var(--color-blanco);
+        color: var(--color-negro);
+        padding: 0.2rem;
+        @include m.tablet {
+            padding: 1rem;
+        }
+    }
+    &-cabecera {
+        @include m.flex(row, nowrap, space-around, center);
+        padding: 0.2rem;
+        @include m.tablet {
+            padding: 1rem;
+        }
+    }
+    &-logo {
+        max-width: 5em;
+        cursor: pointer;
+        @include m.tablet {
+            max-width: 10em;
+        }
+    }
+    &-form {
+        @include m.flex (row, nowrap, space-between, center);
+        border-radius: 5px;
+        background-color: #fff;
+        width: 50%;
+        @include m.tablet {
+            padding: 1rem;
+            width: 60%;
+        }
+        @include m.desktop {
+            width: 70%;
+        }
+        i {
+            padding: 0.5rem;
+            @include m.tablet {
+                font-size: 1.5em;
+            }
+        }
+    }
+    &-input {
+        padding: 0.5rem;
+        width: 90%;
+    }
+    &-close {
+        cursor: pointer;
+        max-width: 20%;
+        padding: 0.5rem;
+        font-size: 1.6em;
+        @include m.tablet {
+            font-size: 2em;
+        }
+    }
+    &-contenido {
+        @include m.flex(column, nowrap, center, center);
+        padding: .2rem;
+        @include m.tablet {
+            padding: .5rem;
+            @include m.flex(row, nowrap, space-between, flex-start);
+        }
+    }
+    &-productos-populares {
+        padding: .1rem;
+        background-color: #fff;
+        width: 95%;
+        border-radius: 5px;
+        @include m.tablet {
+            padding: 1rem;
+            width: 20%;
+        }
+    }
+    &-p {
+        font-size: 0.8em;
+        padding: 0.2rem 1rem;
+        font-weight: bold;
+        @include m.tablet {
+            font-size: 1.2em;
+            padding: 0.5rem 1rem;
+        }
+    }
+    &-ul-populares {
+        @include m.flex(column, nowrap, center, flex-start);
+        max-height: 18.75rem;
+    }
+    &-li-populares {
+        font-size: 0.7em;
+        margin: 0.2rem 0;
+        padding: 0 1rem;
+        cursor: pointer;
+        @include m.tablet {
+            font-size: 1.1em;
+            margin: 0.5rem 0;
+        }
+        &:hover {
+            color: var(--color-gris);
+        }
+    }
+    &-productos-buscar {
+        padding: 0.2rem;
+        margin-top: 0.5rem;
+        width: 95%;
+        max-height: 450px;
+        overflow-y: scroll;
+        @include m.tablet {
+            max-height: 450px;
+            padding: 1rem;
+            margin-top: 0;
+            margin-left: 3rem;
+            width: 80%
+        }
+    }
+    &-ul-buscar {
+        @include m.grid(50, 0.5rem);
+        height: auto;
+        @include m.tablet {
+            @include m.grid(4, 0.5rem);
+        }
+    }
+    &-li {
+        position: relative;
+        @include m.flex (column, nowrap, flex-end, center);
+        background-color: var(--color-blanco);
+        border-radius: 5px;
+        // padding: .5rem;
+        min-width: 9.375rem;
+        @include m.tablet {
+            min-width: 9.375rem;
+        }
+        &:hover {
+            border: 1px solid var(--color-gris);
+        }
+        &-descuento {
+            @include m.position (absolute, 0.3rem, 0.3rem, null, null);
+            background-color: var(--color-fondo);
+            width: 3.125em;
+            height: 3.125em;
+            border-radius: 50% 50% 50% 0;
+            p {
+                @include m.flex (row, nowrap, center, center);
+                line-height: 3.125em;
+                width: 100%;
+                font-size: 1.1em;
+                font-weight: bold;
+            }
+        }
+        &-img {
+            cursor: pointer;
+        }
+        &-contenido {
+            @include m.flex (column, nowrap, center, center);
+            &--mod {
+                @include m.flex (row, nowrap, center, flex-start);
+            }
+            &--mod:first-child {
+                min-height: 3.25rem;
+            }
+        }
+        &-titulo {
+            padding: 0.5rem;
+            text-transform: capitalize;
+            span {
+                text-transform: capitalize;
+                font-weight: bold;
+            }
+        }
+        &-precio {
+            font-size: 1.2em;
+            color: var(--color-precios);
+            &--old {
+                padding: 0 10px;
+                font-size: .9rem;
+                text-decoration: line-through;
+            }
+        }
+        &-button {
+            margin-top: 0.5rem;
+            font-size: 0.8em;
+        }
+    }
+    &-buttonX {
+        @include m.position (absolute, 2rem, 2rem, null, null);
+        font-size: 1.5rem;
+        cursor: pointer;
+        @include m.tablet {
+            font-size: 2rem;
+        }
+    }
+}
