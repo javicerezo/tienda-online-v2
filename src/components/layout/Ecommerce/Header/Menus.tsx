@@ -1,17 +1,20 @@
 import { Button } from "@/components/ui/Button/Button";
 import { menuProps } from "@/utils/types/header";
-import { Cart } from "./Cart";
+import { MiniCart } from "../Cart/MiniCart";
+import { Cart } from "../Cart/Cart";
 import { Paragraph } from "@/components/ui/Paragraph/Paragraph";
 import { FaCaretDown, FaShoppingCart, FaPhone, FaCommentDots, FaEnvelope } from "react-icons/fa";
 
 import { roundResult } from "@/utils/functions/roundResult";
-
+import { useState } from "react";
 
 import './Menus.scss';
 
 export const Menus = ( {cart, eliminateToCart}: menuProps ) => {
     const totalQuantity = cart.reduce( (total, product) => total += product.quantity, 0);
     const totalPrice = roundResult(cart.reduce( (total, product) => total += product.quantity*product.price, 0));
+
+    const [ showCart, setShowCart ] = useState<boolean>(false);
     
     return (
         <div className='Menus'>
@@ -95,7 +98,7 @@ export const Menus = ( {cart, eliminateToCart}: menuProps ) => {
                                 />
                             ) : (
                                 cart.map( product => (
-                                    <Cart 
+                                    <MiniCart 
                                         key={product.id}
                                         product={product}
                                         eliminateToCart={eliminateToCart}
@@ -107,7 +110,7 @@ export const Menus = ( {cart, eliminateToCart}: menuProps ) => {
                             <div>
                                 <div className="Submenus-separador">{`total: ${totalPrice}€`}</div>
                                 <div className="Submenus-resultado">
-                                    <a href="#" className="Submenus-ver-cesta">Ver la cesta</a>
+                                    <p className="Submenus-verCesta" onClick={ () => setShowCart(true) }>Ver la cesta</p>
                                     <button className="Button Button--amarillo Submenus-resultado-button">pagar</button>
                                 </div>
                             </div>
@@ -115,6 +118,15 @@ export const Menus = ( {cart, eliminateToCart}: menuProps ) => {
                     </div>
                 </div>
             </div>
+
+            {/* AL PRESIONAR "VER CESTA SE DESPLIEGA LA CESTA DE LA COMRPA CON LOS PRODCTOS AÑADIDOS" */}
+            {showCart && (
+                <Cart 
+                    cart={cart}
+                    eliminateToCart={eliminateToCart}
+                    onClose={ () => setShowCart(false) }
+                />
+            )}
         </div>
     );
 }
