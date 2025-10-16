@@ -28,7 +28,6 @@ export const useCart = () => {
         if(itemExist < 0) { // no existe...agregamos
             const newItem: productCart = {...item, quantity: 1, newPrice: roundResult(item.price * ((100-item.desc)/100))};
             setCart( prevCart => [...prevCart, newItem]);
-            console.log(newItem)
         } else {
             const updatedCart = [...cart];
             updatedCart[itemExist].quantity++; 
