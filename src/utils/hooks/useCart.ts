@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { loadStorage, saveStorage } from "@/utils/functions/storage";
+import { roundResult } from "../functions/roundResult";
 
 import type { product, productCart } from "@/utils/types/product";
 
@@ -25,8 +26,9 @@ export const useCart = () => {
         const itemExist = cart.findIndex( element => element.id === item.id );
         
         if(itemExist < 0) { // no existe...agregamos
-            const newItem: productCart = {...item, quantity: 1};
+            const newItem: productCart = {...item, quantity: 1, newPrice: roundResult(item.price * ((100-item.desc)/100))};
             setCart( prevCart => [...prevCart, newItem]);
+            console.log(newItem)
         } else {
             const updatedCart = [...cart];
             updatedCart[itemExist].quantity++; 

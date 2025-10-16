@@ -1,22 +1,14 @@
 import type { cartElementProps } from "@/utils/types/header";
-import type { productCart } from "@/utils/types/product";
 import Image from "next/image";
 import { FaTrash } from "react-icons/fa";
 
 import { roundResult } from "@/utils/functions/roundResult";
 
 export const CartElement = ( { product, eliminateToCart}: cartElementProps ) => {
-    const { brand, name, image, price, desc, id, quantity } = product;
-    const newPrice = (price: productCart['price'], desc: productCart['desc']): number => {
-        return roundResult(price*((100-desc)/100));
-    }
-    
-    const samePriceType = (quantity: productCart['quantity'], price: productCart['price'], desc: productCart['desc']): number => {
-        return roundResult(quantity*(price*((100-desc)/100)));
-    }
-    const saveMoney = (price: productCart['price'], desc: productCart['desc']): number => {
-        return roundResult(price*((100-desc)/100));
-    } 
+    const { brand, name, image, price, desc, id, quantity, newPrice } = product;
+
+    const saveMoney = roundResult(price*((desc)/100));
+    const totalPrice = roundResult(newPrice*quantity);
 
     return (
         <>
@@ -43,14 +35,15 @@ export const CartElement = ( { product, eliminateToCart}: cartElementProps ) => 
                 </td>
                 <td className='Cart-td'>
                     <div className='Cart-tbody-precios'>
-                        <p className='Cart-tbody-precio'>{ newPrice(price, desc)} €</p>                            
-                        <p className='Cart-tbody-precio'>Descuento: {desc}%</p>
-                        <p className='Cart-tbody-precio'>Ahorras: {saveMoney(price, desc)} €</p>
+                        <p className='Cart-tbody-precio'>{price} €</p>                            
+                        <p className='Cart-tbody-precio'>Descuento: {desc} %</p>
+                        <p className='Cart-tbody-precio'>Ahorras: {saveMoney} €</p>
+                        <p className='Cart-tbody-precio'>Precio final: {newPrice} €</p>
                     </div>
                 </td>
-                <td className='Cart-td'>21%</td>
+                <td className='Cart-td'>21 %</td>
                 <td className='Cart-td'>{quantity}</td>
-                <td className='Cart-td'>{ samePriceType(quantity, price, desc) } €</td>
+                <td className='Cart-td'>{totalPrice} €</td>
             </tr>
         </>
     )

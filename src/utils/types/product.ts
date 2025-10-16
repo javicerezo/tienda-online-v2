@@ -10,6 +10,7 @@ export interface product {
 }
 export interface productCart extends product {
     quantity: number;
+    newPrice: number;
 }
 
 export interface productsProps {

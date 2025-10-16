@@ -12,7 +12,7 @@ import './Cart.scss';
 export const Cart = ( {cart, eliminateToCart, onClose}: cartProps ) => {
     const refContainerCart = useRef<HTMLDivElement | null>(null);
 
-    const subTotal = roundResult(cart.reduce( (total, product) => total += product.price * product.quantity, 0));
+    const subTotal = roundResult(cart.reduce( (total, product) => total += product.newPrice * product.quantity, 0));
     let gastosEnvio;
     if(subTotal == 0) {
         gastosEnvio = 0;
@@ -20,7 +20,7 @@ export const Cart = ( {cart, eliminateToCart, onClose}: cartProps ) => {
         gastosEnvio = 5;
     }
     const subtotalPedido = subTotal + gastosEnvio;
-    const ahorroTotal = roundResult(cart.reduce( (total, product) => total += product.price - (product.price*((100-product.desc)/100)), 0));
+    const ahorroTotal = roundResult(cart.reduce( (total, product) => total += (product.price - product.newPrice)*product.quantity, 0));
 
     useEffect( () => {
         const timer = setTimeout( () => {
