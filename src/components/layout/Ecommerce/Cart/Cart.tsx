@@ -12,7 +12,7 @@ import './Cart.scss';
 export const Cart = ( {cart, eliminateToCart, onClose}: cartProps ) => {
     const refContainerCart = useRef<HTMLDivElement | null>(null);
 
-    const subTotal = roundResult(cart.reduce( (total, product) => total += product.price - product.quantity, 0));
+    const subTotal = roundResult(cart.reduce( (total, product) => total += product.price * product.quantity, 0));
     let gastosEnvio;
     if(subTotal == 0) {
         gastosEnvio = 0;
@@ -67,7 +67,11 @@ export const Cart = ( {cart, eliminateToCart, onClose}: cartProps ) => {
                                 </thead>
                                 <tbody className='Cart-tbody'>   
                                     {cart.length === 0 ? (
-                                        <Paragraph text="no hay productos en la cesta" styleGreen={false} />
+                                        <tr>
+                                            <td colSpan={5}>
+                                                <Paragraph text="no hay productos en la cesta" styleGreen={false} />
+                                            </td>
+                                        </tr>
                                     ) : (
                                         cart.map( element => (
                                             <CartElement
