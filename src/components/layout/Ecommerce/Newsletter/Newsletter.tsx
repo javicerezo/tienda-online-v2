@@ -1,7 +1,34 @@
-import { Button } from '@/components/ui/Button/Button';
+import { useState } from 'react';
 import './Newsletter.scss';
+import { Paragraph } from '@/components/ui/Paragraph/Paragraph';
 
 export const Newsletter = () => {
+    const [ email, setEmail ] = useState<string>();    
+    const [ statusEmail, setStatusEmail ] = useState<"idle" | "sending" | "success" | "error">("idle");
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setStatusEmail("sending");
+
+        const form = e.currentTarget;
+        const formData = new FormData(e.currentTarget);
+
+        // Validamos ligéramente y mostramos mensaje con 3 segundos de retraso
+        setTimeout( () => {
+            if(formData.get('email') == '') {
+                setStatusEmail('error');
+            } else {
+                setStatusEmail('success');
+                setEmail(formData.get('email')?.toString());
+            }
+            setTimeout( () => {
+                setStatusEmail('idle');
+                form.reset();
+            }, 3000);
+        }, 4000);
+        console.log(email)
+    }
+
     return (
         <section className="Newsletter o-container-100">
             <div className="Newsletter-contenedor">
@@ -11,26 +38,18 @@ export const Newsletter = () => {
                 <h4 className="Newsletter-h4">
                     Recibe nuestras novedades, ofertas y promociones.
                 </h4>
-                <form className="Newsletter-form js-newsletter-form" action="" method="" >
-                    <input className="Newsletter-input js-newsletter-input" type="email" name="emailNewsletter" />
-                    <label className="Newsletter-label">Tu dirección de email</label>
-                    <div className="Newsletter-form-radio">
-                        <div className="Newsletter-radio">
-                            <input type="radio" name="sexoHombre" />
-                            <label>Hombre</label>
-                        </div>
-                        <div className="Newsletter-radio">
-                            <input type="radio" name="sexoMujer" />
-                            <label>Mujer</label>
-                        </div>
-                    </div>
-                    <button className="Newsletter-boton c-button c-button--amarillo 
-                    u-cursor--not-allowed u-opacity--50 js-newsletter-enviar" 
-                    type="submit">Suscribirme</button>
-                    {/* <Button title='Suscribirme' enlace=''/> */}
+                <form className="Newsletter-form" onSubmit={handleSubmit}>
+                    <input 
+                        className="Newsletter-input" 
+                        type="email" 
+                        name="email" 
+                        placeholder='Tu dirección de email'
+                        required
+                    />
+                    <button className="Newsletter-boton Button Button--amarillo" type='submit'>Suscribirme</button>
                 </form>
-                <div className="js-newsletter-contenedor"></div>
-                <div className="Newsletter-spinner u-display--none js-newsletter-spinner">
+                
+                <div className={`Newsletter-spinner ${statusEmail === "sending" ? "Newsletter-spinner--show" : ""}`}>
                     <div className="sk-chase">
                         <div className="sk-chase-dot"></div>
                         <div className="sk-chase-dot"></div>
@@ -40,6 +59,12 @@ export const Newsletter = () => {
                         <div className="sk-chase-dot"></div>
                     </div>
                 </div>
+                {statusEmail === "success" && (
+                    <Paragraph text='suscrito correctamente. gracias' styleGreen={true} />
+                )}
+                {statusEmail === "error" && (
+                    <Paragraph text='revisa el email escrito e inténtalo de nuevo por favor' styleGreen={false} />
+                )}
             </div>
         </section>
     );
