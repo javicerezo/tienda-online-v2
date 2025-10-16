@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/Button/Button";
 import { menuProps } from "@/utils/types/header";
-import { MiniCart } from "../Cart/MiniCart";
+import { CartMenu } from "../Cart/CartMenu";
 import { Cart } from "../Cart/Cart";
 import { Paragraph } from "@/components/ui/Paragraph/Paragraph";
 import { FaCaretDown, FaShoppingCart, FaPhone, FaCommentDots, FaEnvelope } from "react-icons/fa";
@@ -98,7 +98,7 @@ export const Menus = ( {cart, eliminateToCart}: menuProps ) => {
                                 />
                             ) : (
                                 cart.map( product => (
-                                    <MiniCart 
+                                    <CartMenu 
                                         key={product.id}
                                         product={product}
                                         eliminateToCart={eliminateToCart}
