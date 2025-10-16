@@ -11,14 +11,14 @@
     }
     &-screen {
         z-index: 79;
-        position: fixed;
+        @include m.position(fixed, (2.8rem + 2.4006rem), 0, 0, 0);
         width: 100%;
-        top: 12vh;
-        height: 88vh;
         background-color: var(--color-blanco);
         @include m.tablet {
-            top: 16vh;
-            height: 84vh;
+            @include m.position(fixed, (3.8rem + 2.4006rem), 0, 0, 0);
+        }
+        @include m.desktop {
+            @include m.position(fixed, 7.175rem, 0, 0, 0);
         }
     }
     &-contenedor {

@@ -22,8 +22,6 @@ export const Cart = ( {cart, eliminateToCart, onClose}: cartProps ) => {
     const subtotalPedido = subTotal + gastosEnvio;
     const ahorroTotal = roundResult(cart.reduce( (total, product) => total += product.price - (product.price*((100-product.desc)/100)), 0));
 
-
-
     useEffect( () => {
         const timer = setTimeout( () => {
             if(refContainerCart.current) refContainerCart.current.classList.add("ProductModal--show");
@@ -43,7 +41,6 @@ export const Cart = ( {cart, eliminateToCart, onClose}: cartProps ) => {
 
     return (
         createPortal(
-
             <section className="Cart" ref={refContainerCart}>
                 <div className="Cart-screen">
                     <div className='Cart-contenedor'>

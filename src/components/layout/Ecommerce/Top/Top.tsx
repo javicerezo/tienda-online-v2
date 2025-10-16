@@ -1,9 +1,14 @@
 import { Button } from '@/components/ui/Button/Button';
+
+interface topProps {
+    showCart:boolean;
+}
+
 import './Top.scss';
 
-export const Top = () => {
+export const Top = ( {showCart}: topProps ) => {
     return (
-        <section className="Portada">
+        <section className={`Portada ${showCart ? "Portada--high" : ""}`}>
             <div className="Portada-foto">
             </div>
             <div className='Portada-boton'>

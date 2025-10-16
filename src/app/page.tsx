@@ -11,11 +11,14 @@ import { Seeker } from "@/components/layout/Ecommerce/Seeker/Seeker";
 import { useVisited } from "@/utils/hooks/useVisited";
 import { useCart } from "@/utils/hooks/useCart";
 import { useSeeker } from "@/utils/hooks/useSeeker";
+import { useState } from "react";
 
 export default function Home() {
   const { cart, addToCart, removeToCart } = useCart();
   const { visited, addToVisited} = useVisited();
   const { showSeeker, openSeeker, closeSeeker, searchProductseeker } = useSeeker();
+
+  const [ showCart, setShowCart ] = useState<boolean>(false);
 
   return (
     <>
@@ -23,8 +26,12 @@ export default function Home() {
         cart={cart}
         eliminateToCart={removeToCart}
         openSeeker={openSeeker}
+        showCart={showCart}
+        setShowCart={setShowCart}
       />
-      <Top />
+      <Top 
+        showCart={showCart}
+      />
       <Products 
         addToCart={addToCart}
         addToVisited={addToVisited}

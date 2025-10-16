@@ -6,15 +6,14 @@ import { Paragraph } from "@/components/ui/Paragraph/Paragraph";
 import { FaCaretDown, FaShoppingCart, FaPhone, FaCommentDots, FaEnvelope } from "react-icons/fa";
 
 import { roundResult } from "@/utils/functions/roundResult";
-import { useState } from "react";
 
 import './Menus.scss';
 
-export const Menus = ( {cart, eliminateToCart}: menuProps ) => {
+export const Menus = ( {cart, eliminateToCart, showCart, setShowCart}: menuProps ) => {
     const totalQuantity = cart.reduce( (total, product) => total += product.quantity, 0);
     const totalPrice = roundResult(cart.reduce( (total, product) => total += product.quantity*product.price, 0));
 
-    const [ showCart, setShowCart ] = useState<boolean>(false);
+    // const [ showCart, setShowCart ] = useState<boolean>(false);
     
     return (
         <div className='Menus'>

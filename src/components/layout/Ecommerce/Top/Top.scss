@@ -6,6 +6,15 @@
     margin: 0 auto;
     @include m.flex (row, nowrap, center, center);
     position: relative;
+    &--high {
+        padding-top: 2.9494rem;
+        @include m.tablet {
+            padding-top: 3.9rem;
+        }
+        @include m.desktop {
+            padding-top: 7.175rem;
+        }
+    }
     &-foto {
         width: 100%;
         height: 70vh;

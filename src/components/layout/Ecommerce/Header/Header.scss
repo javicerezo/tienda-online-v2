@@ -3,13 +3,16 @@
 
 .Header {
     display: block;
+    position: relative;
     width: 100%;
     height: auto;
     margin: 0 auto;
     background-color:var(--color-fondo);
-    position: relative;
     z-index: 80;
     @include m.flex (column, nowrap, center, center);
+    &--fixed {
+        position:fixed;
+    }
     &-cabecera {
         @include m.flex (row, nowrap, space-between, center);
         width: 100%;

@@ -12,7 +12,7 @@ import { useState } from 'react';
 import type{ headerProps } from '@/utils/types/header';
 import './Header.scss';
 
-export const Header = ( {cart, eliminateToCart, openSeeker}: headerProps ) => {
+export const Header = ( {cart, eliminateToCart, openSeeker, showCart, setShowCart}: headerProps ) => {
     const pathName = usePathname();
     const [ showMenuBars, setShowMenuBars ] = useState<boolean>(false);
 
@@ -21,7 +21,7 @@ export const Header = ( {cart, eliminateToCart, openSeeker}: headerProps ) => {
     }
 
     return (
-        <header className="Header">
+        <header className={`Header ${showCart ? "Header--fixed" : ""}`}>
             <div className="Header-cabecera">
                 <div className="Header-burger" >
                     <FaBars onClick={openMenuBars}/>
@@ -66,6 +66,8 @@ export const Header = ( {cart, eliminateToCart, openSeeker}: headerProps ) => {
                     <Menus 
                         cart={cart}
                         eliminateToCart={eliminateToCart}
+                        showCart={showCart}
+                        setShowCart={setShowCart}
                     />
                 </div>
             </div>
