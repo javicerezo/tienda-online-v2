@@ -1,19 +1,24 @@
 import Image from 'next/image';
 import { FaSearch } from 'react-icons/fa';
+import { product } from '@/utils/types/product';
+import { Paragraph } from '@/components/ui/Paragraph/Paragraph';
+import { ProductCard } from '../Products/ProductCard';
 
 import { useEffect, useRef, useState } from 'react';
 
 import type { seekerProps } from '@/utils/types/seeker';
 import './Seeker.scss';
-import { product } from '@/utils/types/product';
-import { Paragraph } from '@/components/ui/Paragraph/Paragraph';
-import { ProductCard } from '../Products/ProductCard';
 
 export const Seeker = ({ showSeeker, onClose, searchProductseeker, addToCart, addToVisited }: seekerProps) => {
     const seekerContainerRef = useRef<HTMLDivElement>(null);
     const [ matchArray, setMatchArray ] = useState<product[]>([]);
 
     const onChange = (e: string) => {
+        const array = searchProductseeker(e);
+        setMatchArray(array);
+    }
+    
+    const handleClick = (e: string) => {
         const array = searchProductseeker(e);
         setMatchArray(array);
     }
@@ -56,13 +61,13 @@ export const Seeker = ({ showSeeker, onClose, searchProductseeker, addToCart, ad
                     <div className='Seeker-productos-populares'>
                         <p className='Seeker-p'>Búsquedas populares</p>
                         <ul className='Seeker-ul-populares'>
-                            <li className='Seeker-li-populares'>Pies de gato</li>
-                            <li className='Seeker-li-populares'>Grifone</li>
-                            <li className='Seeker-li-populares'>Sacos de dormir</li>
-                            <li className='Seeker-li-populares'>Petzl</li>
-                            <li className='Seeker-li-populares'>La Sportiva</li>
-                            <li className='Seeker-li-populares'>Cuerdas</li>
-                            <li className='Seeker-li-populares'>Patagonia</li>
+                            <li className='Seeker-li-populares' onClick={ () => handleClick('Pies de gato') }>Pies de gato</li>
+                            <li className='Seeker-li-populares' onClick={ () => handleClick('Grifone') }>Grifone</li>
+                            <li className='Seeker-li-populares' onClick={ () => handleClick('Sacos de dormir') }>Sacos de dormir</li>
+                            <li className='Seeker-li-populares' onClick={ () => handleClick('Petzl') }>Petzl</li>
+                            <li className='Seeker-li-populares' onClick={ () => handleClick('La Sportiva') }>La Sportiva</li>
+                            <li className='Seeker-li-populares' onClick={ () => handleClick('Cuerdas') }>Cuerdas</li>
+                            <li className='Seeker-li-populares' onClick={ () => handleClick('Patagonia') }>Patagonia</li>
                         </ul>
                     </div>
                     <div className='Seeker-productos-buscar'>

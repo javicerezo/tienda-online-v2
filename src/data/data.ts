@@ -158,7 +158,7 @@ export const Data_Base: product[] = [
     {
         brand: 'Petzl',
         name: 'Tango 8.5mm x 60m',
-        type: 'cuerda dinamica escalada',
+        type: 'cuerdas dinamica escalada',
         image: '/assets/imgs/material/material18.jpg',
         price: 140.00,
         desc: 29,
@@ -167,7 +167,7 @@ export const Data_Base: product[] = [
     {
         brand: 'Petzl',
         name: 'Paso Guide 7.7mm x 60m',
-        type: 'cuerda dinamica escalada',
+        type: 'cuerdas dinamica escalada',
         image: '/assets/imgs/material/material19.jpg',
         price: 152.00,
         desc: 25,
@@ -176,7 +176,7 @@ export const Data_Base: product[] = [
     {
         brand: 'Petzl',
         name: 'Volta Guide 9.2mm x 30m',
-        type: 'cuerda dinamica escalada',
+        type: 'cuerdas dinamica escalada',
         image: '/assets/imgs/material/material20.jpg',
         price: 116.50,
         desc: 29,
