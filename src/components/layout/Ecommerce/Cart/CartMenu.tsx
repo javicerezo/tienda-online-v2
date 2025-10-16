@@ -2,10 +2,10 @@ import Image from "next/image";
 
 import { roundResult } from "@/utils/functions/roundResult";
 
-import type { CartMenuProps } from "@/utils/types/header";
+import type { cartMenuProps } from "@/utils/types/header";
 import './CartMenu.scss';
 
-export const CartMenu = ( {product, eliminateToCart}: CartMenuProps ) => {
+export const CartMenu = ( {product, eliminateToCart}: cartMenuProps ) => {
     const { brand, name, image, price, desc, id, quantity } = product;
     const newPrice: number = roundResult(price * ((100-desc)/100));
 

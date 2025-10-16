@@ -2,13 +2,12 @@ import { roundResult } from "@/utils/functions/roundResult";
 import { useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 
+import { CartElement } from "./CartElement";
 import { FaShoppingCart } from "react-icons/fa";
 import { Paragraph } from "@/components/ui/Paragraph/Paragraph";
-import Image from "next/image";
 
 import type { cartProps } from "@/utils/types/header"
 import './Cart.scss';
-import { productCart } from "@/utils/types/product";
 
 export const Cart = ( {cart, eliminateToCart, onClose}: cartProps ) => {
     const refContainerCart = useRef<HTMLDivElement | null>(null);
@@ -23,16 +22,7 @@ export const Cart = ( {cart, eliminateToCart, onClose}: cartProps ) => {
     const subtotalPedido = subTotal + gastosEnvio;
     const ahorroTotal = roundResult(cart.reduce( (total, product) => total += product.price - (product.price*((100-product.desc)/100)), 0));
 
-    const newPrice = (price: productCart['price'], desc: productCart['desc']): number => {
-        return roundResult(price*((100-desc)/100));
-    }
-    
-    const samePriceType = (quantity: productCart['quantity'], price: productCart['price'], desc: productCart['desc']): number => {
-        return roundResult(quantity*(price*((100-desc)/100)));
-    }
-    const saveMoney = (price: productCart['price'], desc: productCart['desc']): number => {
-        return roundResult(price*((100-desc)/100));
-    } 
+
 
     useEffect( () => {
         const timer = setTimeout( () => {
@@ -80,42 +70,12 @@ export const Cart = ( {cart, eliminateToCart, onClose}: cartProps ) => {
                                         <Paragraph text="no hay productos en la cesta" styleGreen={false} />
                                     ) : (
                                         cart.map( element => (
-                                            <>
-                                                <tr className="Cart-tr">
-                                                    <td className='Cart-td'>
-                                                        <div className="Cart-tbody-picture">
-                                                            <Image 
-                                                                className="Cart-tbody-img"
-                                                                width='200' height='300' 
-                                                                src={element.image} 
-                                                                loading="lazy" 
-                                                                alt={`imagen del producto ${element.id}`} 
-                                                            />
-                                                        </div>
-                                                        <div className='Cart-tbody-descripcion'>
-                                                            <p className='Cart-tbody-p'><span>{element.brand}</span>{element.name}</p>
-                                                            <p className='Cart-tbody-p'>Color: white/black  |  Talla: M-L</p>
-                                                            <p className='Cart-tbody-p'>Entrega estimada el 5 de marzo con envío urgente</p>
-                                                            <div className='Cart-tbody-iconos'>
-                                                                {/* <i className="fa-solid fa-dumpster-fire"></i> */}
-                                                                <a href='#' className='Cart-tbody-a' onClick={ () => eliminateToCart(element.id) }>Eliminar</a>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td className='Cart-td'>
-                                                        <div className='Cart-tbody-precios'>
-                                                            <p className='Cart-tbody-precio'>{ newPrice(element.price, element.desc)} €</p>                            
-                                                            <p className='Cart-tbody-precio'>Descuento: {element.desc}%</p>
-                                                            <p className='Cart-tbody-precio'>Ahorras: {saveMoney(element.price, element.desc)} €</p>
-                                                        </div>
-                                                    </td>
-                                                    <td className='Cart-td'>21%</td>
-                                                    <td className='Cart-td'>{element.quantity}</td>
-                                                    <td className='Cart-td'>{ samePriceType(element.quantity, element.price, element.desc) } €</td>
-                                                </tr>
-                                            </>
+                                            <CartElement
+                                                key={element.id}
+                                                product={element}
+                                                eliminateToCart={eliminateToCart}
+                                            />
                                         ))
-                                        
                                     )}                         
                                 </tbody>
                             </table>

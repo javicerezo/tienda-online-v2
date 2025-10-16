@@ -15,7 +15,7 @@ export interface navProps {
     showMenuBars: boolean;
 }
 
-export interface CartMenuProps {
+export interface cartMenuProps {
     product: productCart;
     eliminateToCart: (number: productCart['id']) => void;
 }
@@ -24,4 +24,9 @@ export interface cartProps {
     cart: productCart[];
     eliminateToCart: (number: productCart['id']) => void;
     onClose: () => void
+}
+
+export interface cartElementProps {
+    product: productCart;
+    eliminateToCart: (number: productCart['id']) => void;
 }
