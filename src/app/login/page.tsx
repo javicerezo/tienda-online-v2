@@ -1,3 +1,12 @@
+'use client'
+
+import { Login } from '@/components/layout/Login/Login';
+
 export default function Page() {
-    return <p>Esto es el login</p>
+
+    return (
+        <>
+            <Login />
+        </>
+    )
 }

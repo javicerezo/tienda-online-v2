@@ -1,0 +1,51 @@
+@use '@/styles/settings/variables' as v;
+@use '@/styles/settings/mixins' as m;
+
+.Login {
+    margin: 1rem auto;
+    @include m.tablet {
+        margin: 3rem 0 1rem;
+    }
+    &-contenedor {
+        max-width: 31.25rem;
+        margin: 0 auto;
+        padding: 0 1rem;
+        @include m.tablet {
+            width: 50%;
+        }
+    }
+    &-h2 {
+        font-size: 1.5em;
+        @include m.desktop{
+            font-size: 2em;
+            }
+    }
+    &-h4 {
+        font-size: 0.85em;
+        padding: 0.5rem 0;
+        @include m.tablet {
+            font-size: 1em;
+            padding: 1rem 0;
+        }
+        @include m.desktop {
+            padding: 1.5rem 0;
+        }
+    }
+    &-form {
+        position: relative;
+        padding: 2rem;
+        border: 1px solid #000;
+        border-radius: 5px;
+        @include m.flex (column, nowrap, space-between, center);
+    }
+    &-input {
+        width: 100%;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 1.5rem 1.2rem 1rem;
+        font-size: 1.1em;    
+    }
+    &-boton {
+        margin: 2rem 1rem;
+    }
+}
