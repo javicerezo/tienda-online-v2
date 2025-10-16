@@ -1,9 +1,9 @@
 import type { cartElementProps } from "@/utils/types/header";
 import type { productCart } from "@/utils/types/product";
 import Image from "next/image";
+import { FaTrash } from "react-icons/fa";
 
 import { roundResult } from "@/utils/functions/roundResult";
-
 
 export const CartElement = ( { product, eliminateToCart}: cartElementProps ) => {
     const { brand, name, image, price, desc, id, quantity } = product;
@@ -36,7 +36,7 @@ export const CartElement = ( { product, eliminateToCart}: cartElementProps ) => 
                         <p className='Cart-tbody-p'>Color: white/black  |  Talla: M-L</p>
                         <p className='Cart-tbody-p'>Entrega estimada el 5 de marzo con envío urgente</p>
                         <div className='Cart-tbody-iconos'>
-                            {/* <i className="fa-solid fa-dumpster-fire"></i> */}
+                            <FaTrash color="blue"/>
                             <a href='#' className='Cart-tbody-a' onClick={ () => eliminateToCart(id) }>Eliminar</a>
                         </div>
                     </div>

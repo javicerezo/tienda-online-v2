@@ -2,7 +2,6 @@
 @use '@/styles/settings/mixins' as m;
 
 .CartElement {
-
     &-p {
         font-size: 0.7em;
         margin: 0.3rem 0;
@@ -11,10 +10,6 @@
             margin: 0.5rem 0;
         }
     }
-
-
-
-
     &-thead {
         background: rgb(24,24,24);
         background: linear-gradient(180deg, rgba(24,24,24,1) 16%, rgba(74,74,74,1) 77%);
