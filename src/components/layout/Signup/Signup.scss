@@ -1,7 +1,7 @@
 @use '@/styles/settings/variables' as v;
 @use '@/styles/settings/mixins' as m;
 
-.Login {
+.Signup {
     margin: 1rem auto;
     height: 80vh;
     @include m.tablet {
@@ -52,17 +52,14 @@
         margin-top: 1rem;
         @include m.flex(row, nowrap, flex-end, center);
         &:hover {
-            cursor: pointer;
             color: lightblue;
+            cursor: pointer;
         }
     }
     &-p {
-        font-size: 0.95em;
-        margin-right: 0.5rem;
-    }
-    &-span {
+        font-size: 0.95rem;
         font-weight: bold;
-        cursor: pointer;
+        margin-left: 0.5rem;
     }
     &-boton {
         margin: 2rem 1rem;

@@ -1,9 +1,11 @@
+'use client'
+
+import { Signup } from "@/components/layout/Signup/Signup";
 
 export default function Page() {
-
     return (
         <>
-            <p>Esto es el sign up</p>
+            <Signup />
         </>
     )
 }

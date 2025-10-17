@@ -4,7 +4,6 @@ export default function Layout (
 ) {
     return (
         <section> 
-            esto es el layout de sign up
             {children}
         </section>
     );
