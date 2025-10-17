@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { db } from "@/lib/firebase/firebase.client";
 import { collection, getDocs } from "firebase/firestore";
+import { arrayNumRandom } from "../functions/arrayNumRandom";
+import { arrayProductList } from "../functions/arrayProductList";
 
 import type { product } from "../types/product";
 
@@ -11,17 +13,19 @@ export const useProducts = () => {
     
     // AÑADIR QUE SE MUESTREN 8 PRODUCTOS ALEATORIOS
     // useEffect(() => {
-    //     // la idea es calcular los 8 numeros aleatorios y mostrar solo esos 8 items
-    //     const arrayNum: number[] = arrayNumRandom(8, Data_Base.length);
-    //     setProductList(arrayProductList(Data_Base, arrayNum));   
-    // }, []);
-
-    useEffect( () => {
-        const fetchData = async () => {
-            try {
+        // }, []);
+        
+        useEffect( () => {
+            const fetchData = async () => {
+                try {
                 const colRef = collection(db, "products");
                 const snap = await getDocs(colRef)
-                setProducts(snap.docs.map( doc => doc.data() as product ));
+                const queryResult = snap.docs.map( doc => doc.data() as product );
+                
+                    // la idea es calcular los 8 numeros aleatorios y mostrar solo esos 8 items
+                const arrayNum: number[] = arrayNumRandom(8, queryResult.length);
+                setProducts(arrayProductList(queryResult, arrayNum));   
+
                 setLoading(false);
             } catch (e) {
                 setError(e);
