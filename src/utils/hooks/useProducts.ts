@@ -25,6 +25,7 @@ export const useProducts = () => {
                 setLoading(false);
             } catch (e) {
                 setError(e);
+                // Enviar el error a lugar seguro para su tratamiento y solución
             }
         }
 
