@@ -22,16 +22,24 @@ export const useSeeker = () => {
      * si hay coincidencia modifica el estado de la variable matchArray
      */
     const searchProductseeker = (string: string) => {
-        const newArray = new Set<product>();
+        const newSet = new Set<product>();
+        const normalizeString = string.toLowerCase().trim();
 
-        allProducts.forEach( element => {
-            const match = (`${element.brand} ${element.name} ${element.type}`).toLowerCase();
-            if (match.includes(string.toLowerCase())) {
-                newArray.add(element);
-            } 
-        });
-        
-        setMatchArray(Array.from(newArray));
+        if(!normalizeString) {
+            setMatchArray([]);
+            return;
+        }
+        if(normalizeString != ''){
+            allProducts.forEach( element => {
+                const match = (`${element.brand} ${element.name} ${element.type}`).toLowerCase();
+                if (match.includes(normalizeString)) {
+                    newSet.add(element);
+                } 
+            });
+            
+            setMatchArray(Array.from(newSet));
+            return;
+        }
     }
 
     return { showSeeker, matchArray, openSeeker, closeSeeker, searchProductseeker };

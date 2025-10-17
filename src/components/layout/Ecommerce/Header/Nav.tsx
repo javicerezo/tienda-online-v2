@@ -6,7 +6,6 @@ import './Nav.scss';
 export const Nav = ( {showMenuBars, openSeeker, searchProductseeker}:navProps ) => {
     const handleClick = (e: React.MouseEvent<HTMLLIElement>) => {
         searchProductseeker(e.currentTarget.textContent);
-        console.log(e.currentTarget.textContent)
         openSeeker();
     }
 
@@ -58,7 +57,7 @@ export const Nav = ( {showMenuBars, openSeeker, searchProductseeker}:navProps ) 
                         <FaCaretDown className='Nav-icon'/>
                     </div>
                     <ul className="Nav-subnav">
-                        <li className="Nav-subnav-li" onClick={handleClick}>Botas de alta montaña</li>
+                        <li className="Nav-subnav-li" onClick={handleClick}>Botas de alpinismo</li>
                         <li className="Nav-subnav-li" onClick={handleClick}>Botas trekking</li>
                         <li className="Nav-subnav-li" onClick={handleClick}>Zapatillas running</li>
                         <li className="Nav-subnav-li" onClick={handleClick}>Pies de gato</li>
