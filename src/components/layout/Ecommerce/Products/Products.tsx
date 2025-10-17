@@ -7,7 +7,7 @@ import type { productsProps } from '@/utils/types/product';
 import './Products.scss';
 
 export const Products = ({ addToCart, addToVisited }: productsProps) => {
-    const { products, loading } = useProducts();
+    const { randomProducts, loading } = useProducts();
     
     return (
         <section className="Products" id="Products">
@@ -20,7 +20,7 @@ export const Products = ({ addToCart, addToVisited }: productsProps) => {
                     ? (
                         <Paragraph text='Cargando items ...' styleGreen={false}/>
                     ) : (
-                        products.map( element => (
+                        randomProducts.map( element => (
                             <ProductCard 
                                 key={element.id}
                                 product={element}

@@ -6,8 +6,13 @@ import { arrayProductList } from "../functions/arrayProductList";
 
 import type { product } from "../types/product";
 
+/**
+ * Este hook consulta la base de datos para ver los productos disponibles
+ * @returns un array de todos productos de db, el estado el loading (boolean), y el estado del error (si lo hubiera).
+ */
 export const useProducts = () => {
-    const [ products, setProducts ] = useState<product[]>([]);
+    const [ allProducts, setAllProducts ] = useState<product[]>([]);
+    const [ randomProducts, setRandomProducts ] = useState<product[]>([]);
     const [ loading, setLoading ] = useState<boolean>(true);
     const [ error, setError ] = useState<unknown>(null);
         
@@ -17,10 +22,15 @@ export const useProducts = () => {
                 const colRef = collection(db, "products");
                 const snap = await getDocs(colRef)
                 const queryResult = snap.docs.map( doc => doc.data() as product );
+
+                // Devuelve TODOS los productos de la base de datos (se usa en el buscador de productos seeker.tsx)
+                setAllProducts(queryResult);   
                 
-                    // la idea es calcular los 8 numeros aleatorios y mostrar solo esos 8 items
+                // Devuelve solo 8 productos al azar de todos los que existen en la base de datos. 
+                // la idea es calcular los 8 numeros aleatorios y mostrar solo esos 8 items
                 const arrayNum: number[] = arrayNumRandom(8, queryResult.length);
-                setProducts(arrayProductList(queryResult, arrayNum));   
+                setRandomProducts(arrayProductList(queryResult, arrayNum));  
+
 
                 setLoading(false);
             } catch (e) {
@@ -32,5 +42,5 @@ export const useProducts = () => {
         fetchData();
     }, []);
 
-    return { products, loading, error };
+    return { allProducts, randomProducts, loading, error };
 }

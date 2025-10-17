@@ -5,7 +5,7 @@ import type { product } from "../types/product";
 
 export const useSeeker = () => {
     const [ showSeeker, setShowSeeker ] = useState<boolean>(false);
-    const { products } = useProducts();
+    const { allProducts } = useProducts();
 
     const openSeeker = () => {
         setShowSeeker(true);
@@ -23,7 +23,7 @@ export const useSeeker = () => {
     const searchProductseeker = (string: string) => {
         const newArray = new Set<product>();
 
-        products.forEach( element => {
+        allProducts.forEach( element => {
             const match = (`${element.brand} ${element.name} ${element.type}`).toLowerCase();
             if (match.includes(string.toLowerCase())) {
                 newArray.add(element);
