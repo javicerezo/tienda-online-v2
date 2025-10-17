@@ -16,7 +16,7 @@ import { useState } from "react";
 export default function Home() {
   const { cart, addToCart, removeToCart } = useCart();
   const { visited, addToVisited} = useVisited();
-  const { showSeeker, openSeeker, closeSeeker, searchProductseeker } = useSeeker();
+  const { showSeeker, matchArray, openSeeker, closeSeeker, searchProductseeker } = useSeeker();
 
   const [ showCart, setShowCart ] = useState<boolean>(false);
 
@@ -26,6 +26,7 @@ export default function Home() {
         cart={cart}
         eliminateToCart={removeToCart}
         openSeeker={openSeeker}
+        searchProductseeker={searchProductseeker}
         showCart={showCart}
         setShowCart={setShowCart}
       />
@@ -47,6 +48,7 @@ export default function Home() {
       {showSeeker && (
         <Seeker 
           showSeeker={showSeeker}
+          matchArray={matchArray}
           onClose={closeSeeker}
           searchProductseeker={searchProductseeker}
           addToCart={addToCart}

@@ -12,7 +12,7 @@ import { useState } from 'react';
 import type{ headerProps } from '@/utils/types/header';
 import './Header.scss';
 
-export const Header = ( {cart, eliminateToCart, openSeeker, showCart, setShowCart}: headerProps ) => {
+export const Header = ( {cart, eliminateToCart, openSeeker, searchProductseeker, showCart, setShowCart}: headerProps ) => {
     const pathName = usePathname();
     const [ showMenuBars, setShowMenuBars ] = useState<boolean>(false);
 
@@ -74,6 +74,8 @@ export const Header = ( {cart, eliminateToCart, openSeeker, showCart, setShowCar
 
             <Nav 
                 showMenuBars={showMenuBars}
+                openSeeker={openSeeker}
+                searchProductseeker={searchProductseeker}
             />
         </header>
     );

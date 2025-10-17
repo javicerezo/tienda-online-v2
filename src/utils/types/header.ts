@@ -4,6 +4,7 @@ export interface headerProps {
     cart: productCart[];
     eliminateToCart: (number: productCart['id']) => void;
     openSeeker: () => void;
+    searchProductseeker: (query: string) => void; 
     showCart: boolean;
     setShowCart: React.Dispatch<React.SetStateAction<boolean>>; // Así es como se pasa una función setter que modifica un State
 }
@@ -17,6 +18,8 @@ export interface menuProps {
 
 export interface navProps {
     showMenuBars: boolean;
+    openSeeker: () => void;
+    searchProductseeker: (query: string) => void;
 }
 
 export interface cartMenuProps {

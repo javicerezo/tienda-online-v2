@@ -5,6 +5,7 @@ import type { product } from "../types/product";
 
 export const useSeeker = () => {
     const [ showSeeker, setShowSeeker ] = useState<boolean>(false);
+    const [ matchArray, setMatchArray ] = useState<product[]>([]);
     const { allProducts } = useProducts();
 
     const openSeeker = () => {
@@ -17,8 +18,8 @@ export const useSeeker = () => {
 
     /**
      * Busca coincidencias en la base de datos en función de una palabra dada
-     * @param string recibe un string la palabra de coincidencia para buscar en la base de datos
-     * @returns retorna un array de productos coincidentes a esa palabra
+     * @param string, recibe un string la palabra de coincidencia para buscar en la base de datos,
+     * si hay coincidencia modifica el estado de la variable matchArray
      */
     const searchProductseeker = (string: string) => {
         const newArray = new Set<product>();
@@ -29,8 +30,9 @@ export const useSeeker = () => {
                 newArray.add(element);
             } 
         });
-        return Array.from(newArray);
+        
+        setMatchArray(Array.from(newArray));
     }
 
-    return { showSeeker, openSeeker, closeSeeker, searchProductseeker };
+    return { showSeeker, matchArray, openSeeker, closeSeeker, searchProductseeker };
 }

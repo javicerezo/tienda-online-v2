@@ -3,7 +3,13 @@ import { FaCaretDown } from "react-icons/fa";
 import type { navProps } from '@/utils/types/header';
 import './Nav.scss';
 
-export const Nav = ( {showMenuBars}:navProps ) => {
+export const Nav = ( {showMenuBars, openSeeker, searchProductseeker}:navProps ) => {
+    const handleClick = (e: React.MouseEvent<HTMLLIElement>) => {
+        searchProductseeker(e.currentTarget.textContent);
+        console.log(e.currentTarget.textContent)
+        openSeeker();
+    }
+
     return (
         <nav className={`Nav ${showMenuBars ? "Nav--show" : ""}`}>
             <ul className="Nav-ul">
@@ -13,11 +19,11 @@ export const Nav = ( {showMenuBars}:navProps ) => {
                         <FaCaretDown className='Nav-icon'/>
                     </div>
                     <ul className="Nav-subnav">
-                        <li className="Nav-subnav-li">Chaquetas</li>
-                        <li className="Nav-subnav-li">Camisetas</li>
-                        <li className="Nav-subnav-li">Pantalones</li>
-                        <li className="Nav-subnav-li">Chalecos</li>
-                        <li className="Nav-subnav-li">Ropa interior</li>
+                        <li className="Nav-subnav-li" onClick={handleClick}>Chaquetas</li>
+                        <li className="Nav-subnav-li" onClick={handleClick}>Camisetas</li>
+                        <li className="Nav-subnav-li" onClick={handleClick}>Pantalones</li>
+                        <li className="Nav-subnav-li" onClick={handleClick}>Chalecos</li>
+                        <li className="Nav-subnav-li" onClick={handleClick}>Ropa interior</li>
                     </ul>
                 </li>
                 <li className="Nav-li">
@@ -26,11 +32,11 @@ export const Nav = ( {showMenuBars}:navProps ) => {
                         <FaCaretDown className='Nav-icon'/>
                     </div>
                     <ul className="Nav-subnav">
-                        <li className="Nav-subnav-li">Chaquetas</li>
-                        <li className="Nav-subnav-li">Camisetas</li>
-                        <li className="Nav-subnav-li">Pantalones</li>
-                        <li className="Nav-subnav-li">Chalecos</li>
-                        <li className="Nav-subnav-li">Ropa interior</li>
+                        <li className="Nav-subnav-li" onClick={handleClick}>Chaquetas</li>
+                        <li className="Nav-subnav-li" onClick={handleClick}>Camisetas</li>
+                        <li className="Nav-subnav-li" onClick={handleClick}>Pantalones</li>
+                        <li className="Nav-subnav-li" onClick={handleClick}>Chalecos</li>
+                        <li className="Nav-subnav-li" onClick={handleClick}>Ropa interior</li>
                     </ul>
                 </li>
                 <li className="Nav-li">
@@ -39,11 +45,11 @@ export const Nav = ( {showMenuBars}:navProps ) => {
                         <FaCaretDown className='Nav-icon'/>
                     </div>
                     <ul className="Nav-subnav">
-                        <li className="Nav-subnav-li">Chaquetas</li>
-                        <li className="Nav-subnav-li">Camisetas</li>
-                        <li className="Nav-subnav-li">Pantalones</li>
-                        <li className="Nav-subnav-li">Chalecos</li>
-                        <li className="Nav-subnav-li">Ropa interior</li>
+                        <li className="Nav-subnav-li" onClick={handleClick}>Chaquetas</li>
+                        <li className="Nav-subnav-li" onClick={handleClick}>Camisetas</li>
+                        <li className="Nav-subnav-li" onClick={handleClick}>Pantalones</li>
+                        <li className="Nav-subnav-li" onClick={handleClick}>Chalecos</li>
+                        <li className="Nav-subnav-li" onClick={handleClick}>Ropa interior</li>
                     </ul>
                 </li>
                 <li className="Nav-li">
@@ -52,11 +58,11 @@ export const Nav = ( {showMenuBars}:navProps ) => {
                         <FaCaretDown className='Nav-icon'/>
                     </div>
                     <ul className="Nav-subnav">
-                        <li className="Nav-subnav-li">Botas de alta montaña</li>
-                        <li className="Nav-subnav-li">Botas trekking</li>
-                        <li className="Nav-subnav-li">Zapatillas running</li>
-                        <li className="Nav-subnav-li">Pies de gato</li>
-                        <li className="Nav-subnav-li">Lifestyles</li>
+                        <li className="Nav-subnav-li" onClick={handleClick}>Botas de alta montaña</li>
+                        <li className="Nav-subnav-li" onClick={handleClick}>Botas trekking</li>
+                        <li className="Nav-subnav-li" onClick={handleClick}>Zapatillas running</li>
+                        <li className="Nav-subnav-li" onClick={handleClick}>Pies de gato</li>
+                        <li className="Nav-subnav-li" onClick={handleClick}>Lifestyles</li>
                     </ul>
                 </li>
                 <li className="Nav-li">
@@ -65,11 +71,11 @@ export const Nav = ( {showMenuBars}:navProps ) => {
                         <FaCaretDown className='Nav-icon'/>
                     </div>
                     <ul className="Nav-subnav">
-                        <li className="Nav-subnav-li">Tablas</li>
-                        <li className="Nav-subnav-li">Fijaciones</li>
-                        <li className="Nav-subnav-li">Botas</li>
-                        <li className="Nav-subnav-li">Pieles de foca</li>
-                        <li className="Nav-subnav-li">Bastones</li>
+                        <li className="Nav-subnav-li" onClick={handleClick}>Tablas</li>
+                        <li className="Nav-subnav-li" onClick={handleClick}>Fijaciones</li>
+                        <li className="Nav-subnav-li" onClick={handleClick}>Botas</li>
+                        <li className="Nav-subnav-li" onClick={handleClick}>Pieles de foca</li>
+                        <li className="Nav-subnav-li" onClick={handleClick}>Bastones</li>
                     </ul>
                 </li>
                 <li className="Nav-li">
@@ -78,11 +84,11 @@ export const Nav = ( {showMenuBars}:navProps ) => {
                         <FaCaretDown className='Nav-icon'/>
                     </div>
                     <ul className="Nav-subnav">
-                        <li className="Nav-subnav-li">Escalada</li>
-                        <li className="Nav-subnav-li">Esquí y raquetas</li>
-                        <li className="Nav-subnav-li">Tiendas de campaña</li>
-                        <li className="Nav-subnav-li">Material de farmacia</li>
-                        <li className="Nav-subnav-li">Mochilas y bolsas</li>
+                        <li className="Nav-subnav-li" onClick={handleClick}>Escalada</li>
+                        <li className="Nav-subnav-li" onClick={handleClick}>Esquí y raquetas</li>
+                        <li className="Nav-subnav-li" onClick={handleClick}>Tiendas de campaña</li>
+                        <li className="Nav-subnav-li" onClick={handleClick}>Material de farmacia</li>
+                        <li className="Nav-subnav-li" onClick={handleClick}>Mochilas y bolsas</li>
                     </ul>
                 </li>
             </ul>

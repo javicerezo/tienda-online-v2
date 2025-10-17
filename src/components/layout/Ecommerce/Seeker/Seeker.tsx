@@ -1,26 +1,22 @@
 import Image from 'next/image';
 import { FaSearch } from 'react-icons/fa';
-import { product } from '@/utils/types/product';
 import { Paragraph } from '@/components/ui/Paragraph/Paragraph';
 import { ProductCard } from '../Products/ProductCard';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 import type { seekerProps } from '@/utils/types/seeker';
 import './Seeker.scss';
 
-export const Seeker = ({ showSeeker, onClose, searchProductseeker, addToCart, addToVisited }: seekerProps) => {
+export const Seeker = ({ showSeeker, matchArray, onClose, searchProductseeker, addToCart, addToVisited }: seekerProps) => {
     const seekerContainerRef = useRef<HTMLDivElement>(null);
-    const [ matchArray, setMatchArray ] = useState<product[]>([]);
 
     const onChange = (e: string) => {
-        const array = searchProductseeker(e);
-        setMatchArray(array);
+        searchProductseeker(e);
     }
     
     const handleClick = (e: string) => {
-        const array = searchProductseeker(e);
-        setMatchArray(array);
+        searchProductseeker(e);
     }
 
     useEffect( () => {
@@ -28,6 +24,12 @@ export const Seeker = ({ showSeeker, onClose, searchProductseeker, addToCart, ad
             if(seekerContainerRef.current) seekerContainerRef.current.classList.add("Seeker--show");
         }, 100);
     }, [showSeeker]);
+    
+    console.log(matchArray)
+    useEffect( () => {
+        //AUN ME QUEDA EN ESTE USEEFECT 
+        // setMatchArray(array23232);
+    }, [])
 
     const handleClose = () => {
         if(seekerContainerRef.current) seekerContainerRef.current.classList.remove("Seeker--show");
