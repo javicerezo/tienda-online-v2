@@ -10,10 +10,6 @@ export const useProducts = () => {
     const [ products, setProducts ] = useState<product[]>([]);
     const [ loading, setLoading ] = useState<boolean>(true);
     const [ error, setError ] = useState<unknown>(null);
-    
-    // AÑADIR QUE SE MUESTREN 8 PRODUCTOS ALEATORIOS
-    // useEffect(() => {
-        // }, []);
         
         useEffect( () => {
             const fetchData = async () => {
