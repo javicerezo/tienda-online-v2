@@ -1,25 +1,14 @@
-
 import { ProductCard } from './ProductCard';
 import { Paragraph } from '@/components/ui/Paragraph/Paragraph';
 
-import { useEffect, useState } from 'react';
-import { arrayNumRandom } from '@/utils/functions/arrayNumRandom';
-import { arrayProductList } from '@/utils/functions/arrayProductList';
-
-import { Data_Base } from '@/data/data';
-import type { product, productsProps } from '@/utils/types/product';
+import { useProducts } from '@/utils/hooks/useProducts';
+import type { productsProps } from '@/utils/types/product';
 
 import './Products.scss';
 
 export const Products = ({ addToCart, addToVisited }: productsProps) => {
-    const [ productList, setProductList ] = useState<product[]>([]);
+    const { products, loading } = useProducts();
     
-    useEffect(() => {
-        // la idea es calcular los 8 numeros aleatorios y mostrar solo esos 8 items
-        const arrayNum: number[] = arrayNumRandom(8, Data_Base.length);
-        setProductList(arrayProductList(Data_Base, arrayNum));   
-    }, []);
-
     return (
         <section className="Products" id="Products">
             <div className='Products-contenedorTitulos'>
@@ -27,11 +16,11 @@ export const Products = ({ addToCart, addToVisited }: productsProps) => {
                 <h4 className="Products-h4">Desde 1995, más de 20 años de experiencia en la venta de material técnico de esquí y montaña por internet.</h4>
             </div>
             <ul className="Products-ul">
-                { productList.length === 0
+                { loading === true
                     ? (
                         <Paragraph text='Cargando items ...' styleGreen={false}/>
                     ) : (
-                        productList.map( element => (
+                        products.map( element => (
                             <ProductCard 
                                 key={element.id}
                                 product={element}
