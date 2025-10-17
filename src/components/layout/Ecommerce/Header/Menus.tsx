@@ -4,6 +4,7 @@ import { CartMenu } from "../Cart/CartMenu";
 import { Cart } from "../Cart/Cart";
 import { Paragraph } from "@/components/ui/Paragraph/Paragraph";
 import { FaCaretDown, FaShoppingCart, FaPhone, FaCommentDots, FaEnvelope } from "react-icons/fa";
+import Link from "next/link";
 
 import { roundResult } from "@/utils/functions/roundResult";
 
@@ -24,9 +25,11 @@ export const Menus = ( {cart, eliminateToCart, showCart, setShowCart}: menuProps
                             <div className="Submenus-cuenta-button">
                                 <Button title="log in" enlace="/login"/> 
                             </div>
-                            <p className="Submenus-cuenta-p">
-                                <span className="Submenus-cuenta-span">¿Eres nuevo?</span>Crear una cuenta
-                            </p>
+                            <Link 
+                                className="Submenus-cuenta-p"
+                                href="/login/signup">
+                                    <span className="Submenus-cuenta-span">¿Eres nuevo?</span>Crear una cuenta
+                            </Link>
                         </div>
                         <div className="Submenus-cuenta-secciones">
                             <h4 className="Submenus-cuenta-h4">Mi Cuenta</h4>
