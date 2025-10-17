@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Data_Base } from "@/data/data";
+import { useProducts } from "./useProducts";
 
 import type { product } from "../types/product";
 
 export const useSeeker = () => {
     const [ showSeeker, setShowSeeker ] = useState<boolean>(false);
+    const { products } = useProducts();
 
     const openSeeker = () => {
         setShowSeeker(true);
@@ -22,7 +23,7 @@ export const useSeeker = () => {
     const searchProductseeker = (string: string) => {
         const newArray = new Set<product>();
 
-        Data_Base.forEach( element => {
+        products.forEach( element => {
             const match = (`${element.brand} ${element.name} ${element.type}`).toLowerCase();
             if (match.includes(string.toLowerCase())) {
                 newArray.add(element);
