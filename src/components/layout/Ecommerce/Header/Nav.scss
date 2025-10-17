@@ -68,7 +68,7 @@
     }
     &-subnav {
         display: none;
-        @include m.position (absolute, 1.6875rem, null, null, 0);
+        @include m.position (absolute, 1.3125rem, null, null, 0);
         width: 100%;
         padding: 0.7rem;
         background-color: var(--color-blanco);
