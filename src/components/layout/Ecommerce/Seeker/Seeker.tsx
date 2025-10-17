@@ -24,12 +24,6 @@ export const Seeker = ({ showSeeker, matchArray, onClose, searchProductseeker, a
             if(seekerContainerRef.current) seekerContainerRef.current.classList.add("Seeker--show");
         }, 100);
     }, [showSeeker]);
-    
-    console.log(matchArray)
-    useEffect( () => {
-        //AUN ME QUEDA EN ESTE USEEFECT 
-        // setMatchArray(array23232);
-    }, [])
 
     const handleClose = () => {
         if(seekerContainerRef.current) seekerContainerRef.current.classList.remove("Seeker--show");
