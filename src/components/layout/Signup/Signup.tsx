@@ -1,12 +1,59 @@
+'use client'
+
+import { useState } from "react";
+
 import Link from 'next/link';
+import { Paragraph } from "@/components/ui/Paragraph/Paragraph";
 import { FaArrowLeftLong } from 'react-icons/fa6';
 
 import './Signup.scss';
 
+const sleep = (delay: number) => {
+    return new Promise<void>((resolve) => setTimeout(resolve, delay));
+};
+
 export const Signup = () => {
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const [ status, setStatus ] = useState<"idle" | "sending" | "success" | "error">("idle");
+    const [ feedback, setFeedback ] = useState<string>("");
+    
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log("has pulsado")
+        setStatus("sending");
+        setFeedback("");
+
+        const form = e.currentTarget; // es el formulario completo
+        const formData = new FormData(form) // son los datos de los campos del formulario
+
+
+        // Delay para mostrar spinner para efecto procesando durante 3 segundos
+        await sleep(3000);
+
+        try {
+            const request = await fetch("/.netlify/functions/sendMail", {
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(Object.fromEntries(formData))
+            })
+            
+            const res = await request.json();
+
+            // Si la comunicación está correcta, muestra el estado y el feedback
+            if(res.status === 'success') {
+                setStatus('success');
+                setFeedback(res.value.data.status);
+                form.reset();
+            } else {
+                setStatus('error');
+                setFeedback(res.value.data.message);
+            }
+
+        } catch {
+            // Falla la conexión, falla el servidor, falla la conexión con el backend...etc
+            setStatus('error');
+            setFeedback('Error inesperado. Inténtalo de nuevo.');
+            await sleep(3000);
+            setStatus('idle');
+        }
     }
 
     return (
@@ -21,6 +68,13 @@ export const Signup = () => {
                 <form className="Signup-form" onSubmit={handleSubmit}>
                     <input 
                         className="Signup-input" 
+                        type="name" 
+                        name="name" 
+                        placeholder='Tu nombre'
+                        required
+                    />
+                    <input 
+                        className="Signup-input" 
                         type="email" 
                         name="email" 
                         placeholder='Tu dirección de email'
@@ -33,6 +87,13 @@ export const Signup = () => {
                         placeholder='Contraseña'
                         required
                     />
+                    <input 
+                        className="Signup-input" 
+                        type="password" 
+                        name="password-repeat" 
+                        placeholder='Contraseña'
+                        required
+                    />
                     <div className="Signup-div">
                         <FaArrowLeftLong />
                         <Link 
@@ -40,6 +101,29 @@ export const Signup = () => {
                             href="/login">Volver a login</Link>
                     </div>
                     <button className="Signup-boton" type='submit'>Suscribirme</button>
+
+                    {/* FEEDBACK AL USUARIO */}
+                    <div className="Signup-divResponse">
+                        {/* MOSTRAR SPINNER */}
+                        {status === "sending" &&
+                            <div className="sk-chase">
+                                <div className="sk-chase-dot"></div>
+                                <div className="sk-chase-dot"></div>
+                                <div className="sk-chase-dot"></div>
+                                <div className="sk-chase-dot"></div>
+                                <div className="sk-chase-dot"></div>
+                                <div className="sk-chase-dot"></div>
+                            </div>
+                        }
+
+                        {/* MOSTRAR MENSAJE DE FEEDBACK */}
+                        {(status === 'success' || status === 'error') && (
+                            <Paragraph
+                                text={feedback}
+                                styleGreen={status === 'success'}
+                            />
+                        )}
+                    </div>
                 </form>
             </div>
         </section>
