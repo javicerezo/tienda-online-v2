@@ -24,7 +24,6 @@ export const Signup = () => {
         const form = e.currentTarget; // es el formulario completo
         const formData = new FormData(form) // son los datos de los campos del formulario
 
-
         // Delay para mostrar spinner para efecto procesando durante 3 segundos
         await sleep(3000);
 
@@ -36,15 +35,16 @@ export const Signup = () => {
             })
             
             const res = await request.json();
+            console.log(res)
 
             // Si la comunicación está correcta, muestra el estado y el feedback
             if(res.status === 'success') {
                 setStatus('success');
-                setFeedback(res.value.data.status);
+                setFeedback(res.message);
                 form.reset();
             } else {
                 setStatus('error');
-                setFeedback(res.value.data.message);
+                setFeedback(res.message);
             }
 
         } catch {
@@ -68,7 +68,7 @@ export const Signup = () => {
                 <form className="Signup-form" onSubmit={handleSubmit}>
                     <input 
                         className="Signup-input" 
-                        type="name" 
+                        type="text" 
                         name="name" 
                         placeholder='Tu nombre'
                         required
@@ -91,7 +91,7 @@ export const Signup = () => {
                         className="Signup-input" 
                         type="password" 
                         name="passwordRepeat" 
-                        placeholder='Contraseña'
+                        placeholder='Repite la contraseña'
                         required
                     />
                     <div className="Signup-div">
