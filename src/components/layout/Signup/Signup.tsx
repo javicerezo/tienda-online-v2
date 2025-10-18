@@ -29,7 +29,7 @@ export const Signup = () => {
         await sleep(3000);
 
         try {
-            const request = await fetch("/.netlify/functions/sendMail", {
+            const request = await fetch("/.netlify/functions/validate-signup", {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(Object.fromEntries(formData))
@@ -90,7 +90,7 @@ export const Signup = () => {
                     <input 
                         className="Signup-input" 
                         type="password" 
-                        name="password-repeat" 
+                        name="passwordRepeat" 
                         placeholder='Contraseña'
                         required
                     />
