@@ -1,13 +1,37 @@
+// import {  signInWithEmailAndPassword } from "firebase/auth";
+// import { auth } from "@/lib/firebase/firebase.client";
+
 import Link from 'next/link';
 import { FaArrowRightLong } from 'react-icons/fa6';
 
 import './Login.scss';
 
 export const Login = () => {
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        console.log("has pulsado")
+    const handleSubmit = () => {
+    // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        console.log("has hecho click");
+    //     e.preventDefault();
+
+    //     const form = e.currentTarget;
+    //     const formData = new FormData(e.currentTarget);
+
+    //     const email = formData.get('email')?.toString();
+    //     const password = formData.get('password')?.toString();
+
+    //     if(email && password) {
+    //         signInWithEmailAndPassword(auth, email, password)
+    //             .then((userCredential) => {
+    //                 // Signed in 
+    //                 const user = userCredential.user;
+    //                 // ...
+    //             })
+    //             .catch((error) => {
+    //                 const errorCode = error.code;
+    //                 const errorMessage = error.message;
+    //             });
+    //     }
     }
+
 
     return (
         <section className='Login'>
