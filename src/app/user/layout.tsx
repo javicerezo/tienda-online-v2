@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import '@/components/ui/Container/Container.scss';
+
 import '@/components/ui/Button/Button.scss';
 
 export default function Layout (
@@ -7,11 +9,13 @@ export default function Layout (
 ) {
     return (
         <section> 
-            <Link 
-            className="Button Button--amarillo"
-            href="/">volver</Link>
-
+            <div className="Container">
+                <Link 
+                className="Button Button--amarillo"
+                href="/">volver</Link>
+            </div>
+            
             {children}
         </section>
-    );
+    )
 }
