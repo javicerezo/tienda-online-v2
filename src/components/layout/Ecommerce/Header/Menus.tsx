@@ -23,11 +23,11 @@ export const Menus = ( {cart, eliminateToCart, showCart, setShowCart}: menuProps
                     <div className="Submenus-cuenta Submenus-contenedor">
                         <div className="Submenus-cuenta-secciones">
                             <div className="Submenus-cuenta-button">
-                                <Button title="log in" enlace="/login"/> 
+                                <Button title="log in" enlace="/user/login"/> 
                             </div>
                             <Link 
                                 className="Submenus-cuenta-p"
-                                href="/login/signup">
+                                href="/user/signup">
                                     <span className="Submenus-cuenta-span">¿Eres nuevo?</span>Crear una cuenta
                             </Link>
                         </div>

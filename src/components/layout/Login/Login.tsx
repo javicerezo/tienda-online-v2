@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { FaArrowRightLong } from 'react-icons/fa6';
 
 import './Login.scss';
+import '@/components/ui/Button/Button.scss';
+import '@/components/ui/Spinner/Spinner.scss';
 
 export const Login = () => {
     const handleSubmit = () => {
@@ -60,12 +62,12 @@ export const Login = () => {
                     <div className="Login-div">
                         <Link 
                             className="Login-p"
-                            href="/login/signup">
+                            href="/user/signup">
                                 <span className="Login-span">¿Eres nuevo?</span>Crear una cuenta
                         </Link>
                         <FaArrowRightLong />
                     </div>
-                    <button className="Login-boton" type='submit'>Suscribirme</button>
+                    <button className="Login-boton Button Button--amarillo" type='submit'>Suscribirme</button>
                 </form>
             </div>
         </section>

@@ -1,5 +1,3 @@
-'use client'
-
 import { useState } from "react";
 import { auth } from "@/lib/firebase/firebase.client";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -10,6 +8,8 @@ import { Paragraph } from "@/components/ui/Paragraph/Paragraph";
 import { FaArrowLeftLong } from 'react-icons/fa6';
 
 import './Signup.scss';
+import '@/components/ui/Button/Button.scss';
+import '@/components/ui/Spinner/Spinner.scss';
 
 const sleep = (delay: number) => {
     return new Promise<void>((resolve) => setTimeout(resolve, delay));
@@ -117,9 +117,9 @@ export const Signup = () => {
                         <FaArrowLeftLong />
                         <Link 
                             className="Signup-p"
-                            href="/login">Volver a login</Link>
+                            href="/user/login">Volver a login</Link>
                     </div>
-                    <button className="Signup-boton" type='submit'>Suscribirme</button>
+                    <button className="Signup-boton Button Button--amarillo" type='submit'>Suscribirme</button>
 
                     {/* FEEDBACK AL USUARIO */}
                     <div className="Signup-divResponse">
