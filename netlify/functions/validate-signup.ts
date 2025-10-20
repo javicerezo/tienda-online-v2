@@ -32,7 +32,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
             )
         }
     }
-    console.log("aa");
+    
     // Evitar datos vacío
     if(!event.body) {
         return {
@@ -47,8 +47,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
             }
         }
 
-        const data: signupForm = JSON.parse(event.body);
-        console.log("sssss");
+    const data: signupForm = JSON.parse(event.body);
 
     const name = data.name.toString().trim();
     const email = data.email.toString().trim().toLowerCase();
@@ -72,7 +71,13 @@ export const handler: Handler = async (event: HandlerEvent) => {
         return jsonError("Las contraseñas no coinciden.");
     }
 
-    // meter la nueva creacion de usuario al documento de firebase
+    // EL NUEVO USUARIO DE LA COLECCIÓN USERS LO HACEMOS EN BACKEND PERO EL NUEVO USUARIO EN AUTH SE HACE
+    // EN EL FRONTEND PUES ASÍ RECOMIENDA LA DOCUMENTACIÓN.
+    // const newUser = {
+    //     name,
+    //     email
+    // }
+    // createUser(newUser);
 
     return {
         statusCode: 200,
@@ -80,7 +85,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
         body: JSON.stringify(
             {
                 status: "success",
-                message: "Correo registrado correctamente",
+                message: "Nuevo usuario creado correctamente.",
             }
         )
     }

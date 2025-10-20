@@ -1,6 +1,9 @@
 'use client'
 
 import { useState } from "react";
+import { auth } from "@/lib/firebase/firebase.client";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createNewUser } from "../../../../netlify/functions/createNewUser";
 
 import Link from 'next/link';
 import { Paragraph } from "@/components/ui/Paragraph/Paragraph";
@@ -13,16 +16,18 @@ const sleep = (delay: number) => {
 };
 
 export const Signup = () => {
-    const [ status, setStatus ] = useState<"idle" | "sending" | "success" | "error">("idle");
+    const [ status, setStatus ] = useState<"idle" | "spinner" | "success" | "error">("idle");
     const [ feedback, setFeedback ] = useState<string>("");
     
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setStatus("sending");
+        setStatus("spinner");
         setFeedback("");
 
         const form = e.currentTarget; // es el formulario completo
         const formData = new FormData(form) // son los datos de los campos del formulario
+        const dataObj = Object.fromEntries(formData) // son los datos pasados a objeto
+
 
         // Delay para mostrar spinner para efecto procesando durante 3 segundos
         await sleep(3000);
@@ -31,26 +36,40 @@ export const Signup = () => {
             const request = await fetch("/.netlify/functions/validate-signup", {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(Object.fromEntries(formData))
+                body: JSON.stringify(dataObj)
             })
             
             const res = await request.json();
-            console.log(res)
 
             // Si la comunicación está correcta, muestra el estado y el feedback
             if(res.status === 'success') {
+                // toodo ok, AÑADIMOS USUARIO A AUTH (es donde se maneja email+contraseña en Firebase) desde el front (documentación oficial recomienda usar este método)
+                // NO CONFUNDIR CON AÑADIR USUARIO A LA COLECCIÓN USERS (eso se hace desde el backend para mayor seguridad)
+                await createUserWithEmailAndPassword(auth, dataObj.email.toString(), dataObj.password.toString());
+                createNewUser();
+
+                // Damos feedback al usuario
                 setStatus('success');
                 setFeedback(res.message);
                 form.reset();
+                
+                // Quitamos feedback
+                await sleep(3000);
+                setStatus('idle');
+                
+                
             } else {
                 setStatus('error');
                 setFeedback(res.message);
             }
-
+            
         } catch {
-            // Falla la conexión, falla el servidor, falla la conexión con el backend...etc
+            // Falla el servidor, falla la conexión con el backend...etc
+            // Damos feddback
             setStatus('error');
             setFeedback('Error inesperado. Inténtalo de nuevo.');
+
+            // Quitamos feedback
             await sleep(3000);
             setStatus('idle');
         }
@@ -105,7 +124,7 @@ export const Signup = () => {
                     {/* FEEDBACK AL USUARIO */}
                     <div className="Signup-divResponse">
                         {/* MOSTRAR SPINNER */}
-                        {status === "sending" &&
+                        {status === "spinner" &&
                             <div className="sk-chase">
                                 <div className="sk-chase-dot"></div>
                                 <div className="sk-chase-dot"></div>
