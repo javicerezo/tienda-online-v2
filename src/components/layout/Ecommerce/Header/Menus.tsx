@@ -6,13 +6,38 @@ import { Paragraph } from "@/components/ui/Paragraph/Paragraph";
 import { FaCaretDown, FaShoppingCart, FaPhone, FaCommentDots, FaEnvelope } from "react-icons/fa";
 import Link from "next/link";
 
-import { roundResult } from "@/utils/functions/roundResult";
+import { useEffect, useState } from "react";
 
 import './Menus.scss';
 
 export const Menus = ( {cart, eliminateToCart, showCart, setShowCart}: menuProps ) => {
-    const totalQuantity = cart.reduce( (total, product) => total += product.quantity, 0);
-    const totalPrice = roundResult(cart.reduce( (total, product) => total += product.quantity*product.price, 0));
+    const [ totalPrice, setTotalPrice ] = useState<number | null>(null);
+    const [ totalQuantity, setTotalQuantity ] = useState<number | null>(null);
+
+     useEffect( () => {
+        const calcPrices = async () => {
+        const request = await fetch("/.netlify/functions/cartPrice", {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(cart)
+        })
+    
+        // Respuesta reject
+        if(!request.ok) {
+            setTotalQuantity(0);
+            setTotalPrice(0);
+            return
+        }
+
+        const res = await request.json();
+        
+        setTotalQuantity(res.totalQuantity);
+        setTotalPrice(res.totalPrice);
+        return
+    }
+
+        calcPrices();
+    }, [cart]);
     
     return (
         <div className='Menus'>
