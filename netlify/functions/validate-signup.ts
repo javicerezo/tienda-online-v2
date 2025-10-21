@@ -1,38 +1,14 @@
 import { db } from "../lib/firebase/firebase.admin";
 import admin from 'firebase-admin';
+import { jsonError } from "./auxiliar/jsonError";
+import { isEmail } from "./auxiliar/isEmail";
 
 import type { Handler, HandlerEvent } from "@netlify/functions";
 import type { signupForm } from "../types/types";
 
-// FUNCIONES AUXILIARES PARA VALIDACIÓN
 /**
  * 
- * @param s string
- * @returns boolean devuelve si un sstring es un correo válido o no
- */
-const isEmail = (s: string) => /^\S+@\S+\.\S+$/.test(s);
-
-/**
- * 
- * @param message string
- * @returns devuelve el contenido de la petición con un mensaje para mostrar en el frontend y su estado
- */
-const jsonError = (statusCode: number, status: string, message: string) => {
-    return {
-        statusCode: statusCode,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(
-            {
-                status: status,
-                message
-            }
-        )
-    };
-}
-
-/**
- * 
- * @param event un evento desde el frontend
+ * @param event un evento de form desde el frontend
  * @returns retorna la petición al frontend
  */
 export const handler: Handler = async (event: HandlerEvent) => {

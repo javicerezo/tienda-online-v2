@@ -1,26 +1,14 @@
 import { roundResult } from "@/utils/functions/roundResult";
+import { jsonError } from "./auxiliar/jsonError";
 
 import type { Handler, HandlerEvent } from "@netlify/functions";
 import type { productCart } from "../types/types";
 
 /**
  * 
- * @param message string
- * @returns devuelve el contenido de la petición con un mensaje para mostrar en el frontend y su estado
+ * @param event toma datos desde el front
+ * @returns retorna el estado de la petición al front
  */
-const jsonError = (statusCode: number, status: string, message: string) => {
-    return {
-        statusCode: statusCode,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(
-            {
-                status: status,
-                message
-            }
-        )
-    };
-}
-
 export const handler: Handler = async (event: HandlerEvent)=> {
     // Solo POST
     if(event.httpMethod !== "POST") return jsonError(405, 'error', 'metodo inválido')
@@ -37,7 +25,6 @@ export const handler: Handler = async (event: HandlerEvent)=> {
 
     const totalQuantity = data.reduce( (total: number, product: productCart) => total += product.quantity, 0);
     const totalPrice = roundResult(data.reduce( (total: number, product: productCart) => total += product.quantity*product.price, 0));
-
 
     return {
         statusCode: 200,

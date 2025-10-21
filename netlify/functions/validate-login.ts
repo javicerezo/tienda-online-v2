@@ -1,32 +1,14 @@
+import { jsonError } from "./auxiliar/jsonError";
+import { isEmail } from "./auxiliar/isEmail";
+
 import type { Handler, HandlerEvent } from "@netlify/functions";
 import type { loginForm } from "../types/types";
 
-// FUNCIONES AUXILIARES PARA VALIDACIÓN
 /**
  * 
- * @param s string
- * @returns boolean devuelve si un sstring es un correo válido o no
+ * @param event toma un evento de formulario
+ * @returns retorna la petición al front
  */
-const isEmail = (s: string) => /^\S+@\S+\.\S+$/.test(s);
-
-/**
- * 
- * @param message string
- * @returns devuelve el contenido de la petición con un mensaje para mostrar en el frontend y su estado
- */
-const jsonError = (statusCode: number, status: string, message: string) => {
-    return {
-        statusCode: statusCode,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(
-            {
-                status: status,
-                message
-            }
-        )
-    };
-}
-
 export const handler: Handler = async (event: HandlerEvent)=> {
     // Solo POST
     if(event.httpMethod !== "POST") return jsonError(405, 'error', 'metodo inválido')
