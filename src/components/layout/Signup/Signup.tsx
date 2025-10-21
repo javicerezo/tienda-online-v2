@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { auth } from "@/lib/firebase/firebase.client";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useRouter } from "next/navigation";
 
 import Link from 'next/link';
 import { Paragraph } from "@/components/ui/Paragraph/Paragraph";
@@ -9,7 +10,6 @@ import { FaArrowLeftLong } from 'react-icons/fa6';
 import './Signup.scss';
 import '@/components/ui/Button/Button.scss';
 import '@/components/ui/Spinner/Spinner.scss';
-import { useRouter } from "next/navigation";
 
 const sleep = (delay: number) => {
     return new Promise<void>((resolve) => setTimeout(resolve, delay));
