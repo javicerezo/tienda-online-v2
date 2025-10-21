@@ -1,5 +1,4 @@
-import { roundResult } from "@/utils/functions/roundResult";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { CartElement } from "./CartElement";
@@ -12,15 +11,41 @@ import './Cart.scss';
 export const Cart = ( {cart, eliminateToCart, onClose}: cartProps ) => {
     const refContainerCart = useRef<HTMLDivElement | null>(null);
 
-    const subTotal = roundResult(cart.reduce( (total, product) => total += product.newPrice * product.quantity, 0));
-    let gastosEnvio;
-    if(subTotal == 0) {
-        gastosEnvio = 0;
-    } else {
-        gastosEnvio = 5;
+    const [ subTotalPrice, setSubtotalPrice ] = useState<number | null>(null);
+    const [ sendPrice, setSendPrice ] = useState<number | null>(null);
+    const [ totalPrice, setTotalPrice ] = useState<number | null>(null);
+    const [ savingPrice, setSavingPrice ] = useState<number | null>(null);
+
+
+    // Hacemos la petición de cálculo de precio
+    useEffect( () => {
+        const calcPrices = async () => {
+        const request = await fetch("/.netlify/functions/cartPrice", {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(cart)
+        })
+    
+        // Respuesta reject
+        if(!request.ok) {
+            setSubtotalPrice(0);
+            setSendPrice(0);
+            setTotalPrice(0);
+            setSavingPrice(0);
+            return
+        }
+
+        const res = await request.json();
+        
+        setSubtotalPrice(res.subTotalPrice);
+        setSendPrice(res.sendPrice);
+        setTotalPrice(res.totalPrice);
+        setSavingPrice(res.savingPrice);
+        return
     }
-    const subtotalPedido = subTotal + gastosEnvio;
-    const ahorroTotal = roundResult(cart.reduce( (total, product) => total += (product.price - product.newPrice)*product.quantity, 0));
+
+        calcPrices();
+    }, [cart]);
 
     useEffect( () => {
         const timer = setTimeout( () => {
@@ -90,10 +115,10 @@ export const Cart = ( {cart, eliminateToCart, onClose}: cartProps ) => {
                                 </div>
                             </div>
                             <div className='Cart-detalle'>
-                                <p className='Cart-detalle-p'>Subtotal <span>(IVA incluido):</span> ${subTotal} €</p>
-                                <p className='Cart-detalle-p'>Gastos de envío <span>(IVA incluido):</span> ${gastosEnvio} €</p>                    
-                                <p className='Cart-detalle-p'>Subtotal del pedido: ${subtotalPedido} €</p>
-                                <p className='Cart-detalle-p'>Te has ahorrado <span>(IVA incluido):</span> ${ahorroTotal} €</p>
+                                <p className='Cart-detalle-p'>Subtotal <span>(IVA incluido):</span> ${subTotalPrice} €</p>
+                                <p className='Cart-detalle-p'>Gastos de envío <span>(IVA incluido):</span> ${sendPrice} €</p>                    
+                                <p className='Cart-detalle-p'>Total del pedido: ${totalPrice} €</p>
+                                <p className='Cart-detalle-p'>Te has ahorrado <span>(IVA incluido):</span> ${savingPrice} €</p>
                             </div>
                         </div>
                     </div>

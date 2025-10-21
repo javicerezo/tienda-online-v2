@@ -11,8 +11,8 @@ import { useEffect, useState } from "react";
 import './Menus.scss';
 
 export const Menus = ( {cart, eliminateToCart, showCart, setShowCart}: menuProps ) => {
-    const [ totalPrice, setTotalPrice ] = useState<number | null>(null);
     const [ totalQuantity, setTotalQuantity ] = useState<number | null>(null);
+    const [ subTotalPrice, setSubtotalPrice ] = useState<number | null>(null);
 
      useEffect( () => {
         const calcPrices = async () => {
@@ -25,14 +25,14 @@ export const Menus = ( {cart, eliminateToCart, showCart, setShowCart}: menuProps
         // Respuesta reject
         if(!request.ok) {
             setTotalQuantity(0);
-            setTotalPrice(0);
+            setSubtotalPrice(0);
             return
         }
 
         const res = await request.json();
         
         setTotalQuantity(res.totalQuantity);
-        setTotalPrice(res.totalPrice);
+        setSubtotalPrice(res.subTotalPrice);
         return
     }
 
@@ -133,7 +133,7 @@ export const Menus = ( {cart, eliminateToCart, showCart, setShowCart}: menuProps
                         </ul>
                         {cart.length !== 0 && (
                             <div>
-                                <div className="Submenus-separador">{`total: ${totalPrice}€`}</div>
+                                <div className="Submenus-separador">{`total: ${subTotalPrice}€`}</div>
                                 <div className="Submenus-resultado">
                                     <p className="Submenus-verCesta" onClick={ () => setShowCart(true) }>Ver la cesta</p>
                                     <button className="Button Button--amarillo Submenus-resultado-button">pagar</button>

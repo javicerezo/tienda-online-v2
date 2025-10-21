@@ -24,7 +24,16 @@ export const handler: Handler = async (event: HandlerEvent)=> {
     }
 
     const totalQuantity = data.reduce( (total: number, product: productCart) => total += product.quantity, 0);
-    const totalPrice = roundResult(data.reduce( (total: number, product: productCart) => total += product.quantity*product.price, 0));
+    const subTotalPrice = roundResult(data.reduce( (total: number, product: productCart) => total += product.quantity*product.newPrice, 0));
+
+    let sendPrice;
+    if(subTotalPrice == 0) {
+        sendPrice = 0;
+    } else {
+        sendPrice = 5;
+    }
+    const totalPrice = subTotalPrice + sendPrice;
+    const savingPrice = roundResult(data.reduce( (total: number, product: productCart) => total += (product.price - product.newPrice)*product.quantity, 0));
 
     return {
         statusCode: 200,
@@ -33,7 +42,10 @@ export const handler: Handler = async (event: HandlerEvent)=> {
             {
                 status: "success",
                 totalQuantity: totalQuantity,
-                totalPrice: totalPrice
+                subTotalPrice: subTotalPrice,
+                sendPrice: sendPrice,
+                totalPrice: totalPrice,
+                savingPrice: savingPrice,
             }
         )
     }
