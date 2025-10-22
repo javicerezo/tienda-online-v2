@@ -83,7 +83,7 @@ export const Login = () => {
                 setStatus('idle');
 
                 // Redirigimos usuario a la tienda de compra
-                await sleep(1000);
+                await sleep(500);
                 router.push('/');
             } else {
                 setStatus('error');
