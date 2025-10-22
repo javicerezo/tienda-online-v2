@@ -1,0 +1,84 @@
+@use '@/styles/settings/variables' as v;
+@use '@/styles/settings/mixins' as m;
+
+.Profile {
+    margin: 1rem auto;
+    height: 80%;
+    @include m.tablet {
+        margin: 3rem 0 1rem;
+    }
+    &-container {
+        max-width: 50rem;
+        margin: 0 auto;
+        padding: 0 1rem;
+        @include m.tablet {
+            width: 80%;
+        }
+    }
+    &-h2 {
+        font-size: 1.5em;
+        @include m.desktop{
+            font-size: 2em;
+            }
+    }
+    &-h4 {
+        font-size: 0.85em;
+        padding: 0.5rem 0;
+        @include m.tablet {
+            font-size: 1em;
+            padding: 1rem 0;
+        }
+        @include m.desktop {
+            padding: 1.5rem 0;
+        }
+    }
+    &-form {
+        position: relative;
+        padding: 2rem;
+        border: 1px solid #000;
+        border-radius: 5px;
+        margin-bottom: 2rem
+    }
+    &-divInputs {
+        @include m.flex (row, nowrap, space-between, center);
+        margin-bottom: 1rem;
+
+    }
+    &-label {
+        width: 20%;
+        text-align: center;
+        margin-left: 3rem;
+        padding: 0.1rem 1rem;
+        background-color: #E0E0E0;
+        border-radius: 5px;
+        border: 1px solid #000;
+        transition: all 0.7s ease;
+        &:hover {
+            background: #d5d5d5;
+            scale: calc(1.1);
+        }
+    }
+    &-input {
+        width: 100%;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 0.5rem 1rem;
+        font-size: 1.1em;    
+        &::placeholder {
+            color: #b3b3b3;
+            font-style: italic;
+            opacity: 1; /* por si el navegador aplica transparencia */
+        }
+    }
+    &-divOrders {
+        margin: 1rem;
+        margin-bottom: 3rem;
+    }
+    &-p {
+        margin: 0.5rem;
+    }
+    &-divResponse {
+        @include m.flex(row, nowrap, center, center);
+        margin-top: 2rem;
+    }
+}
