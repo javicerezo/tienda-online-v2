@@ -66,6 +66,7 @@ export const Login = () => {
                 try {
                     await setPersistence(auth, browserLocalPersistence);
                     await signInWithEmailAndPassword(auth, dataObj.email.toString(), dataObj.password.toString());
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 } catch (err: any){
                     setStatus('error');     
                     setFeedback(mapAuthError(err?.code ?? 'auth/unknown')); 
