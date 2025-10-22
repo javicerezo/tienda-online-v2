@@ -7,12 +7,14 @@ import { FaCaretDown, FaShoppingCart, FaPhone, FaCommentDots, FaEnvelope } from 
 import Link from "next/link";
 
 import { useEffect, useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
 
 import './Menus.scss';
 
 export const Menus = ( {cart, eliminateToCart, showCart, setShowCart}: menuProps ) => {
     const [ totalQuantity, setTotalQuantity ] = useState<number | null>(null);
     const [ subTotalPrice, setSubtotalPrice ] = useState<number | null>(null);
+    const { user, loading } = useAuth();
 
      useEffect( () => {
         const calcPrices = async () => {
@@ -39,6 +41,8 @@ export const Menus = ( {cart, eliminateToCart, showCart, setShowCart}: menuProps
         calcPrices();
     }, [cart]);
     
+    if (loading) return null;
+
     return (
         <div className='Menus'>
             <div className="Menus-cuenta">
@@ -46,28 +50,34 @@ export const Menus = ( {cart, eliminateToCart, showCart, setShowCart}: menuProps
                 <FaCaretDown className="Menus-cuenta-iconoFlecha"/>
                 <div className="Menus-submenus ">
                     <div className="Submenus-cuenta Submenus-contenedor">
-                        <div className="Submenus-cuenta-secciones">
-                            <div className="Submenus-cuenta-button">
-                                <Button title="log in" enlace="/user/login"/> 
+                        {!user ? (
+                            <div className="Submenus-cuenta-secciones">
+                                <div className="Submenus-cuenta-button">
+                                    <Button title="log in" enlace="/user/login"/> 
+                                </div>
+                                <Link 
+                                    className="Submenus-cuenta-p"
+                                    href="/user/signup">
+                                    <span className="Submenus-cuenta-span">¿Eres nuevo?</span>Crear una cuenta
+                                </Link>
                             </div>
-                            <Link 
-                                className="Submenus-cuenta-p"
-                                href="/user/signup">
-                                <span className="Submenus-cuenta-span">¿Eres nuevo?</span>Crear una cuenta
-                            </Link>
-                        </div>
-                        <div className="Submenus-cuenta-secciones">
-                            <Link 
-                                className="Submenus-cuenta-h4"
-                                href="/user/profile">
-                                <h4>Mi Cuenta</h4>
-                            </Link>
-                            <p className="Submenus-cuenta-p">- Datos personales</p>
-                            <p className="Submenus-cuenta-p">- Intereses</p>
-                            <p className="Submenus-cuenta-p">- Comunidad</p>
-                            <p className="Submenus-cuenta-p">- Estado de mis pedidos</p>
-                            <p className="Submenus-cuenta-p">- Devolver productos</p>
-                        </div>
+                        ) : (
+                            <div className="Submenus-cuenta-secciones">
+                                <Link 
+                                    className="Submenus-cuenta-h4"
+                                    href="/user/profile">
+                                    <h4>Mi Cuenta</h4>
+                                </Link>
+                                <Link 
+                                    href="/user/profile">
+                                    <p className="Submenus-cuenta-p">- Datos personales</p>
+                                    <p className="Submenus-cuenta-p">- Intereses</p>
+                                    <p className="Submenus-cuenta-p">- Comunidad</p>
+                                    <p className="Submenus-cuenta-p">- Estado de mis pedidos</p>
+                                    <p className="Submenus-cuenta-p">- Devolver productos</p>
+                                </Link>                                
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
