@@ -79,7 +79,7 @@ export const Signup = () => {
 
     return (
         <section className='Signup'>
-            <div className='Signup-contenedor'>
+            <div className='Signup-container'>
                 <h2 className="Signup-h2">
                     Signup
                 </h2>

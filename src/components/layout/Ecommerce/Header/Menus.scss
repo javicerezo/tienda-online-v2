@@ -136,11 +136,12 @@
         &-h4 {
             font-weight: bold;
             padding: 0.3rem 0 0.8rem 0;
+            &:hover {
+                cursor: pointer;
+                color: lightblue;
+
+            }
         }
-        &-p:hover {
-            cursor: pointer;
-            color: lightblue;
-        } 
         &-span {
             font-size: 1.2em;
             font-weight: bold;

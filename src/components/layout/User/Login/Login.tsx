@@ -76,7 +76,7 @@ export const Login = () => {
 
     return (
         <section className='Login'>
-            <div className='Login-contenedor'>
+            <div className='Login-container'>
                 <h2 className="Login-h2">
                     Login
                 </h2>
