@@ -7,13 +7,19 @@ import Image from 'next/image';
 
 import type { product, productCardProps } from '@/utils/types/product';
 import './ProductCard.scss';
+import { useAuth } from '@/contexts/AuthContext';
 
 export const ProductCard = ({ product, addToCart, addToVisited }: productCardProps) => {
     const { brand, name, image, price, desc, id } = product;
-    const newPrice: number = roundResult(price * ((100-desc)/100));
+    const { user, loading } = useAuth();
+
+    // Aplicamos descuento si user está autenticado
+    const effectiveDesc = user ? desc: 0;
+    const newPrice: number = roundResult(price * ((100-effectiveDesc)/100));
     
     const [ modal, setModal ] = useState<product | null>(null);
     const [ showMessage, setShowMessage ] = useState<boolean>(false);
+
 
     // MOTRAMOS EL MENSAJE Y AÑADIMOS AL CARRITO
     const handleBuyProduct = (product: product) => {
@@ -31,10 +37,12 @@ export const ProductCard = ({ product, addToCart, addToVisited }: productCardPro
         addToVisited(product)
     }
 
+    if(loading) return null;
+
     return (
         <li className="ProductCard">
-            <div className={`ProductCard-descuento ${desc == 0 ? "ProductCard-descuento--none" : ""} `}>
-                <p>{desc}%</p>
+            <div className={`ProductCard-descuento ${effectiveDesc == 0 ? "ProductCard-descuento--none" : ""} `}>
+                <p>{effectiveDesc}%</p>
             </div>
             <div className='ProductCard-img' onClick={ () => handleClickProduct(product) }>
                 <Image 
@@ -50,7 +58,7 @@ export const ProductCard = ({ product, addToCart, addToVisited }: productCardPro
                     <p className='ProductCard-titulo'>{name}</p>
                 </div>
                 <div className ='ProductCard-contenido--mod'>
-                    { desc === 0 
+                    { effectiveDesc === 0 
                         ? (
                             <p className='ProductCard-precio'>{price}€</p>                        
                         ) : (

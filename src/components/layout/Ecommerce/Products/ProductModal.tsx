@@ -2,6 +2,7 @@ import { createPortal } from "react-dom";   // Para el modal se monte encima del
 
 import { roundResult } from "@/utils/functions/roundResult";
 import { useEffect, useRef, useState } from 'react';
+import { useAuth } from "@/contexts/AuthContext";
 
 import { Paragraph } from "@/components/ui/Paragraph/Paragraph";
 import Image from 'next/image';
@@ -12,8 +13,11 @@ import './ProductModal.scss';
 export const ProductModal = ( {product, onClose, addToCart }: productModalProps)  => {
     const  refContainerModal = useRef<HTMLDivElement | null>(null);
     const [ showMessage, setShowMessage ] = useState<boolean>(false);
+    const { user, loading } = useAuth();
 
-    const newPrice: number = roundResult(product.price * ((100-product.desc)/100));
+    // Aplicamos descuento si user está autenticado
+    const effectiveDesc = user ? product.desc: 0;
+    const newPrice: number = roundResult(product.price * ((100-effectiveDesc)/100));
 
     // MOTRAMOS EL MENSAJE Y AÑADIMOS AL CARRITO
     const handleBuyProduct = (product: product) => {
@@ -42,12 +46,14 @@ export const ProductModal = ( {product, onClose, addToCart }: productModalProps)
         }, 300);
     }
 
+    if(loading) return null;
+
     return createPortal (
         <section className="ProductModal" ref={refContainerModal}>
             <div className="ProductModal-screen">
                 <div className='ProductModal-li'>
-                    <div className={`ProductModal-descuento ${product.desc === 0 ? "ProductModal-descuento--none" : ""} `}>
-                        <p>{product.desc}%</p>
+                    <div className={`ProductModal-descuento ${effectiveDesc === 0 ? "ProductModal-descuento--none" : ""} `}>
+                        <p>{effectiveDesc}%</p>
                     </div>
                     <div className='ProductModal-img'>
                         <Image 
@@ -63,7 +69,7 @@ export const ProductModal = ( {product, onClose, addToCart }: productModalProps)
                             <p className='ProductModal-titulo'>{product.name}</p>
                         </div>
 
-                        { product.desc === 0 
+                        { effectiveDesc === 0 
                             ? (
                                 <p className='ProductModal-precio'>{product.price}€</p>                        
                             ) : (
