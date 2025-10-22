@@ -2,6 +2,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/lib/firebase/firebase.client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { setPersistence, browserLocalPersistence } from "firebase/auth";
 
 import Link from 'next/link';
 import { Paragraph } from "@/components/ui/Paragraph/Paragraph";
@@ -13,6 +14,24 @@ import '@/components/ui/Spinner/Spinner.scss';
 
 const sleep = (delay: number) => {
     return new Promise<void>((resolve) => setTimeout(resolve, delay));
+};
+
+// manejar los errores de login de firebase
+const mapAuthError = (code: string) => {                          
+    switch (code) {
+        case "auth/invalid-credential":
+        case "auth/wrong-password":
+        case "auth/user-not-found":
+            return "Email o contraseña incorrectos.";
+        case "auth/invalid-email":
+            return "El email no es válido.";
+        case "auth/too-many-requests":
+            return "Demasiados intentos. Prueba más tarde.";
+        case "auth/network-request-failed":
+            return "Fallo de red. Revisa tu conexión.";
+        default:
+            return "No se pudo iniciar sesión. Inténtalo de nuevo.";
+    }
 };
 
 export const Login = () => {
@@ -43,7 +62,15 @@ export const Login = () => {
 
             // Si la comunicación está correcta, muestra el estado y el feedback
             if(res.status === 'success') {
-                await signInWithEmailAndPassword(auth, dataObj.email.toString(), dataObj.password.toString());
+                // HACEMOS LOGIN EN FIREBASE Y GUARDAMOS LA SESIÓN EN LOCALSTORAGE PARA SU PERSISTENCIA
+                try {
+                    await setPersistence(auth, browserLocalPersistence);
+                    await signInWithEmailAndPassword(auth, dataObj.email.toString(), dataObj.password.toString());
+                } catch (err: any){
+                    setStatus('error');     
+                    setFeedback(mapAuthError(err?.code ?? 'auth/unknown')); 
+                    return;
+                }
 
                 // Damos feedback al usuario
                 setStatus('success');

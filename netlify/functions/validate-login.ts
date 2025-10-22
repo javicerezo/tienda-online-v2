@@ -17,10 +17,14 @@ export const handler: Handler = async (event: HandlerEvent)=> {
     if(!event.body) return jsonError(400, 'error', 'no hay datos en el formulario');
 
     const data: loginForm = JSON.parse(event.body);
+    
     const email = data.email.toString().trim().toLowerCase();
-    const name = data.password.toString().trim().toLowerCase();
-    if(!name) return jsonError(400, 'error', "El nombre es obligatorio.");
     if(!email || !isEmail(email))  return jsonError(400, 'error', "El email no es válido.");
+
+    const password = data.password.toString().trim();
+    if(!password) return jsonError(400, 'error', "El nombre es obligatorio.");
+
+    console.log(data)
 
     return {
         statusCode: 200,
