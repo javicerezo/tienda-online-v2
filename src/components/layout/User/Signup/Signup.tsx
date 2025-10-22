@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { auth } from "@/lib/firebase/firebase.client";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
 
 import Link from 'next/link';
@@ -44,9 +44,8 @@ export const Signup = () => {
 
             // Si la comunicación está correcta, muestra el estado y el feedback
             if(res.status === 'success') {
-                // toodo ok, AÑADIMOS USUARIO A AUTH (es donde se maneja email+contraseña en Firebase) desde el front (documentación oficial recomienda usar este método)
-                // NO CONFUNDIR CON AÑADIR USUARIO A LA COLECCIÓN USERS (eso se hace desde el backend para mayor seguridad)
-                await createUserWithEmailAndPassword(auth, dataObj.email.toString(), dataObj.password.toString());
+                // Hacemos login de usuario directamente.
+                await signInWithEmailAndPassword(auth, dataObj.email.toString(), dataObj.password.toString());
 
                 // Damos feedback al usuario
                 setStatus('success');
@@ -58,7 +57,7 @@ export const Signup = () => {
                 setStatus('idle');
 
                 // Redirigimos usuario a la tienda de compra
-                await sleep(1000);
+                await sleep(500);
                 router.push('/');
             } else {
                 setStatus('error');
