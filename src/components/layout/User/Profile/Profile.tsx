@@ -1,71 +1,79 @@
 import { useState, useEffect, useRef } from 'react';
-import { getAuth } from 'firebase/auth';
-import { db } from '@/lib/firebase/firebase.client';
+import { doc, getDoc, updateDoc, serverTimestamp } from "firebase/firestore";
+import { auth, db } from '@/lib/firebase/firebase.client';
+import { signOut } from 'firebase/auth';
+import { useRouter } from "next/navigation";
 
 import { Paragraph } from '@/components/ui/Paragraph/Paragraph';
 
 import './Profile.scss';
 import '@/components/ui/Button/Button.scss';
 import '@/components/ui/Spinner/Spinner.scss';
-import { collection } from 'firebase/firestore';
 
 const sleep = (delay: number) => {
     return new Promise<void>((resolve) => setTimeout(resolve, delay));
 };
 
 export const Profile = () => {
-    // const { user, logout } = useAuth();
-    // const [ form, setForm ] = useState({ name: '', email: '', role: '' });
-    const [ defaultValueName, setDefaultValueName ] = useState<string>('');
     const [ nameUser, setNameUser ] = useState<string>(''); 
     const [ emailUser, setEmailUser ] = useState<string>(''); 
     const [ status, setStatus ] = useState<"idle" | "spinner" | "success" | "error">("idle");
     const [ feedback, setFeedback ] = useState<string>("");
-    
+    const router = useRouter();
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect( () => {
-        // aquí hago la lectura de la base de datos
-
         const readDataFirebase = async () => {
-            console.log("de momento no hago nada")
-            // try {
-            //     const auth = getAuth();
-            //     const user = auth.currentUser;
-
-            //     if(!user) {
-            //         console.warn('no hay usuario autenticado todavía');
-            //         return
-            //     }
-
-            //     // hago la lectura del user
-            // }
-
+            try {
+                const user = auth.currentUser;
+                if(!user) {
+                    console.log("No hay usuario autenticado");
+                    return
+                }
+                const ref = doc(db, "users", user.uid);
+                const snap = await getDoc(ref);
+                
+                if(snap.exists()) {
+                    const data = snap.data() as { name?: string; email?: string };
+                    setNameUser(data.name ?? "");
+                    setEmailUser(data.email ?? "");
+                } else {
+                    setStatus("error");
+                    setFeedback("El usuario no existe");
+                }
+            } catch {
+                setStatus("error");
+                setFeedback("No se pudo cargar tu perfil.");
+            }
         }
 
         readDataFirebase();
     }, []);
     
-    
 
-    const logout = () => {
-
+    const logout = async () => {
+        await signOut(auth);
+        // Redirigimos usuario a la tienda de compra
+        await sleep(500);
+        router.push('/');
     }
 
     const handleClick = async () => {
         setStatus("spinner");
         setFeedback("");
 
-        let newName;
-        if(inputRef.current) {
-            newName = inputRef.current.value;
+        const newName = (inputRef.current?.value ?? "").trim();
+        if(!newName) {
+            setStatus('error');
+            setFeedback('El nombre no puede estar vacío');
+            return; 
         }
         
         // Delay para mostrar spinner para efecto procesando durante 3 segundos
         await sleep(3000);
 
         try {
-            const request = await fetch("/.netlify/functions/validate-name", {
+            const request = await fetch("/.netlify/functions/validate-profile", {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(newName)
@@ -74,11 +82,22 @@ export const Profile = () => {
             const res = await request.json();
         
             if(res.status === 'success') {
-                setStatus('success');
-                setFeedback(res.message);
+                const user = auth.currentUser;
+                if(!user) {
+                    setStatus('error');
+                    setFeedback('No hay usuario autenticado');
+                    return
+                }
+
+                await updateDoc(doc(db, "users", user.uid), {
+                    name: res.name,
+                    updatedAt: serverTimestamp(),
+                });
 
                 setNameUser(res.name);
-                setDefaultValueName(''); // NO FUNCIONA BIEN
+                if(inputRef.current) inputRef.current.value = "";
+                setStatus('success');
+                setFeedback(res.message);
                 
                 await sleep(3000);
                 setStatus('idle');
@@ -108,7 +127,6 @@ export const Profile = () => {
                             className="Profile-input" 
                             type="text" 
                             name="name"
-                            defaultValue={defaultValueName}
                             placeholder={nameUser}
                             ref={inputRef}
                         />

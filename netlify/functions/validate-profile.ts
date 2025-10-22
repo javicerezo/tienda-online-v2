@@ -19,7 +19,7 @@ export const handler: Handler = async (event: HandlerEvent)=> {
     const name = data.toString().trim().toLowerCase();
     if(!name) return jsonError(400, 'error', "El nombre es obligatorio.");
 
-    // cambiaos de nombre
+    // cambiamos de nombre en firebase
     
     return {
         statusCode: 200,
