@@ -20,7 +20,7 @@ export const Cart = ( {cart, eliminateToCart, onClose}: cartProps ) => {
     // Hacemos la petición de cálculo de precio
     useEffect( () => {
         const calcPrices = async () => {
-        const request = await fetch("/.netlify/functions/cartPrice", {
+        const request = await fetch("/.netlify/functions/calcFinalPrice", {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(cart)

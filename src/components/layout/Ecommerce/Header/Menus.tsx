@@ -8,6 +8,7 @@ import Link from "next/link";
 
 import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
+import { auth } from "@/lib/firebase/firebase.client";
 
 import './Menus.scss';
 
@@ -16,29 +17,33 @@ export const Menus = ( {cart, eliminateToCart, showCart, setShowCart}: menuProps
     const [ subTotalPrice, setSubtotalPrice ] = useState<number | null>(null);
     const { user, loading } = useAuth();
 
-     useEffect( () => {
-        const calcPrices = async () => {
-        const request = await fetch("/.netlify/functions/cartPrice", {
-            method: 'POST',
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(cart)
-        })
-    
-        // Respuesta reject
-        if(!request.ok) {
-            setTotalQuantity(0);
-            setSubtotalPrice(0);
+    useEffect( () => {
+        const calcFinalPrices = async () => {
+            const token = await auth.currentUser?.getIdToken();
+            const request = await fetch("/.netlify/functions/calcFinalPrice", {
+                method: 'POST',
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },    
+                body: JSON.stringify(cart)
+            })
+        
+            // Respuesta reject
+            if(!request.ok) {
+                setTotalQuantity(0);
+                setSubtotalPrice(0);
+                return
+            }
+
+            const res = await request.json();
+            
+            setTotalQuantity(res.totalQuantity);
+            setSubtotalPrice(res.subTotalPrice);
             return
         }
 
-        const res = await request.json();
-        
-        setTotalQuantity(res.totalQuantity);
-        setSubtotalPrice(res.subTotalPrice);
-        return
-    }
-
-        calcPrices();
+        calcFinalPrices();
     }, [cart]);
     
     if (loading) return null;

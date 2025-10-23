@@ -3,12 +3,20 @@ import Image from "next/image";
 import { FaTrash } from "react-icons/fa";
 
 import { roundResult } from "@/utils/functions/roundResult";
+import { useAuth } from "@/contexts/AuthContext";
 
 export const CartElement = ( { product, eliminateToCart}: cartElementProps ) => {
     const { brand, name, image, price, desc, id, quantity, newPrice } = product;
+    const { user, loading } = useAuth();
 
-    const saveMoney = roundResult(price*((desc)/100));
-    const totalPrice = roundResult(newPrice*quantity);
+    // Aplicamos descuento si user está autenticado
+    const effectiveDesc = user ? desc: 0;
+    const saveMoney = roundResult(price*((effectiveDesc)/100));
+
+    const effectivePrice = user ? newPrice : price;
+    const totalPrice = roundResult(effectivePrice*quantity);
+
+    if(loading) return null;
 
     return (
         <>
@@ -36,9 +44,9 @@ export const CartElement = ( { product, eliminateToCart}: cartElementProps ) => 
                 <td className='Cart-td'>
                     <div className='Cart-tbody-precios'>
                         <p className='Cart-tbody-precio'>{price} €</p>                            
-                        <p className='Cart-tbody-precio'>Descuento: {desc} %</p>
+                        <p className='Cart-tbody-precio'>Descuento: {effectiveDesc} %</p>
                         <p className='Cart-tbody-precio'>Ahorras: {saveMoney} €</p>
-                        <p className='Cart-tbody-precio'>Precio final: {newPrice} €</p>
+                        <p className='Cart-tbody-precio'>Precio final: {effectivePrice} €</p>
                     </div>
                 </td>
                 <td className='Cart-td'>21 %</td>
