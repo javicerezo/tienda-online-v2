@@ -1,5 +1,7 @@
-import { useRef, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+
+import { useRef, useEffect, useState } from "react";
+import { auth } from "@/lib/firebase/firebase.client";
 
 import { CartElement } from "./CartElement";
 import { FaShoppingCart } from "react-icons/fa";
@@ -16,13 +18,17 @@ export const Cart = ( {cart, eliminateToCart, onClose}: cartProps ) => {
     const [ totalPrice, setTotalPrice ] = useState<number | null>(null);
     const [ savingPrice, setSavingPrice ] = useState<number | null>(null);
 
-
     // Hacemos la petición de cálculo de precio
     useEffect( () => {
         const calcPrices = async () => {
+        const token = await auth.currentUser?.getIdToken();
         const request = await fetch("/.netlify/functions/calcFinalPrice", {
             method: 'POST',
-            headers: { "Content-Type": "application/json" },
+            headers: 
+                { 
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
             body: JSON.stringify(cart)
         })
     
@@ -63,7 +69,6 @@ export const Cart = ( {cart, eliminateToCart, onClose}: cartProps ) => {
             onClose();
         }, 300);
     }
-
     return (
         createPortal(
             <section className="Cart" ref={refContainerCart}>

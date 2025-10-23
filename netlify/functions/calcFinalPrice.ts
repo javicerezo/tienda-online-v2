@@ -51,10 +51,12 @@ export const handler: Handler = async (event: HandlerEvent)=> {
             newPrice: finalPrice
         };
     });
-
+    
+    console.log("CARRITO", newData)
     // Recalculamos todos los precios para enviar a la cesta de compra
     const totalQuantity = newData.reduce( (total: number, product: productCart) => total += product.quantity, 0);
     const subTotalPrice = roundResult(newData.reduce( (total: number, product: productCart) => total += product.quantity*product.newPrice, 0));
+    console.log("subtotal", subTotalPrice)
     const sendPrice = subTotalPrice === 0 ? 0 : 5;
     const totalPrice = subTotalPrice + sendPrice;
     const savingPrice = roundResult(newData.reduce( (total: number, product: productCart) => total += (product.price - product.newPrice)*product.quantity, 0));
