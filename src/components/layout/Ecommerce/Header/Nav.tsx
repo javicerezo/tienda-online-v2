@@ -1,4 +1,4 @@
-import { FaCaretDown } from "react-icons/fa";
+import { FaCaretDown, FaSearch } from "react-icons/fa";
 
 import type { navProps } from '@/utils/types/header';
 import './Nav.scss';
@@ -11,6 +11,10 @@ export const Nav = ( {showMenuBars, openSeeker, searchProductseeker}:navProps ) 
 
     return (
         <nav className={`Nav ${showMenuBars ? "Nav--show" : ""}`}>
+            <div className="Nav-seeker" onClick={openSeeker}>
+                <input className="Nav-seekerInput" id="buscador" type="text" placeholder="Buscar..."/>
+                <FaSearch />
+            </div>
             <ul className="Nav-ul">
                 <li className="Nav-li">
                     <div className="Nav-encabezado">

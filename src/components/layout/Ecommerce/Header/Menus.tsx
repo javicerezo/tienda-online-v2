@@ -67,21 +67,32 @@ export const Menus = ( {cart, eliminateToCart, showCart, setShowCart}: menuProps
                                 </Link>
                             </div>
                         ) : (
-                            <div className="Submenus-cuenta-secciones">
-                                <Link 
-                                    className="Submenus-cuenta-h4"
-                                    href="/user/profile">
-                                    <h4>Mi Cuenta</h4>
-                                </Link>
-                                <Link 
-                                    href="/user/profile">
-                                    <p className="Submenus-cuenta-p">- Datos personales</p>
-                                    <p className="Submenus-cuenta-p">- Intereses</p>
-                                    <p className="Submenus-cuenta-p">- Comunidad</p>
-                                    <p className="Submenus-cuenta-p">- Estado de mis pedidos</p>
-                                    <p className="Submenus-cuenta-p">- Devolver productos</p>
-                                </Link>                                
-                            </div>
+                            <>
+                                <div className="Submenus-cuenta-secciones">
+                                    <div className="Submenus-cuenta-div" >
+                                        <h4>{ `Hola, ${user.displayName}` }</h4>   
+                                        <Link 
+                                            href="/user/profile">
+                                            <h4 className="Submenus-cuenta-user">{ `${user.displayName?.charAt(0).toUpperCase()}` }</h4>
+                                        </Link>                 
+                                    </div>
+                                </div>
+                                <div className="Submenus-cuenta-secciones">
+                                    <Link 
+                                        className="Submenus-cuenta-h4"
+                                        href="/user/profile">
+                                        <h4>Mi Perfil</h4>
+                                    </Link>
+                                    <Link 
+                                        href="/user/profile">
+                                        <p className="Submenus-cuenta-p">- Datos personales</p>
+                                        <p className="Submenus-cuenta-p">- Intereses</p>
+                                        <p className="Submenus-cuenta-p">- Comunidad</p>
+                                        <p className="Submenus-cuenta-p">- Estado de mis pedidos</p>
+                                        <p className="Submenus-cuenta-p">- Devolver productos</p>
+                                    </Link>                                
+                                </div>
+                            </>
                         )}
                     </div>
                 </div>

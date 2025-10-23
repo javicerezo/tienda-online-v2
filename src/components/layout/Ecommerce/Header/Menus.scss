@@ -44,7 +44,7 @@
             }
         }
     }
-    &-cuenta, &-ayuda {
+    &-ayuda {
         display: none;
         @include m.tablet {
              @include m.flex (row, nowrap, center, center);
@@ -128,6 +128,22 @@
         }
         &-secciones:last-child {
             border-bottom: none;
+        }
+        &-div {
+            width: 100%;
+            @include m.flex(row, nowrap, space-around, center);
+        }
+        &-user {
+            font-weight: bold;
+            width: 32px;
+            height: 32px;
+            border: 2px solid #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f5c518;
+            color: #000;
         }
         &-button {
             margin-bottom: 0.5rem;

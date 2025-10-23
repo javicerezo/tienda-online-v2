@@ -19,7 +19,7 @@ export default function Home() {
   const { showSeeker, matchArray, openSeeker, closeSeeker, searchProductseeker } = useSeeker();
 
   const [ showCart, setShowCart ] = useState<boolean>(false);
-
+  
   return (
     <>
       <Header 

@@ -29,6 +29,24 @@
         visibility: visible;
         height: auto;
     }
+    
+    &-seeker {
+        @include m.flex (row, nowrap, space-around, center);
+        padding: 0.2rem;
+        border-radius: 10px;
+        background-color: var(--color-fondo-iconos);
+        color: var(--color-negro);
+        @include m.telefono-l {
+            display: none;
+        }
+    }
+    &-seekerInput {
+        cursor: pointer;
+        border: none;
+        @include m.telefono-l{
+            display: none;
+        }
+    }
     &-ul {
         @include m.desktop {
             @include m.flex (row, nowrap, space-around, center);
