@@ -2,10 +2,8 @@ import admin from "firebase-admin";
 
 function normalizePrivateKey(raw?: string) {
     if (!raw) return '';
-    // 1) Quita comillas envolventes si las hubiera
-    const unquoted = raw.replace(/^"|"$/g, '');
-    // 2) Convierte \n literales en saltos de línea reales
-    return unquoted.replace(/\\n/g, '\n');
+    const unquoted = raw.replace(/^"|"$/g, ''); // Quita comillas envolventes si las hubiera
+    return unquoted.replace(/\\n/g, '\n');      // Convierte \n literales en saltos de línea reales
 }
 
 if (!admin.apps.length) {
@@ -27,4 +25,5 @@ if (!admin.apps.length) {
     });
 }
 
+export const adminAuth = admin.auth();
 export const db = admin.firestore();
