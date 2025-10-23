@@ -28,15 +28,17 @@ export const Menus = ( {cart, eliminateToCart, showCart, setShowCart}: menuProps
                 },    
                 body: JSON.stringify(cart)
             })
-        
+            
+            const res = await request.json();
+
             // Respuesta reject
-            if(!request.ok) {
+            if(!request.ok || !res.items) {
                 setTotalQuantity(0);
                 setSubtotalPrice(0);
+                console.error("Error calculando carrito:", res.message);
+
                 return
             }
-
-            const res = await request.json();
             
             setTotalQuantity(res.totalQuantity);
             setSubtotalPrice(res.subTotalPrice);
@@ -45,6 +47,51 @@ export const Menus = ( {cart, eliminateToCart, showCart, setShowCart}: menuProps
 
         calcFinalPrices();
     }, [cart]);
+
+    const handleClick = async () => {
+        const token = await auth.currentUser?.getIdToken();
+
+        // Petición para calcular precios en el backend
+        const request1 = await fetch("/.netlify/functions/calcFinalPrice", {
+            method: "POST",
+            headers: { 
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(cart)
+        })
+        
+        const res1 = await request1.json();
+        // respuesta reject
+        if(!request1.ok || !res1.items) {   
+            console.error("Error calculando carrito:", res1.message);
+            return
+        }
+
+        // petición crear la sesión de pago en Stripe con los precios calculados anteriormente en la petición anterior.
+        const request = await fetch("/.netlify/functions/create-checkout-session", {
+            method: "POST",
+            headers: { 
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(res1.items)
+        })
+        
+        const res = await request.json();
+        // respuesta reject
+        if(!request.ok) {   
+            console.error("Error no ok:", res.message);
+            return
+        }
+        
+        if (res.url) {
+            window.location.href = res.url;
+        } else {
+            console.error("Error al crear sesión de Stripe:", res);
+        }
+        
+    }
     
     if (loading) return null;
 
@@ -163,7 +210,7 @@ export const Menus = ( {cart, eliminateToCart, showCart, setShowCart}: menuProps
                                 <div className="Submenus-separador">{`total: ${subTotalPrice}€`}</div>
                                 <div className="Submenus-resultado">
                                     <p className="Submenus-verCesta" onClick={ () => setShowCart(true) }>Ver la cesta</p>
-                                    <button className="Button Button--amarillo Submenus-resultado-button">pagar</button>
+                                    <button className="Button Button--amarillo Submenus-resultado-button" onClick={handleClick}>tramitar</button>
                                 </div>
                             </div>
                         )}
