@@ -11,6 +11,8 @@
     }
     &-screen {
         z-index: 79;
+        
+        overflow-y: scroll;
         @include m.position(fixed, (2.8rem + 2.4006rem), 0, 0, 0);
         width: 100%;
         background-color: var(--color-blanco);
@@ -22,6 +24,7 @@
         }
     }
     &-contenedor {
+        height: auto;
         padding: 0.5rem;
         @include m.tablet {
             padding: 3rem 2rem 1rem;

@@ -32,7 +32,7 @@ export const CartMenu = ( {product, eliminateToCart}: cartMenuProps ) => {
                         <p><span className="CartMenu-span">{price} €</span></p>
                     )}
                 </div>
-                <p>Cantidad:{quantity} <a href="#"  className="CartMenu-eliminar" onClick={() => eliminateToCart(id) }>Eliminar</a></p>
+                <p>{`Cantidad: ${quantity}`} <a href="#"  className="CartMenu-eliminar" onClick={() => eliminateToCart(id) }>Eliminar</a></p>
             </div>
         </li>
     )
