@@ -1,3 +1,9 @@
+# Tienda online
+![Imagen del proyecto](https://raw.githubusercontent.com/javicerezo/tienda-online-v2/master/public/assets/imgs/preview.png)
+
+## Ejemplo en vivo
+- [Haz click para ver el proyecto](https://montanaonline.netlify.app/) 🚀
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
