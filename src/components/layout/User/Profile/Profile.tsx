@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { doc, getDoc, updateDoc, serverTimestamp, collection, getDocs } from "firebase/firestore";
+import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 import { auth, db } from '@/lib/firebase/firebase.client';
 import { signOut } from 'firebase/auth';
 import { useRouter } from "next/navigation";
@@ -61,11 +61,9 @@ export const Profile = () => {
 
                 if(snap2.empty) {
                     setOrders([]);
-                    console.log("NOOOOOOOOOOOOOOOOOOOOOOO TIENES PEDIDOS")
                 } else {
                     const result: orderWithId[] = snap2.docs.map( order => ({ id: order.id, ...order.data() as orderDoc}));
                     setOrders(result);
-                    console.log("TIENES PEDIDOS")
                 }
                 
             } catch {
@@ -97,47 +95,47 @@ export const Profile = () => {
         }
         
         // Delay para mostrar spinner para efecto procesando durante 3 segundos
-        await sleep(1200);
+        await sleep(800);
+
+        const user = auth.currentUser;
+        if(!user) {
+            setStatus('error');
+            setFeedback('No hay usuario autenticado');
+            return
+        }
 
         try {
+            const token = await user.getIdToken(true);
             const request = await fetch("/.netlify/functions/validate-profile", {
                 method: 'POST',
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(newName)
+                headers: { "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                        },
+                body: JSON.stringify( newName )
             })
             
             const res = await request.json();
         
-            const user = auth.currentUser;
-            if(res.status === 'success') {
-                if(!user) {
-                    setStatus('error');
-                    setFeedback('No hay usuario autenticado');
-                    return
-                }
-
-                await updateDoc(doc(db, "users", user.uid), {
-                    name: res.name,
-                    updatedAt: serverTimestamp(),
-                });
-
-                setNameUser(res.name);
-                if(inputRef.current) inputRef.current.value = "";
-                setStatus('success');
-                setFeedback(res.message);
-                
-                await sleep(3000);
-                setStatus('idle');
-            } else {
-                setStatus('error');
-                setFeedback(res.message);
+            if (!request.ok || res.status !== "success") {
+                setStatus("error");
+                setFeedback(res?.message ?? "No se pudo cambiar el nombre");
+                return;
             }
+
+            // feedBack ok cambio de nombre
+            setNameUser(res.name);
+            if(inputRef.current) inputRef.current.value = "";
+            setStatus('success');
+            setFeedback(res.message);
+            
+            await sleep(1500);
+            setStatus('idle');
 
         } catch {
             setStatus('error');
             setFeedback('Error inesperado. Inténtalo de nuevo.');
 
-            await sleep(3000);
+            await sleep(1500);
             setStatus('idle');
         }
     }
