@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
-import { doc, getDoc, updateDoc, serverTimestamp } from "firebase/firestore";
+import { doc, getDoc, updateDoc, serverTimestamp, collection, getDocs } from "firebase/firestore";
 import { auth, db } from '@/lib/firebase/firebase.client';
 import { signOut } from 'firebase/auth';
 import { useRouter } from "next/navigation";
 
 import { Paragraph } from '@/components/ui/Paragraph/Paragraph';
+
+import type { orderDoc, orderWithId } from '@/utils/types/order';
 
 import './Profile.scss';
 import '@/components/ui/Button/Button.scss';
@@ -14,24 +16,30 @@ const sleep = (delay: number) => {
     return new Promise<void>((resolve) => setTimeout(resolve, delay));
 };
 
+const formatMoney = (cents: number, currency: string = 'eur') =>
+  new Intl.NumberFormat('es-ES', { style: 'currency', currency: currency.toUpperCase() })
+    .format((cents || 0) / 100);
+
 export const Profile = () => {
     const [ nameUser, setNameUser ] = useState<string>(''); 
     const [ emailUser, setEmailUser ] = useState<string>(''); 
+    const [ orders, setOrders ] = useState<orderWithId[]>([]);
     const [ status, setStatus ] = useState<"idle" | "spinner" | "success" | "error">("idle");
     const [ feedback, setFeedback ] = useState<string>("");
     const router = useRouter();
     const inputRef = useRef<HTMLInputElement>(null);
 
+    
+
     useEffect( () => {
         const readDataFirebase = async () => {
+            const user = auth.currentUser;
+            if(!user) return console.log("No hay usuario autenticado");
+
+            // Cargamos los datos de perfil
             try {
-                const user = auth.currentUser;
-                if(!user) {
-                    console.log("No hay usuario autenticado");
-                    return
-                }
-                const ref = doc(db, "users", user.uid);
-                const snap = await getDoc(ref);
+                const orderRef = doc(db, "users", user.uid);
+                const snap = await getDoc(orderRef);
                 
                 if(snap.exists()) {
                     const data = snap.data() as { name?: string; email?: string };
@@ -44,6 +52,25 @@ export const Profile = () => {
             } catch {
                 setStatus("error");
                 setFeedback("No se pudo cargar tu perfil.");
+            }
+            
+            // Cargamos los datos de pedidos
+            try {
+                const orderRef2 = collection(db, 'users', user.uid, 'orders');
+                const snap2 = await getDocs(orderRef2);
+
+                if(snap2.empty) {
+                    setOrders([]);
+                    console.log("NOOOOOOOOOOOOOOOOOOOOOOO TIENES PEDIDOS")
+                } else {
+                    const result: orderWithId[] = snap2.docs.map( order => ({ id: order.id, ...order.data() as orderDoc}));
+                    setOrders(result);
+                    console.log("TIENES PEDIDOS")
+                }
+                
+            } catch {
+                setOrders([]);
+                console.log("ERROR AL CARGAR LOS PEDIDOS");
             }
         }
 
@@ -70,7 +97,7 @@ export const Profile = () => {
         }
         
         // Delay para mostrar spinner para efecto procesando durante 3 segundos
-        await sleep(3000);
+        await sleep(1200);
 
         try {
             const request = await fetch("/.netlify/functions/validate-profile", {
@@ -81,8 +108,8 @@ export const Profile = () => {
             
             const res = await request.json();
         
+            const user = auth.currentUser;
             if(res.status === 'success') {
-                const user = auth.currentUser;
                 if(!user) {
                     setStatus('error');
                     setFeedback('No hay usuario autenticado');
@@ -168,10 +195,35 @@ export const Profile = () => {
 
                 <h4 className="Profile-h4">Tus pedidos:</h4>
                 <div className='Profile-divOrders'>
-                    <p className='Profile-p'>- Pedido número 1</p>
-                    <p className='Profile-p'>- Pedido número 2</p>
-                    <p className='Profile-p'>- Pedido número 3</p>
-                    <p className='Profile-p'>- Pedido número 4</p>
+                    {orders.length == 0 ? (
+                        <Paragraph text='no tienes ningún pedido aún' styleGreen={true} />
+                    ) : (
+                        <>
+                            {orders.map((o) => (
+                                <div className='Profile-order' key={o.id} style={{border:'1px solid #eee', padding:'12px', marginBottom:'12px', borderRadius:'8px'}}>
+                                    <div className='Profile-orderHeader' style={{display:'flex', justifyContent:'space-between', marginBottom:'8px'}}>
+                                    <strong>Pedido #{o.id.slice(-8)}</strong>
+                                    <span>{o.createdAt ? new Date(o.createdAt).toLocaleString() : ''}</span>
+                                    </div>
+
+                                    <div className='Profile-orderBody'>
+                                    <p>Estado: <strong>{o.payment_status}</strong></p>
+                                    <p>Total: <strong>{formatMoney(o.amount_total, o.currency)}</strong></p>
+
+                                    {Array.isArray(o.line_items) && o.line_items.length > 0 && (
+                                        <ul style={{marginTop:'8px', paddingLeft:'16px'}}>
+                                        {o.line_items.map((li, idx: number) => (
+                                            <li key={idx}>
+                                                {li.description} × {li.quantity} — {formatMoney(li.amount_total, li.currency)}
+                                            </li>
+                                        ))}
+                                        </ul>
+                                    )}
+                                    </div>
+                                </div>
+                            ))}
+                        </>
+                    ) }
                 </div>
 
                 <button onClick={logout} className="Button Button--amarillo">Cerrar sesión</button>
