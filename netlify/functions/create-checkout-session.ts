@@ -8,6 +8,11 @@ const secret = process.env.STRIPE_SECRET_KEY;
 
 const stripe = new Stripe(secret || "", {});
 
+/**
+ * crea la sesión necesaria para la pasarela de pago con strike
+ * @param event, recibe la petición
+ * @returns devuelve la url que te lleva a la sesión de pago de stripe
+ */
 export const handler: Handler = async (event) => {
     // Solo POST
     if(event.httpMethod !== "POST") return jsonError(405, 'error', 'metodo inválido');
@@ -39,7 +44,7 @@ export const handler: Handler = async (event) => {
             mode: "payment",
             line_items,
             success_url: `${siteUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: `${siteUrl}/`,
+            cancel_url: `${siteUrl}//checkout/cancel`,
         });
 
         return {
