@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp, getApps, getApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, setPersistence, browserLocalPersistence } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -20,6 +20,11 @@ const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 
 // Initialize Authentication
 export const auth = getAuth(app);
+
+// Asegura persistencia global (solo en navegador)
+if (typeof window !== 'undefined') {
+    setPersistence(auth, browserLocalPersistence).catch(console.error);
+}
 
 // Initialize DataBase
 export const db = getFirestore(app);

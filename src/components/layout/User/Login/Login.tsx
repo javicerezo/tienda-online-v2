@@ -2,7 +2,6 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/lib/firebase/firebase.client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { setPersistence, browserLocalPersistence } from "firebase/auth";
 
 import Link from 'next/link';
 import { Paragraph } from "@/components/ui/Paragraph/Paragraph";
@@ -64,7 +63,6 @@ export const Login = () => {
             if(res.status === 'success') {
                 // HACEMOS LOGIN EN FIREBASE Y GUARDAMOS LA SESIÓN EN LOCALSTORAGE PARA SU PERSISTENCIA
                 try {
-                    await setPersistence(auth, browserLocalPersistence);
                     await signInWithEmailAndPassword(auth, dataObj.email.toString(), dataObj.password.toString());
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 } catch (err: any){
