@@ -20,7 +20,6 @@ export const handler: Handler = async (event) => {
     if (!secret) return jsonError(500, "error", "configuración Stripe incompleta");
 
     const { isAuthenticated, uid } = await verifyTokenAuthentication(event);
-    if(!isAuthenticated || !uid) return jsonError(400, 'error', 'Usuario no identificado, no se puede guardar el pedido');
 
     const body: newOrder = JSON.parse(event.body);
 
@@ -52,6 +51,22 @@ export const handler: Handler = async (event) => {
                 };
         }) ?? [];
 
+        
+        // Si no existe uid, el usuario NO autenticado, NO GUARDAMOS NADA EN LA BASE DE DATOS
+        if(!uid) {
+            return {
+                statusCode: 200,
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(
+                    { 
+                        status: "success",
+                        isAuthenticated
+                    }
+                ),
+            };
+        }
+
+        // Toodo ok. Usuario autenticado
         // Guardamos el pedido en una subcolección de ese usuario
         const orderRef = db.collection("users").doc(uid).collection('orders').doc(session_id);
         const exist = await orderRef.get();
@@ -71,7 +86,8 @@ export const handler: Handler = async (event) => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(
                 { 
-                    status: "success" 
+                    status: "success",
+                    isAuthenticated
                 }
             ),
         };

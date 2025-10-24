@@ -16,7 +16,6 @@ export const verifyTokenAuthentication = async (event: HandlerEvent) => {
   }
 
     const idToken = authHeader.slice("Bearer ".length).trim();
-    console.log(idToken)
     try {
         const decoded = await adminAuth.verifyIdToken(idToken);
         return { isAuthenticated: true, uid: decoded.uid }

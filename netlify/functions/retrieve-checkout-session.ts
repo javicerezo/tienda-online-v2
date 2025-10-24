@@ -17,7 +17,7 @@ export const handler: Handler = async (event) => {
         return jsonError(405, "error", "metodo inválido");
     }
     const { isAuthenticated, uid } = await verifyTokenAuthentication(event);
-    if(!isAuthenticated || !uid) return jsonError(400, 'error', 'Usuario no identificado, No se ha podido abonar el dinero');
+    if(!isAuthenticated || !uid) console.log("usuario es invitado")
 
     if (!secret) {
         return jsonError(500, "error", "configuración Stripe incompleta");

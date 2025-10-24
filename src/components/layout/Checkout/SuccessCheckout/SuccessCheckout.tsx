@@ -49,12 +49,12 @@ export const SuccessCheckout = () => {
     // PRIMERO ESPERAMOS A QUE SE RECUPERE EL USER QUE HAY GUARDADO EN LA SESION PERSISTENTE (VER EN LOGIN)
     useEffect(() => {
         const unsub = onIdTokenChanged(auth, async (user) => {
-            if (!user) {
+            if (user) {
+                const t = await user.getIdToken(true); // fuerza refresh
+                setToken(t);
+            } else {
                 setToken(null);
-                return;
             }
-            const t = await user.getIdToken(true); // fuerza refresh
-            setToken(t);
         });
         return () => unsub();
     }, []);
@@ -66,8 +66,6 @@ export const SuccessCheckout = () => {
             setLoading(false);
             return;
         }
-
-        if(!token) return
 
         const run = async () => {
             try {
@@ -87,7 +85,7 @@ export const SuccessCheckout = () => {
                 }
 
                 setData(res);
-
+                console.log("primera petición superada")
                 // GUARDAMOS EL PEDIDO EN FIREBASE
                 const request2 = await fetch(`/.netlify/functions/save-order`, {
                     method: 'POST',
@@ -104,7 +102,7 @@ export const SuccessCheckout = () => {
                     setLoading(false);
                     return;
                 } 
-                
+                console.log(res2.isAuthenticated)
                 setLoading(false);
                 
                 // lIMPIAMOS EL CARRITO DE COMPRA
