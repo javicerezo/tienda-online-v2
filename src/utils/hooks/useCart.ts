@@ -46,6 +46,15 @@ export const useCart = () => {
         const updatedCart = cart.filter( element => element.id !== number)
         setCart(updatedCart);
     }
+
+    /**
+     * Limpia el carrito de compra del storage
+     */
+    const clearCart = () => {
+        try {
+            localStorage.removeItem('cart'); 
+        } catch {}
+    };
  
-    return { cart, addToCart, removeToCart }
+    return { cart, addToCart, removeToCart, clearCart }
 }
