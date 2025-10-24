@@ -1,9 +1,9 @@
 import { roundResult } from "@/utils/functions/roundResult";
 import { jsonError } from "./auxiliar/jsonError";
-import { adminAuth } from "../lib/firebase/firebase.admin";
 
 import type { Handler, HandlerEvent } from "@netlify/functions";
 import type { productCart } from "../types/types";
+import { verifyTokenAuthentication } from "./auxiliar/verifyTokenAuthentication";
 
 /**
  * 
@@ -17,29 +17,11 @@ export const handler: Handler = async (event: HandlerEvent)=> {
     // Evitar datos vacío
     if(!event.body) return jsonError(400, 'error', 'el carrito está vacío');
 
-    let data;
-    let authHeader;
-    try {
-        data = JSON.parse(event.body);
-        authHeader = event.headers.authorization || "";
-    } catch {
-        return jsonError(400, 'error', 'JSON inválido');
-    }
+    // Comprobamos el token de usuario
+    const isAuthenticated = await verifyTokenAuthentication(event);
 
-    let isAuthenticated = false;
-
-    if (authHeader.startsWith("Bearer ")) {
-        const idToken = authHeader.slice("Bearer ".length);
-        try {
-            await adminAuth.verifyIdToken(idToken);
-            isAuthenticated = true;
-        } catch {
-            // token inválido → seguimos como invitado
-            isAuthenticated = false;
-        }
-    }
-
-    // Recalcular SIEMPRE en backend (no confiar en newPrice del front...puede ser manipulable)
+    // Recalcular precios SIEMPRE en backend (no confiar en newPrice del front...puede ser manipulable)
+    const data = JSON.parse(event.body);
     const newData = data.map((product: productCart) => {
         const effectiveDesc = isAuthenticated ? product.desc : 0; 
         const finalPrice = roundResult(product.price * ((100 - effectiveDesc) / 100));
