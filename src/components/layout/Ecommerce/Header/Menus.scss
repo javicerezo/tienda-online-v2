@@ -131,7 +131,10 @@
         }
         &-div {
             width: 100%;
-            @include m.flex(row, nowrap, space-around, center);
+            @include m.flex(row, nowrap, flex-start, center);
+            p {
+                margin-left: 0.5rem;
+            }
         }
         &-user {
             font-weight: bold;
