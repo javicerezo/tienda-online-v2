@@ -11,14 +11,13 @@ import type { orderDoc, orderWithId } from '@/utils/types/order';
 import './Profile.scss';
 import '@/components/ui/Button/Button.scss';
 import '@/components/ui/Spinner/Spinner.scss';
+import { Order } from '../Order/Order';
 
 const sleep = (delay: number) => {
     return new Promise<void>((resolve) => setTimeout(resolve, delay));
 };
 
-const formatMoney = (cents: number, currency: string = 'eur') =>
-  new Intl.NumberFormat('es-ES', { style: 'currency', currency: currency.toUpperCase() })
-    .format((cents || 0) / 100);
+
 
 export const Profile = () => {
     const [ nameUser, setNameUser ] = useState<string>(''); 
@@ -197,28 +196,16 @@ export const Profile = () => {
                         <Paragraph text='no tienes ningún pedido aún' styleGreen={true} />
                     ) : (
                         <>
-                            {orders.map((o) => (
-                                <div className='Profile-order' key={o.id} style={{border:'1px solid #eee', padding:'12px', marginBottom:'12px', borderRadius:'8px'}}>
-                                    <div className='Profile-orderHeader' style={{display:'flex', justifyContent:'space-between', marginBottom:'8px'}}>
-                                    <strong>Pedido #{o.id.slice(-8)}</strong>
-                                    <span>{o.createdAt ? new Date(o.createdAt).toLocaleString() : ''}</span>
-                                    </div>
-
-                                    <div className='Profile-orderBody'>
-                                    <p>Estado: <strong>{o.payment_status}</strong></p>
-                                    <p>Total: <strong>{formatMoney(o.amount_total, o.currency)}</strong></p>
-
-                                    {Array.isArray(o.line_items) && o.line_items.length > 0 && (
-                                        <ul style={{marginTop:'8px', paddingLeft:'16px'}}>
-                                        {o.line_items.map((li, idx: number) => (
-                                            <li key={idx}>
-                                                {li.description} × {li.quantity} — {formatMoney(li.amount_total, li.currency)}
-                                            </li>
-                                        ))}
-                                        </ul>
-                                    )}
-                                    </div>
-                                </div>
+                            {orders.map((order) => (
+                                <Order 
+                                    key={order.id}
+                                    session_id = {order.session_id}
+                                    payment_status = {order.payment_status} 
+                                    amount_total = {order.amount_total} 
+                                    currency = {order.currency}
+                                    line_items = {order.line_items}
+                                    createdAt = {order.createdAt}
+                                />
                             ))}
                         </>
                     ) }
