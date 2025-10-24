@@ -44,7 +44,7 @@ export const handler: Handler = async (event) => {
             mode: "payment",
             line_items,
             success_url: `${siteUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: `${siteUrl}//checkout/cancel`,
+            cancel_url: `${siteUrl}/`,
         });
 
         return {
