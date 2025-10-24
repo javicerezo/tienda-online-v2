@@ -50,7 +50,7 @@ export const Menus = ( {cart, eliminateToCart, showCart, setShowCart}: menuProps
 
     const handleClick = async () => {
         const token = await auth.currentUser?.getIdToken();
-
+        console.log(token)
         // Petición para calcular precios en el backend
         const request1 = await fetch("/.netlify/functions/calcFinalPrice", {
             method: "POST",
@@ -117,11 +117,11 @@ export const Menus = ( {cart, eliminateToCart, showCart, setShowCart}: menuProps
                             <>
                                 <div className="Submenus-cuenta-secciones">
                                     <div className="Submenus-cuenta-div" >
-                                        <h4>{ `Hola, ${user.displayName}` }</h4>   
                                         <Link 
                                             href="/user/profile">
                                             <h4 className="Submenus-cuenta-user">{ `${user.displayName?.charAt(0).toUpperCase()}` }</h4>
                                         </Link>                 
+                                        <p>{ `Hola, ${user.displayName}` }</p>   
                                     </div>
                                 </div>
                                 <div className="Submenus-cuenta-secciones">

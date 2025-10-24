@@ -24,8 +24,6 @@ export const handler: Handler = async (event: HandlerEvent)=> {
     const password = data.password.toString().trim();
     if(!password) return jsonError(400, 'error', "El nombre es obligatorio.");
 
-    console.log(data)
-
     return {
         statusCode: 200,
         headers: { "Content-Type": "application/json" },

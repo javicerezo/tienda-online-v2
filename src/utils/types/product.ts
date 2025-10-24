@@ -34,4 +34,3 @@ export interface productVisitedProps {
     addToCart: (item: product) => void;
     addToVisited: (item: product) => void;
 }
-
