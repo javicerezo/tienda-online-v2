@@ -18,8 +18,7 @@ export const handler: Handler = async (event: HandlerEvent)=> {
     if(!event.body) return jsonError(400, 'error', 'el carrito está vacío');
 
     // Comprobamos el token de usuario
-    const { isAuthenticated, uid } = await verifyTokenAuthentication(event);
-    if(!isAuthenticated || !uid) return jsonError(400, 'error', 'Usuario no identificado.');
+    const { isAuthenticated } = await verifyTokenAuthentication(event);
 
     // Recalcular precios SIEMPRE en backend (no confiar en newPrice del front...puede ser manipulable)
     const data = JSON.parse(event.body);
