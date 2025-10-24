@@ -1,5 +1,6 @@
 import Stripe from "stripe";
 import { jsonError } from "./auxiliar/jsonError";
+import { verifyTokenAuthentication } from "./auxiliar/verifyTokenAuthentication";
 
 import type { Handler } from "@netlify/functions";
 
@@ -15,6 +16,9 @@ export const handler: Handler = async (event) => {
     if (event.httpMethod !== "GET") {
         return jsonError(405, "error", "metodo inválido");
     }
+    const { isAuthenticated, uid } = await verifyTokenAuthentication(event);
+    if(!isAuthenticated || !uid) return jsonError(400, 'error', 'Usuario no identificado, No se ha podido abonar el dinero');
+
     if (!secret) {
         return jsonError(500, "error", "configuración Stripe incompleta");
     }
