@@ -30,8 +30,8 @@ export const Signup = () => {
         const dataObj = Object.fromEntries(formData) // son los datos pasados a objeto
 
 
-        // Delay para mostrar spinner para efecto procesando durante 3 segundos
-        await sleep(3000);
+        // Delay para mostrar spinner para efecto procesando durante 1 segundo
+        await sleep(1200);
 
         try {
             const request = await fetch("/.netlify/functions/validate-signup", {
