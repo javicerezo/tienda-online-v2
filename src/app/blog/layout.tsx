@@ -1,9 +1,11 @@
+import { Header } from "@/components/layout/Blog/Header/Header";
+
 export default function Layout (
     { children }: { children: React.ReactNode }
 ) {
     return (
         <section> 
-            ESTO ES EL LAYOUT DEL BLOG
+            <Header />
 
             {children}
         </section>
