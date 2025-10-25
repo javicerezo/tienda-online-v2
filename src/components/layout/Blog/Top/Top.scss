@@ -1,0 +1,23 @@
+@use '@/styles/settings/variables' as v;
+@use '@/styles/settings/mixins' as m;
+
+.Top {
+    &-container {
+        @include m.flex(column, nowrap, center, center);
+        background-image: url('/assets/imgs/blog/portada1.jpg');
+        background-attachment: fixed;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 90vh;
+    }
+    &-h1 {
+        font-size: 3em;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+    &-h3 {
+        font-size: 1.5em;
+        font-style: italic;
+    }
+}

@@ -7,7 +7,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FaBars } from 'react-icons/fa';
 
-
 import './Header.scss';
 
 export const Header = () => {
