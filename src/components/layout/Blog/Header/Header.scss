@@ -6,6 +6,9 @@
     @include m.position(absolute, 0, 0, null, 0);
     z-index: 80;
     @include m.flex (column, nowrap, center, center);
+    &--color {
+        background-color: var(--color-fondo);
+    }
     &-container {
         width: 100%;
         position: relative;

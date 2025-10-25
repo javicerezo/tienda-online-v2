@@ -26,7 +26,7 @@ export const Header = () => {
                 <nav className={`Header-nav ${showMenuBars ? "Header-nav--show" : ""}`}>
                      <Link 
                         className={`Header-link ${pathName === "/" ? "Header-link--activo" : ""} `}
-                        href="/">La tienda</Link>
+                        href="/blog">Blog</Link>
                      <Link 
                         className={`Header-link ${pathName === "/blog/entradas" ? "Header-link--activo" : ""} `}
                         href="/blog/entradas">Artículos Blog</Link>
@@ -35,7 +35,10 @@ export const Header = () => {
                         href="/blog/nosotros">Nosotros</Link>
                      <Link 
                         className={`Header-link ${pathName === "/club" ? "Header-link--activo" : ""} `}
-                        href="/blog/club">Club Montaña</Link>
+                        href="/blog/club">Club de Montaña</Link>
+                     <Link 
+                        className={`Header-link ${pathName === "/" ? "Header-link--activo" : ""} `}
+                        href="/blog/club">Tienda de Montaña</Link>
                 </nav>
             </div>
         </section>
