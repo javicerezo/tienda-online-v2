@@ -24,9 +24,15 @@ type SessionSummary = {
     line_items: LineItem[];
 };
 
+/**
+ * Toma un número y reemplaza el punto por una coma para mostrar los decimales
+ * @param n es el número con decimales que toma la función
+ * @returns retorna el número con la coma para mostrar en el frontend
+ */
 function centsToEUR(n: number) {
     return (n / 100).toFixed(2).replace('.', ',') + ' €';
 }
+
 /**
  * Limpia el carrito de compra del storage
  */
@@ -35,6 +41,7 @@ const clearCart = () => {
         localStorage.removeItem('cart'); 
     } catch {}
 };
+
 export const SuccessCheckout = () => {
     const params = useSearchParams();
     const router = useRouter();
@@ -85,7 +92,7 @@ export const SuccessCheckout = () => {
                 }
 
                 setData(res);
-                console.log("primera petición superada")
+                
                 // GUARDAMOS EL PEDIDO EN FIREBASE
                 const request2 = await fetch(`/.netlify/functions/save-order`, {
                     method: 'POST',
@@ -102,7 +109,7 @@ export const SuccessCheckout = () => {
                     setLoading(false);
                     return;
                 } 
-                console.log(res2.isAuthenticated)
+                
                 setLoading(false);
                 
                 // lIMPIAMOS EL CARRITO DE COMPRA
