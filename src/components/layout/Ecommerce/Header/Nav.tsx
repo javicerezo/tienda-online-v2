@@ -1,9 +1,13 @@
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
 import { FaCaretDown, FaSearch } from "react-icons/fa";
 
 import type { navProps } from '@/utils/types/header';
 import './Nav.scss';
 
 export const Nav = ( {showMenuBars, openSeeker, searchProductseeker}:navProps ) => {
+    const pathName = usePathname();
     const handleClick = (e: React.MouseEvent<HTMLLIElement>) => {
         searchProductseeker(e.currentTarget.textContent);
         openSeeker();
@@ -95,6 +99,17 @@ export const Nav = ( {showMenuBars, openSeeker, searchProductseeker}:navProps ) 
                     </ul>
                 </li>
             </ul>
+            <div className="Nav-enlaces">
+                <Link 
+                    className={`Nav-a ${pathName === "/" ? "Nav-a--activo" : ""} `}
+                    href="/">La tienda</Link>
+                <Link 
+                    className={`Nav-a ${pathName === "/blog" ? "Nav-a--activo" : ""} `} 
+                    href="/blog" target='_blank'>Blog escalada</Link>
+                <Link 
+                    className={`Nav-a ${pathName === "/club" ? "Nav-a--activo" : ""} `} 
+                    href="/club" target='_blank'>Club montaña</Link>
+            </div>
         </nav>
     );
 }

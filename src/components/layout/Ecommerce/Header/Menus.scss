@@ -89,7 +89,7 @@
 
 .Submenus {
     &-contenedor {
-        min-width: 16rem;
+        min-width: 12rem;
         background-color: var(--color-blanco);
         color: var(--color-negro);
         padding: 0.5rem;
@@ -100,7 +100,7 @@
             overflow-y: scroll;
         }
         @include m.telefono-m{
-            min-width: 17rem;
+            min-width: 15rem;
         }
         @include m.telefono-l {
             min-width: 18.75rem;
