@@ -1,5 +1,6 @@
 import { roundResult } from '@/utils/functions/roundResult';
 import { useState } from 'react';
+import { useAuth } from '@/contexts/AuthContext';
 
 import { Paragraph } from '@/components/ui/Paragraph/Paragraph';
 import { ProductModal } from './ProductModal';
@@ -7,7 +8,6 @@ import Image from 'next/image';
 
 import type { product, productCardProps } from '@/utils/types/product';
 import './ProductCard.scss';
-import { useAuth } from '@/contexts/AuthContext';
 
 export const ProductCard = ({ product, addToCart, addToVisited }: productCardProps) => {
     const { brand, name, image, price, desc, id } = product;
