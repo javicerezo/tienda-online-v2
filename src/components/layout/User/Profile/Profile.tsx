@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
-import { doc, getDoc, collection, getDocs } from "firebase/firestore";
+import { doc, getDoc, collection, getDocs, query, orderBy } from "firebase/firestore";
 import { auth, db } from '@/lib/firebase/firebase.client';
 import { signOut } from 'firebase/auth';
 import { useRouter } from "next/navigation";
 
+import { Order } from '../Order/Order';
 import { Paragraph } from '@/components/ui/Paragraph/Paragraph';
 
 import type { orderDoc, orderWithId } from '@/utils/types/order';
@@ -11,7 +12,6 @@ import type { orderDoc, orderWithId } from '@/utils/types/order';
 import './Profile.scss';
 import '@/components/ui/Button/Button.scss';
 import '@/components/ui/Spinner/Spinner.scss';
-import { Order } from '../Order/Order';
 
 const sleep = (delay: number) => {
     return new Promise<void>((resolve) => setTimeout(resolve, delay));
@@ -55,8 +55,10 @@ export const Profile = () => {
             
             // Cargamos los datos de pedidos
             try {
-                const orderRef2 = collection(db, 'users', user.uid, 'orders');
-                const snap2 = await getDocs(orderRef2);
+                const ordersRef2 = collection(db, 'users', user.uid, 'orders');
+                const q = query(ordersRef2, orderBy('createdAt', 'desc'));
+
+                const snap2 = await getDocs(q);
 
                 if(snap2.empty) {
                     setOrders([]);

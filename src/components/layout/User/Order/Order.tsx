@@ -6,24 +6,23 @@ const formatMoney = (cents: number, currency: string = 'eur') =>
   new Intl.NumberFormat('es-ES', { style: 'currency', currency: currency.toUpperCase() })
     .format((cents || 0) / 100);
 
-export const Order = ({ session_id, payment_status, amount_total, currency, line_items, createdAt  }: orderDoc) => {
+export const Order = ({ session_id, amount_total, currency, line_items, createdAt  }: orderDoc) => {
     return (
         <section className='Order'>
             <div className="Order-container">
                 <div className='Order-orderHeader'>
-                    <strong>Pedido #{session_id.slice(-8)}</strong>
+                    <p>Número de pedido<span className="Order-p">{` - ${session_id.slice(-8)}`}</span></p>
                     <span>{createdAt ? new Date(createdAt).toLocaleString() : ''}</span>
                 </div>
 
                 <div className='Order-orderBody'>
-                    <p>Estado: <strong>{payment_status}</strong></p>
-                    <p>Total: <strong>{formatMoney(amount_total, currency)}</strong></p>
+                    <p className="Order-p">Total: {formatMoney(amount_total, currency)}</p>
 
                     {Array.isArray(line_items) && line_items.length > 0 && (
                     <ul className='Order-orderList'>
                         {line_items.map((li: orderLineItem, idx: number) => (
                         <li key={idx}>
-                            {li.description} × {li.quantity} — {formatMoney(li.amount_total, li.currency)}
+                            {li.description} × {li.quantity} - {formatMoney(li.amount_total, li.currency)}
                         </li>
                         ))}
                     </ul>
