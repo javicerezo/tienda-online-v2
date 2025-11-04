@@ -21,7 +21,9 @@
         }
     }
     &-burger {
-        padding: 0.5rem;
+        position: relative;
+        margin: 0.5rem;
+        margin-left: 1rem;
         @include m.flex(row, nowrap, center, center);
         svg {
             width: 1.5rem;
@@ -29,6 +31,20 @@
         }
         @include m.desktop{
             display: none;
+        }
+    }
+    &-icon {
+        @include m.position(absolute, null, null, null, null);
+        width: 100%;
+        transition: opacity 1s ease, transform 1.5s ease;
+        filter: drop-shadow(0 0 1px white);
+        &--hidden {
+            opacity: 0;
+            transform:  rotate(-90deg);
+        }
+        &--visible {
+            opacity: 1;
+            transform: rotate(0);
         }
     }
     &-img {

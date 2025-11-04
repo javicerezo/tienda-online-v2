@@ -5,6 +5,7 @@ import { Menus } from './Menus';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaBars, FaSearch, FaTruck, FaBox } from "react-icons/fa";
+import { TbLetterX } from "react-icons/tb";
 
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
@@ -23,9 +24,10 @@ export const Header = ( {cart, eliminateToCart, openSeeker, searchProductseeker,
     return (
         <header className={`Header ${showCart ? "Header--fixed" : ""}`}>
             <div className="Header-cabecera">
-                <div className="Header-burger" >
-                    <FaBars onClick={openMenuBars}/>
-                </div>
+                <button className="Header-burger" onClick={openMenuBars}>
+                    <FaBars className={`Header-icon ${showMenuBars ? "Header-icon--hidden" : "Header-icon--visible"}`}/>
+                    <TbLetterX className={`Header-icon ${showMenuBars ? "Header-icon--visible" : "Header-icon--hidden"}`}/>  
+                </button>
                 <div className="Header-img">
                     <Image 
                         width='140' height='60' 
