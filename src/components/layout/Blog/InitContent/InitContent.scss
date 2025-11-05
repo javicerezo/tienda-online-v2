@@ -26,44 +26,57 @@
         }
     }
     &-content {
+        margin: 1rem auto;
         @include m.flex(column, nowrap, center, center);
         @include m.tablet {
-            @include m.flex(row, nowrap, space-between, flex-start);
-            width: 90%;
-        }
-        &-p {
-            margin: 1rem;
-            @include m.tablet {
-                width: 50%;
-            }
-        }
-        &-img {
-            margin: 1rem;
-            @include m.tablet {
-                width: 50%;
-                max-width: 21.875rem;
-            }
+            @include m.flex(row, nowrap, space-between, center);
         }
     }
-    // &-entradasVisitadas {
-
-    // }
-    &-clubMontana {
+    &-p {
+        font-family: var(--font-textos);
+        line-height: 1.5rem;
         margin: 1rem;
+        @include m.tablet {
+            width: 50%;
+        }
+    }
+    &-img {
+        margin: 1rem;
+        @include m.tablet {
+            width: 50%;
+            max-width: 21.875rem;
+        }
+    }
+    &-lastEntries {
+        @include m.grid(1, 1rem);
+        @include m.tablet {
+            @include m.grid(4, 1rem);
+        }
+    }
+    &-recomendedRoutes {
+        @include m.grid(1, 1rem);
+        @include m.tablet {
+            @include m.grid(2, 1rem);
+        }
+    }
+    &-clubMontana {
+        margin: 1rem auto;
+        width: 100%;
         @include m.tablet {
             @include m.flex(row, nowrap, center, center);
         }
-        &-p {
-            margin-bottom: 2rem;
-            @include m.tablet {
-                margin: 0;
-                margin-right: 2rem;
-            }
+    }
+    &-paragraph {
+        font-family: var(--font-textos);
+        margin-bottom: 2rem;
+        @include m.tablet {
+            margin: 0;
+            margin-right: 2rem;
         }
-        &-input {
-            @include m.tablet {
-                margin-left: 2rem;
-            }
+    }
+    &-button {
+        @include m.tablet {
+            margin-left: 2rem;
         }
     }
 }

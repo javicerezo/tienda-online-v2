@@ -26,19 +26,19 @@ export const Header = () => {
                 <nav className={`Header-nav ${showMenuBars ? "Header-nav--show" : ""}`}>
                      <Link 
                         className={`Header-link ${pathName === "/" ? "Header-link--activo" : ""} `}
-                        href="/blog">Blog</Link>
+                        href="/blog">Inicio</Link>
                      <Link 
                         className={`Header-link ${pathName === "/blog/entradas" ? "Header-link--activo" : ""} `}
-                        href="/blog/entradas">Artículos Blog</Link>
+                        href="/blog/articles">Artículos Blog</Link>
                      <Link 
                         className={`Header-link ${pathName === "/blog/nosotros" ? "Header-link--activo" : ""} `}
-                        href="/blog/nosotros">Nosotros</Link>
+                        href="/blog/us">Nosotros</Link>
                      <Link 
                         className={`Header-link ${pathName === "/club" ? "Header-link--activo" : ""} `}
-                        href="/blog/club">Club de Montaña</Link>
+                        href="/club" target='_blank'>Club de Montaña</Link>
                      <Link 
                         className={`Header-link ${pathName === "/" ? "Header-link--activo" : ""} `}
-                        href="/blog/club">Tienda de Montaña</Link>
+                        href="/" target='_blank'>Tienda de Montaña</Link>
                 </nav>
             </div>
         </section>
