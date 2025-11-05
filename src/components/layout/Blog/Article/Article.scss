@@ -1,0 +1,38 @@
+@use '@/styles/settings/variables' as v;
+@use '@/styles/settings/mixins' as m;
+
+.Article {
+    &-container {
+        margin-bottom: 1.5rem;
+        @include m.flex(column, nowrap, flex-start, center);
+    }
+    &-img {
+        @include m.flex(row, nowrap, center, center);
+        @include m.tablet {
+            max-height: 20rem;
+            overflow-y: hidden;
+        }
+    }
+    &-title {
+        font-size: 1.6em;
+        margin: 0.5rem 0;
+        font-weight: bold;
+    }
+    &-box {
+        @include m.flex(row, nowrap, flex-start, center);
+    }
+    &-category {
+        color:var(--color-fondo-hover);
+        margin-right: 1rem;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+    &-date {
+        margin: 0.5rem 0;
+        color:var(--color-gris);
+    }
+    &-text {
+        max-height: 150px;
+        overflow-y: hidden;
+    }
+}
