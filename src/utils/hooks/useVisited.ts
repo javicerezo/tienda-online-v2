@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import { loadStorage, saveStorage } from "../functions/storage";
-
 import { useAuth } from "@/contexts/AuthContext";
 import { db } from "@/lib/firebase/firebase.client";
+import { getDoc, doc, setDoc, serverTimestamp } from "firebase/firestore";
 
 import type { product } from "../types/product";
-import { getDoc, doc, setDoc, serverTimestamp } from "firebase/firestore";
 
 export const useVisited = () => {
     const [ visited, setVisited ] = useState<product[]>([]);
