@@ -1,7 +1,7 @@
 @use '@/styles/settings/variables' as v;
 @use '@/styles/settings/mixins' as m;
 
-.AboutUs {
+.ContentClub {
     @include m.flex(column, nowrap, center, center);
     margin: 1rem;
     @include m.tablet {
@@ -19,62 +19,106 @@
             font-size: 3rem;
         }
     }
-    &-h3 {
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-        @include m.tablet {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-        }
-    }
-    &-p {
-        margin: 1rem 0;
-        @include m.tablet {
-            font-size: 1.2em;
-        }
-    }
-    &-img {
-        margin: 2rem;
-    }
-    &-form {
-        @include m.flex(column, nowrap, center, center);
-        margin: 2rem 0.5rem;
-        padding: 0.5rem;
-        border: 1px solid #000;
-        border-radius: 10px;
-        background-color: var(--color-blanco);
-        @include m.telefono-l {
-            padding: 1rem;
-        }
-        @include m.tablet {
-            padding: 2rem;
-            margin: 3rem;
-        }
-    }
-    &-h4 {
-        font-size: 1.5em;
+    &-paragraph {
         margin: 1rem;
         @include m.tablet {
-            font-size: 2em;
+            width: 90%;
+        }
+        &-p {
+            font-size: 1.1em;
+            @include m.tablet {
+                font-size: 1.2em;
+            }
+        }
+    }
+    &-container {
+        margin: 1rem;
+    }
+    &-images {
+        @include m.flex(column, nowrap, center, center);
+        margin: 1rem 0;
+        @include m.tablet {
+            @include m.flex(row, nowrap, center, center);
             margin-bottom: 3rem;
+        }
+        &--mod {
+            @include m.tablet {
+                @include m.flex(row-reverse, nowrap, center, center);
+                margin-bottom: 3rem;
+            }
+        }
+        &-p {
+            font-family: var(--font-textos);
+            line-height: 1.5rem;
+            margin: 1rem;
+            @include m.tablet {
+                width: 50%;
+            }
+        }
+        &-img {
+            margin: 0 1rem;
+            @include m.tablet {
+                margin: 0;
+                width: 50%;
+                max-width: 21.875rem;
+            }
+        }
+    }
+    &-form {
+        width: 100%;
+        padding: 1rem;
+        border-radius: 10px;
+        background-color: var(--color-blanco);
+        margin-bottom: 1rem;
+        @include m.tablet {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        @include m.desktop {
+            width: 80%;
+        }
+        &-h5 {
+            font-size: 1.2em;
+            margin-bottom: 1rem;
+            @include m.tablet {
+                font-weight: bold;
+                font-size: 1.5em;
+                margin-bottom: 1.5rem;
+            }
+        }
+        &-container {
+            @include m.flex(column, nowrap, center, center);
+            @include m.tablet {
+                @include m.flex(row, nowrap, center, center);
+            }
+        }
+    }
+    &-fieldsetContainer {
+        width: 100%;
+        padding: 0.5rem;
+        @include m.tablet {
+            padding: 1rem;
+        }
+        &--mod {
+            @include m.flex(row, column, flex-end, center);
         }
     }
     &-fieldset {
-        @include m.flex(column, nowrap, center, center);
-        @include m.tablet {
-            padding: 1rem;
-            @include m.flex(row, nowrap, center, center);
-        }
-    }
-    &-input {
-        font-size: 1.3em;
+        width: 100%;
         margin-bottom: 1rem;
-        padding: 0.5rem;
-        background-color: var(--color-blanco-contraste);
-        border-radius: 5px;
-        @include m.tablet {
-            padding: 1rem;
-            margin-right: 2rem;
+        input, textarea {
+            width: 100%;
+            padding: 0.5rem;
+            background-color: var(--color-blanco-contraste);
+            border-radius: 5px;
+        }
+        p {
+            margin: 1rem 0 0.5rem 0;
+            font-weight: bold;
+            font-size: 1.2rem;
+            @include m.tablet {
+                font-size: 1rem;
+            }
         }
     }
     &-spinner {
