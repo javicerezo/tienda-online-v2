@@ -38,8 +38,6 @@ export const InitContent = () => {
                         {/* todo hacer map solo dos escaladas recomendadas */}
                         <Article />
                         <Article />
-                        <Article />
-                        <Article />
                     </ul>
                 </div>
                 <h2 className="InitContent-h2">Club de escalada y montaña</h2>
