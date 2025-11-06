@@ -17,7 +17,7 @@ export const Header = () => {
     }
 
     return (
-        <section className='Header'>
+        <section className={`Header ${pathName !== "/blog" ? "Header--mod" : ""} `}>
             <div className="Header-container">
                 <div className="Header-burger" >
                     <FaBars onClick={openMenuBars}/>
@@ -25,14 +25,14 @@ export const Header = () => {
                 <h2 className="Header-h2">Esquí y montaña</h2>
                 <nav className={`Header-nav ${showMenuBars ? "Header-nav--show" : ""}`}>
                      <Link 
-                        className={`Header-link ${pathName === "/" ? "Header-link--activo" : ""} `}
+                        className={`Header-link ${pathName === "/blog" ? "Header-link--activo" : ""} `}
                         href="/blog">Inicio</Link>
                      <Link 
-                        className={`Header-link ${pathName === "/blog/entradas" ? "Header-link--activo" : ""} `}
-                        href="/blog/articles">Artículos Blog</Link>
+                        className={`Header-link ${pathName === "/blog/entries" ? "Header-link--activo" : ""} `}
+                        href="/blog/entries">Artículos Blog</Link>
                      <Link 
-                        className={`Header-link ${pathName === "/blog/nosotros" ? "Header-link--activo" : ""} `}
-                        href="/blog/us">Nosotros</Link>
+                        className={`Header-link ${pathName === "/blog/us" ? "Header-link--activo" : ""} `}
+                        href="/blog/aboutUs">Nosotros</Link>
                      <Link 
                         className={`Header-link ${pathName === "/club" ? "Header-link--activo" : ""} `}
                         href="/club" target='_blank'>Club de Montaña</Link>

@@ -6,7 +6,8 @@
     @include m.position(absolute, 0, 0, null, 0);
     z-index: 80;
     @include m.flex (column, nowrap, center, center);
-    &--color {
+    &--mod {
+        position: relative;
         background-color: var(--color-fondo);
     }
     &-container {
