@@ -12,12 +12,21 @@
         height: 90vh;
     }
     &-h1 {
-        font-size: 3em;
-        font-weight: bold;
-        margin-bottom: 1rem;
+        font-size: 1.5em;
+        margin-bottom: 1rem;    
+        @include m.telefono-l {
+            font-size: 2em;
+        }
+        @include m.tablet {
+            font-size: 3em;
+            font-weight: bold;
+        }
     }
     &-h3 {
-        font-size: 1.5em;
-        font-style: italic;
+        font-size: 1.2em;
+        @include m.telefono-l {
+            font-size: 1.5em;
+            font-style: italic;
+        }
     }
 }

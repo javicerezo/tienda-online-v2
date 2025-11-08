@@ -7,7 +7,7 @@ export const Top = () => {
         <section className='Top'>
             <div className="Top-container">
                 <h1 className='Top-h1'>{nombreSitio}</h1>
-                <h3 className='Top-h3'>aventura</h3>
+                <h3 className='Top-h3'>Aventura</h3>
             </div>
         </section>
     )
