@@ -35,7 +35,7 @@ export function useNewsInit() {
         try {
             const qLatest = query(collection(db, "news"), orderBy("createdAt", "desc"), limit(4));
 
-            const qRoutes = query(collection(db, "news"), where("categoria", "==", "rutas"), orderBy("createdAt", "desc"), limit(2));
+            const qRoutes = query(collection(db, "news"), where("categoria", "==", "rutas"), orderBy("createdAt", "desc"), limit(4));
 
             const [snapLatest, snapRoutes] = await Promise.all([
                 getDocs(qLatest),

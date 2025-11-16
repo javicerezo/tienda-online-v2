@@ -17,8 +17,8 @@ export const InitContent = () => {
             <div className="InitContent-container">
                 <CategoryNav />
                 <h2 className="InitContent-h2">Últimas entradas del blog</h2>
-                <div className="InitContent-content">
-                    <ul className="InitContent-lastEntries">
+                <div className="InitContent-contentDinamic">
+                    <ul className="InitContent-ul">
                         {loading === true ? (
                             <Paragraph text={'cargando últimas noticias'} styleGreen={true}/>
                         ) : (
@@ -32,8 +32,8 @@ export const InitContent = () => {
                     </ul>
                 </div>
                 <h2 className="InitContent-h2">Rutas y escaladas recomendadas</h2>
-                <div className="InitContent-content">
-                    <ul className="InitContent-recomendedRoutes">
+                <div className="InitContent-contentDinamic">
+                    <ul className="InitContent-ul">
                         {loading === true ? (
                             <Paragraph text={'cargando rutas recomendadas'} styleGreen={true}/>
                         ) : (

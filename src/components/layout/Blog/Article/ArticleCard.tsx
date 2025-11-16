@@ -20,36 +20,38 @@ export const ArticleCard = ( {element}: articleProps) => {
     : '';
 
     return (
-        <li className='ArticleCard-container'>
-            <Link href={`/blog/categories/${categoria}/${slug}`}>
-                <Image 
-                    className='ArticleCard-img'
-                    width={140} height={60}
-                    src={`/assets/imgs/blog/${imagen}`} 
-                    alt="imagen" 
-                    loading="lazy" 
-                /> 
-            </Link>
-            
-            <div>
-                <Link
-                    className='ArticleCard-title'
-                    href={`/blog/categories/&{categoria}/${slug}`}>
-                    <h5>{titulo}</h5>
+        <li className='ArticleCard'>
+            <div className='ArticleCard-container'>
+                <Link href={`/blog/categories/${categoria}/${slug}`}>
+                    <Image 
+                        className='ArticleCard-img'
+                        width={140} height={60}
+                        src={`/assets/imgs/blog/${imagen}`} 
+                        alt="imagen" 
+                        loading="lazy" 
+                    /> 
                 </Link>
-                <div className="ArticleCard-box">
+                
+                <div>
                     <Link
-                        className='ArticleCard-category'
-                        href={`/blog/categories/${categoria}`}>
-                        {categoria}
-                    </Link>
-                    <Link
-                        className='ArticleCard-date'
+                        className='ArticleCard-title'
                         href={`/blog/categories/&{categoria}/${slug}`}>
-                        {dateLabel}
+                        <h5>{titulo}</h5>
                     </Link>
+                    <div className="ArticleCard-box">
+                        <Link
+                            className='ArticleCard-category'
+                            href={`/blog/categories/${categoria}`}>
+                            {categoria}
+                        </Link>
+                        <Link
+                            className='ArticleCard-date'
+                            href={`/blog/categories/&{categoria}/${slug}`}>
+                            {dateLabel}
+                        </Link>
+                    </div>
+                    <p className="ArticleCard-text">{desarrollo}</p>
                 </div>
-                <p className="ArticleCard-text">{desarrollo}</p>
             </div>
         </li>
     )
