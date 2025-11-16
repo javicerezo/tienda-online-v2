@@ -44,11 +44,7 @@ export const ArticleCard = ( {element}: articleProps) => {
                             href={`/blog/categories/${categoria}`}>
                             {categoria}
                         </Link>
-                        <Link
-                            className='ArticleCard-date'
-                            href={`/blog/categories/&{categoria}/${slug}`}>
-                            {dateLabel}
-                        </Link>
+                        <p className='ArticleCard-date'>{dateLabel}</p>
                     </div>
                     <p className="ArticleCard-text">{desarrollo}</p>
                 </div>
