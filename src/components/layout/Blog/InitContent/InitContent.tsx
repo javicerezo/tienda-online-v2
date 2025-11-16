@@ -1,5 +1,8 @@
-import { Article } from '../Article/Article';
+import { useNewsInit } from '@/utils/hooks/useNewsInit';
+
+import { ArticleCard } from '../Article/ArticleCard';
 import { CategoryNav } from '../Header/CategoryNav';
+import { Paragraph } from '@/components/ui/Paragraph/Paragraph';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -7,6 +10,8 @@ import './InitContent.scss';
 import '@/components/ui/Button/Button.scss';
 
 export const InitContent = () => {
+    const { latestNews, recomendedRoutes, loading } = useNewsInit();
+    
     return (
         <main className='InitContent'>
             <div className="InitContent-container">
@@ -14,19 +19,31 @@ export const InitContent = () => {
                 <h2 className="InitContent-h2">Últimas entradas del blog</h2>
                 <div className="InitContent-content">
                     <ul className="InitContent-lastEntries">
-                        {/* todo hacer map, solo 4 últimas entradas*/}
-                        <Article />
-                        <Article />
-                        <Article />
-                        <Article />
+                        {loading === true ? (
+                            <Paragraph text={'cargando últimas noticias'} styleGreen={true}/>
+                        ) : (
+                            latestNews.map( element => 
+                                <ArticleCard 
+                                    key={element.titulo}
+                                    element={element}
+                                /> 
+                            )
+                        )}
                     </ul>
                 </div>
                 <h2 className="InitContent-h2">Rutas y escaladas recomendadas</h2>
                 <div className="InitContent-content">
                     <ul className="InitContent-recomendedRoutes">
-                        {/* todo hacer map solo dos escaladas recomendadas */}
-                        <Article />
-                        <Article />
+                        {loading === true ? (
+                            <Paragraph text={'cargando rutas recomendadas'} styleGreen={true}/>
+                        ) : (
+                            recomendedRoutes.map( element => 
+                                <ArticleCard 
+                                    key={element.titulo}
+                                    element={element}
+                                /> 
+                            )
+                        )}
                     </ul>
                 </div>
                 <h2 className="InitContent-h2">Sobre Nosotros</h2>
