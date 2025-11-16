@@ -1,9 +1,11 @@
 'use client'
 
+import { Category } from "@/components/layout/Blog/Category/Category";
+
 export default function Page() {
     return (
         <>
-            <p>Esto es la página de cada categoría</p>
+            <Category />
         </>
     )
 }
