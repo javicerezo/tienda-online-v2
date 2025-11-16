@@ -1,7 +1,7 @@
 @use '@/styles/settings/variables' as v;
 @use '@/styles/settings/mixins' as m;
 
-.Article {
+.ArticleCard {
     &-container {
         margin-bottom: 1.5rem;
         @include m.flex(column, nowrap, flex-start, center);
