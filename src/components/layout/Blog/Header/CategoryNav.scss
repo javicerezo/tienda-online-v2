@@ -4,16 +4,8 @@
 .CategoryNav {
     @include m.flex (row, nowrap, center, center);
     width: 100%;
-    &-container {
-        @include m.flex(column, nowrap, center, center);
-        @include m.tablet {
-            width: 90%;
-        }
-        @include m.desktop {
-            width: 80%;
-        }
-    }
-    &-ul {@include m.flex(row, nowrap, flex-start, center);
+    &-ul {
+        @include m.flex(row, nowrap, flex-start, center);
         width: 100%;
         margin: 0;
         gap: 1rem;
@@ -39,18 +31,24 @@
         background-color: var(--color-gris-claro);
         text-transform: capitalize;
         cursor: pointer;
+        &--mod {
+            background-color: var(--color-fondo);
+            font-style: italic;
+            font-weight: bold;
+        }
         @include m.desktop {
             background-color: var(--color-blanco-contraste);
             border-radius: 0;
             padding: 1rem;
             font-size: 1.2em;
-            font-weight: bold;
+            &--mod {
+                font-weight: bold;
+                font-style: italic;
+                border-bottom: 2px solid var(--color-gris);
+            }
             &:hover {
                 border-bottom: 2px solid var(--color-gris);
             }
-        }
-        &--mod {
-            background-color: var(--color-fondo);
         }
     }
 }
