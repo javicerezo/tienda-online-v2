@@ -1,9 +1,11 @@
-'use client'
+import { ArticleDetails } from "@/components/layout/Blog/Article/ArticleDetails";
 
-export default function Page() {
+type Props = { params: { slug: string } };
+
+export default function Page({ params }: Props) {
+    const article = decodeURIComponent(params.slug);
+
     return (
-        <>
-            <p>Esto es la página de cada noticia</p>
-        </>
+        <ArticleDetails article={article}/>
     )
 }

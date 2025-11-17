@@ -2,32 +2,6 @@
 @use '@/styles/settings/mixins' as m;
 
 .Category {
-    @include m.flex (column, nowrap, center, center);
-    &-container {
-        margin: 1rem 0;
-        @include m.flex (column, nowrap, center, center);
-        width: 95%;
-        @include m.tablet {
-            width: 90%;
-            margin: 2rem 0;
-        }
-        @include m.desktop {
-            width: 80%;
-        }
-    }
-    &-h1 {
-        font-size: 2rem;
-        text-transform: uppercase;
-        margin-bottom: 1rem;
-        cursor: pointer;
-        @include m.tablet {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-        }
-        @include m.desktop {
-            font-size: 3rem;
-        }
-    }
     &-content {
         width: 100%;
         margin: 1rem;

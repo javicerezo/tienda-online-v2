@@ -13,3 +13,10 @@ export type newsDB = {
 export interface articleProps {
     element: newsDB;
 }
+
+export interface commentDB {
+  id: string;
+  text: string;
+  author: string;
+  createdAt: Date;
+};

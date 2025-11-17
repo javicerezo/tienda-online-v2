@@ -1,0 +1,255 @@
+@use '@/styles/settings/variables' as v;
+@use '@/styles/settings/mixins' as m;
+
+.ArticleDetails {   
+    width: 100%;
+    @include m.flex(column, nowrap, center, center);
+    margin: 1rem;
+    @include m.desktop {
+        margin: 2rem;
+    }
+    &-article {
+        margin: 1rem 0;
+        width: 90%;
+        @include m.flex(column, nowrap, flex-start, center);
+        @include m.tablet {
+            width: 80%;
+            margin: 2rem 0;
+        }   
+        @include m.desktop {
+            margin: 4rem 0;
+        }   
+    }
+    &-title {
+        font-size: 1.6em;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        @include m.tablet {
+            font-size: 2.5em;
+            line-height: 1em;
+            margin-bottom: 2rem;
+        }
+        @include m.desktop {
+            font-size: 3em;
+        }
+    }
+    &-up {
+        width: 100%;
+        margin-bottom: 1rem;
+        @include m.flex(row, nowrap, flex-start, center);
+        @include m.tablet {
+            margin-bottom: 2rem;
+        }   
+        @include m.desktop {
+            margin-bottom: 4rem;
+        }
+        
+    }
+    &-date, &-p {
+        font-size: 0.8em;
+        cursor: pointer;
+        margin-right: 2rem;
+        @include m.tablet {
+            font-size: 1em;
+        }
+    }
+    &-blue {
+        color: blue;
+        cursor: pointer;
+        &:last-child{
+            margin-left: 1rem;
+        }
+    }
+    &-img {
+        @include m.flex(row, nowrap, center, center);
+        margin-bottom: 2rem;
+        max-width: 37.5rem;
+    }
+    &-text {
+        @include m.tablet {
+            font-size: 1.3em;
+        }
+    }
+    &-boxRecomended {
+        @include m.flex(column, nowrap, center, flex-start);
+        width: 100%;
+        padding: 1rem 0;
+        border-top: 1px dotted blue; 
+        border-bottom: 1px dotted blue; 
+        @include m.tablet {
+            padding: 2rem 0;
+        }
+    }
+    &-h3 {
+        font-size: 1.5em;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        @include m.tablet {
+            font-size: 1.8em;
+            margin-bottom: 1.5rem;
+        }
+        &--mod {
+            width: 100%;
+            text-align: start;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--color-gris);
+            @include m.tablet {
+                font-size: 1.5em;
+            }
+        }
+    }
+    &-ul {
+        @include m.flex(row, nowrap, flex-start, center);
+        width: 100%;
+        margin: 0;
+        gap: 1rem;
+        padding-inline: 1rem;
+        padding-block: 0.75rem;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        @include m.desktop {
+            @include m.flex(row, nowrap, flex-start, center);
+            overflow-x: visible;
+            gap: 0;
+            padding: 0;
+            scroll-snap-type: none;
+        }
+    }
+    &-boxComments {
+        width: 100%;
+        margin: 2rem 0;
+        padding: 2rem;
+    }
+    &-listComments {
+        margin-bottom: 3rem;
+        width: 100%;
+        &-comentario {
+            @include m.flex(column, nowrap, center, flex-start);
+            margin-left: 0.5rem;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px dotted var(--color-gris-claro);
+            @include m.tablet {
+                margin-left: 1rem;
+                margin-bottom: 1rem;
+                padding-bottom: 1rem;
+            }
+        }
+        &-arriba {
+            @include m.flex(row, nowrap, flex-start, center);
+        }
+        // &-down {
+
+        // }
+        &-p {
+            margin-right: 0.5rem;
+        }
+        &-p:nth-child(1) {
+            font-weight: bold;
+            text-transform: capitalize;
+        }
+    }
+    &-form {
+        width: 100%;
+        margin-top: 2rem;
+        padding: 1rem;
+        border-radius: 10px;
+        background-color: var(--color-blanco);
+        margin-bottom: 1rem;
+        @include m.tablet {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        &-h5 {
+            font-size: 1.2em;
+            margin-bottom: 1rem;
+            @include m.tablet {
+                font-weight: bold;
+                font-size: 1.5em;
+                margin-bottom: 1.5rem;
+            }
+        }
+        &-container {
+            @include m.flex(column, nowrap, center, center);
+            @include m.tablet {
+                @include m.flex(row, nowrap, center, center);
+            }
+        }
+    }
+    &-fieldsetContainer {
+        width: 100%;
+        padding: 0.5rem;
+        @include m.tablet {
+            width: 70%;
+            padding: 1rem;
+        }
+        &--mod {
+            @include m.flex(row, column, flex-end, center);
+        }
+    }
+    &-fieldset {
+        width: 100%;
+        margin-bottom: 1rem;
+        @include m.tablet {
+            @include m.flex(row, nowrap, flex-start, center);
+        }
+        input, textarea {
+            width: 100%;
+            padding: 0.5rem;
+            background-color: var(--color-blanco-contraste);
+            border-radius: 5px;
+        }
+        p {
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            font-size: 1.2rem;
+            @include m.tablet {
+                font-size: 1rem;
+            }
+        }
+        &-id{
+            display: none;
+        }
+    }
+    &-fieldset:first-child {
+        input {
+            @include m.tablet {
+                width: 70%;
+                margin-left: 1rem;
+            }
+        }
+    }
+    &-fieldset:nth-child(2) {
+        p {
+            @include m.tablet {
+                display: none;
+            }
+        }
+    }
+    &-norms {
+        width: 100%;
+        list-style-type: disc;
+        padding: 0.5rem;
+        font-size: 0.8em;
+        @include m.tablet {
+            width: 30%;
+            font-size: 0.9em;
+        }
+    }
+    &-li {
+        list-style-type: inherit;
+        margin-left: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    &-li:first-child, &-li:nth-child(2) {
+        list-style-type: none;
+        margin-left: 0;
+    }
+    &-li:first-child {
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+}
