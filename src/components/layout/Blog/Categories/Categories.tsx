@@ -68,9 +68,9 @@ export const Categories = () => {
 
     if (error) {
     return (
-            <section className='Category'>
-                <div className='Category-container'>
-                    <h1 className="Category-h1">Blog de Montaña</h1>
+            <section className='Categories'>
+                <div className='Categories-container'>
+                    <h1 className="Categories-h1">Blog de Montaña</h1>
                     <CategoryNav />
                     <Paragraph text='ha ocurrido un error' styleGreen={false}/>
                 </div>
@@ -79,9 +79,9 @@ export const Categories = () => {
     }
 
     return (
-        <section className='Category'>
-            <div className='Category-container'>
-                <h1 className="Category-h1">Blog de Montaña</h1>
+        <section className='Categories'>
+            <div className='Categories-container'>
+                <h1 className="Categories-h1">Blog de Montaña</h1>
                 <CategoryNav />
                 { loading && (
                     <Paragraph text='cargando contenido' styleGreen={true}/>
@@ -91,15 +91,15 @@ export const Categories = () => {
                     const items = articlesByCategory[element] || [];
 
                     return (
-                        <div className="Category-content" key={element}>
-                            <div className="Category-title">
+                        <div className="Categories-content" key={element}>
+                            <div className="Categories-title">
                                 <Link 
-                                    className="Category-h3"
+                                    className="Categories-h3"
                                     href={`/blog/categories/${element}`}>{element}</Link>
                                     <FaChevronRight />
                                     <FaChevronRight />
                             </div>
-                            <ul className="Category-ul">
+                            <ul className="Categories-ul">
                                 {items.map(item => (
                                     <ArticleCard 
                                         key={item.id}
