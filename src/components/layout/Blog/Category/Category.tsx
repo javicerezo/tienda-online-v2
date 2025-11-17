@@ -5,7 +5,6 @@ import { db } from "@/lib/firebase/firebase.client";
 import { collection, getDocs, query, orderBy, where } from "firebase/firestore";
 import { docToNews } from '@/utils/functions/docToNews';
 
-import { CategoryNav } from '../Header/CategoryNav';
 import { Paragraph } from '@/components/ui/Paragraph/Paragraph';
 import { ArticleCard } from '../Article/ArticleCard';
 
@@ -53,28 +52,21 @@ export const Category = ({ categoria }: CategoryProps) => {
     if (error) return <Paragraph text={`Ha ocurrido un error cargando ${categoria}`} styleGreen={false}/>;
     
     return (
-        <section className='Category'>
-            <div className='Category-container'>
-                <h1 className="Category-h1">Blog de Montaña</h1>
-                <CategoryNav />
+        <div className="Category-content">
+            <h2 className="Category-h2">{categoria}</h2>
 
-                <div className="Category-content">
-                    <h2 className="Category-h2">{categoria}</h2>
+            {items.length === 0 && (
+                <Paragraph text='no existen artículos de esta categoría' styleGreen={true}/>
+            )}
 
-                    {items.length === 0 && (
-                        <Paragraph text='no existen artículos de esta categoría' styleGreen={true}/>
-                    )}
-
-                    <ul className="Category-ul">
-                        {items.map( item => (
-                            <ArticleCard 
-                                key={item.id}
-                                element={item}
-                            />
-                        ))}
-                    </ul>
-                </div>
-            </div>
-        </section>
+            <ul className="Category-ul">
+                {items.map( item => (
+                    <ArticleCard 
+                        key={item.id}
+                        element={item}
+                    />
+                ))}
+            </ul>
+        </div>
     )
 }

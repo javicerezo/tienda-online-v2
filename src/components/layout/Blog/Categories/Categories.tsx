@@ -1,9 +1,10 @@
+'use client'
+
 import { useEffect, useState } from 'react';
 import { db } from "@/lib/firebase/firebase.client";
 import { collection, getDocs, query, orderBy, where, limit } from "firebase/firestore";
 import { docToNews } from '@/utils/functions/docToNews';
 
-import { CategoryNav } from '../Header/CategoryNav';
 import { Paragraph } from '@/components/ui/Paragraph/Paragraph';
 import { ArticleCard } from '../Article/ArticleCard';
 import { FaChevronRight } from "react-icons/fa";
@@ -69,54 +70,40 @@ export const Categories = () => {
         fetchData();
     }, []);
 
-    if (error) {
-    return (
-            <section className='Categories'>
-                <div className='Categories-container'>
-                    <h1 className="Categories-h1">Blog de Montaña</h1>
-                    <CategoryNav />
-                    <Paragraph text='ha ocurrido un error' styleGreen={false}/>
-                </div>
-            </section>
-        );
-    }
+    if (error) return <Paragraph text='ha ocurrido un error' styleGreen={false}/>
 
     return (
-        <section className='Categories'>
-            <div className='Categories-container'>
-                <h1 className="Categories-h1">Blog de Montaña</h1>
-                <CategoryNav />
-                { loading && (
-                    <Paragraph text='cargando contenido' styleGreen={true}/>
-                )}
+        <>
+            { loading && (
+                <Paragraph text='cargando contenido' styleGreen={true}/>
+            )}
 
-                { CATEGORIES.map( element => {
-                    const items = articlesByCategory[element] || [];
+            { CATEGORIES.map( element => {
+                const items = articlesByCategory[element] || [];
 
-                    return (
-                        <div className="Categories-content" key={element}>
-                            <div className="Categories-title">
-                                <Link 
-                                    className="Categories-h3"
-                                    href={`/blog/categories/${element}`}>{element}</Link>
-                                    <FaChevronRight />
-                                    <FaChevronRight />
-                            </div>
-                            <ul className="Categories-ul">
-                                {items.map(item => (
-                                    <ArticleCard 
-                                        key={item.id}
-                                        element={item}
-                                    />
-                                ))}
-                                {items.length === 0 && (
-                                    <Paragraph text='No hay artículos en esta categoría aún' styleGreen={true}/>
-                                )}
-                            </ul>
+                return (
+                    <div className="Categories-content" key={element}>
+                        <div className="Categories-title">
+                            <Link 
+                                className="Categories-h3"
+                                href={`/blog/categories/${element}`}>{element}</Link>
+                                <FaChevronRight />
+                                <FaChevronRight />
                         </div>
-                    )
-                })}
-            </div>
-        </section>
+                        <ul className="Categories-ul">
+                            {items.map(item => (
+                                <ArticleCard 
+                                    key={item.id}
+                                    element={item}
+                                />
+                            ))}
+                            {items.length === 0 && (
+                                <Paragraph text='No hay artículos en esta categoría aún' styleGreen={true}/>
+                            )}
+                        </ul>
+                    </div>
+                )
+            })}
+        </>
     )
 }

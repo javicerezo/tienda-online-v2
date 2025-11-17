@@ -52,7 +52,7 @@
         scroll-snap-type: x mandatory;
         @include m.desktop {
             @include m.flex(row, nowrap, center, center);
-            @include m.grid(4, 2rem);
+            @include m.grid(4, 1rem);
             overflow-x: visible;
             padding: 0;
             scroll-snap-type: none;
