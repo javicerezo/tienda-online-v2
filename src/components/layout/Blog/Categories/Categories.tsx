@@ -4,23 +4,24 @@ import { collection, getDocs, query, orderBy, where, limit } from "firebase/fire
 import { docToNews } from '@/utils/functions/docToNews';
 
 import { CategoryNav } from '../Header/CategoryNav';
+import { Paragraph } from '@/components/ui/Paragraph/Paragraph';
+import { ArticleCard } from '../Article/ArticleCard';
 import { FaChevronRight } from "react-icons/fa";
 import Link from 'next/link';
 
 import type { newsDB } from '@/utils/types/new';
-import './Category.scss';
-import { Paragraph } from '@/components/ui/Paragraph/Paragraph';
-import { ArticleCard } from '../Article/ArticleCard';
+import './Categories.scss';
 
-export const Category = () => {
-    const CATEGORIES = [
-        "rutas",
-        "noticias",
-        "consejos",
-        "test",
-        "reportajes",
-        "preparación física"
-    ];
+const CATEGORIES = [
+    "rutas",
+    "noticias",
+    "consejos",
+    "test",
+    "reportajes",
+    "preparación física"
+];
+
+export const Categories = () => {
 
     // estado: artículos agrupados por categoría
     const [articlesByCategory, setArticlesByCategory] = useState<Record<string, newsDB[]>>({});

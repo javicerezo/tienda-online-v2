@@ -1,11 +1,11 @@
 'use client'
 
-import { Category } from "@/components/layout/Blog/Category/Category";
+import { Categories } from "@/components/layout/Blog/Categories/Categories";
 
 export default function Page() {
     return (
         <>
-            <Category />
+            <Categories />
         </>
     )
 }
