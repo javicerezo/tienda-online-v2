@@ -1,11 +1,11 @@
-'use client'
+import { Category } from "@/components/layout/Blog/Category/Category";
 
-import { Categories } from "@/components/layout/Blog/Categories/Categories";
+type Props = { params: { category: string } };
 
-export default function Page() {
+export default function Page({ params }: Props) {
+    const category = decodeURIComponent(params.category);
+
     return (
-        <>
-            <Categories />
-        </>
+        <Category categoria={category}/>
     )
 }

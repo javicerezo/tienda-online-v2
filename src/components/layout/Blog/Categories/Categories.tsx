@@ -22,7 +22,6 @@ const CATEGORIES = [
 ];
 
 export const Categories = () => {
-
     // estado: artículos agrupados por categoría
     const [articlesByCategory, setArticlesByCategory] = useState<Record<string, newsDB[]>>({});
     const [loading, setLoading] = useState(true);
@@ -105,14 +104,6 @@ export const Categories = () => {
                                         key={item.id}
                                         element={item}
                                     />
-
-                                    // <li >
-                                    //     {/* aquí puedes usar ArticleCard si quieres */}
-                                    //     {/* <ArticleCard element={item} /> */}
-                                    //     <Link href={`/blog/categories/${element}/${item.slug}`}>
-                                    //     {item.titulo}
-                                    //     </Link>
-                                    // </li>
                                 ))}
                                 {items.length === 0 && (
                                     <Paragraph text='No hay artículos en esta categoría aún' styleGreen={true}/>
