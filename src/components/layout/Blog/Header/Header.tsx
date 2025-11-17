@@ -28,6 +28,9 @@ export const Header = () => {
                         className={`Header-link ${pathName === "/blog" ? "Header-link--activo" : ""} `}
                         href="/blog">Inicio</Link>
                      <Link 
+                        className={`Header-link ${pathName === "/blog/categories" ? "Header-link--activo" : ""} `}
+                        href="/blog/categories">Artículos</Link>
+                     <Link 
                         className={`Header-link ${pathName === "/blog/us" ? "Header-link--activo" : ""} `}
                         href="/blog/aboutUs">Nosotros</Link>
                      <Link 
