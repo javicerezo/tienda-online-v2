@@ -1,0 +1,66 @@
+@use '@/styles/settings/variables' as v;
+@use '@/styles/settings/mixins' as m;
+
+.Category {
+    @include m.flex (column, nowrap, center, center);
+    &-container {
+        margin: 1rem 0;
+        @include m.flex (column, nowrap, center, center);
+        width: 95%;
+        @include m.tablet {
+            width: 90%;
+            margin: 2rem 0;
+        }
+        @include m.desktop {
+            width: 80%;
+        }
+    }
+    &-h1 {
+        font-size: 2rem;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+        cursor: pointer;
+        @include m.tablet {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        @include m.desktop {
+            font-size: 3rem;
+        }
+    }
+    &-content {
+        width: 100%;
+        margin: 1rem;
+        @include m.desktop {
+            margin: 2rem;
+        }
+    }
+    &-title {
+        @include m.flex(row, nowrap, flex-start, center);
+        border-bottom: 2px solid var(--color-gris);
+        margin-bottom: 2rem;
+    }
+    &-h3 {
+        font-size: 2rem;
+        margin-right: 1rem;
+        margin-bottom: 0.4rem;
+        text-transform: capitalize;
+    }
+    &-ul {
+        @include m.flex(row, nowrap, flex-start, center);
+        width: 100%;
+        margin: 0;
+        gap: 1rem;
+        padding-inline: 1rem;
+        padding-block: 0.75rem;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        @include m.desktop {
+            @include m.flex(row, nowrap, center, center);
+            overflow-x: visible;
+            gap: 0;
+            padding: 0;
+            scroll-snap-type: none;
+        }
+    }
+}

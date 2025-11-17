@@ -1,24 +1,24 @@
 import { useState, useEffect } from "react";
 import { db } from "@/lib/firebase/firebase.client";
 import { collection, query, getDocs, orderBy, limit, where } from "firebase/firestore";
+import { docToNews } from "../functions/docToNews";
 
 import type { newsDB } from "../types/new";
 
 // helper: convierte doc → objeto plano con createdAt como Date
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function docToNews(d: any): newsDB {
-    const data = d.data();
-    return {
-        id: d.id,
-        titulo: data.titulo,
-        slug: data.slug,
-        imagen: data.imagen,
-        categoria: data.categoria,
-        desarrollo: data.desarrollo,
-        createdAt: data.createdAt.toDate(),
-        stats: { commentsCount: data?.stats?.commentsCount ?? 0 },
-    };
-}
+// function docToNews(d: any): newsDB {
+//     const data = d.data();
+//     return {
+//         id: d.id,
+//         titulo: data.titulo,
+//         slug: data.slug,
+//         imagen: data.imagen,
+//         categoria: data.categoria,
+//         desarrollo: data.desarrollo,
+//         createdAt: data.createdAt.toDate(),
+//         stats: { commentsCount: data?.stats?.commentsCount ?? 0 },
+//     };
+// }
 
 /**
  * este hook retorna las 4 ultimas noticias en un array y 2 escaladas recomendadas en otro
