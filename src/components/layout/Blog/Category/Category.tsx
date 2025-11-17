@@ -16,6 +16,11 @@ type CategoryProps = {
     categoria: string; // viene de params.categoria
 };
 
+/**
+ * ES EL COMPONENTE PARA MOSTRAR TODOS LOS ARTÍCULOS DE UNA CATEGORÍA CONCRETA
+ * @param param0 es el parámetro que tiene la categoría elegida por el usuario
+ * @returns 
+ */
 export const Category = ({ categoria }: CategoryProps) => {
     const [items, setItems] = useState<newsDB[]>([]);
     const [loading, setLoading] = useState(true);

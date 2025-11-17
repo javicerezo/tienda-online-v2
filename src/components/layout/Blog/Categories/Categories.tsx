@@ -21,6 +21,10 @@ const CATEGORIES = [
     "preparación física"
 ];
 
+/**
+ * ES EL COMPONENTE PARA MOSTRAR 4 NOTICIAS DE CADA CATEGORÍA
+ * @returns 
+ */
 export const Categories = () => {
     // estado: artículos agrupados por categoría
     const [articlesByCategory, setArticlesByCategory] = useState<Record<string, newsDB[]>>({});

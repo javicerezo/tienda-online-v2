@@ -56,7 +56,7 @@
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         @include m.desktop {
-            @include m.flex(row, nowrap, center, center);
+            @include m.flex(row, nowrap, flex-start, center);
             overflow-x: visible;
             gap: 0;
             padding: 0;
