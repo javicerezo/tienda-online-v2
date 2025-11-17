@@ -24,7 +24,7 @@ function docToNews(d: any): newsDB {
  * este hook retorna las 4 ultimas noticias en un array y 2 escaladas recomendadas en otro
  * @returns retorna dos arrays con noticias con 4 y 2 posiciones para mostrar en el contenido inicial del blog
  */
-export function useNewsInit() {
+export function useInitContent() {
     const [latestNews, setLatestNews] = useState<newsDB[]>([]);
     const [recomendedRoutes, setRecomendedRoutes] = useState<newsDB[]>([]);
     const [loading, setLoading] = useState(true);

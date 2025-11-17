@@ -1,4 +1,4 @@
-import { useNewsInit } from '@/utils/hooks/useNewsInit';
+import { useInitContent } from '@/utils/hooks/useInitContent';
 
 import { ArticleCard } from '../Article/ArticleCard';
 import { Paragraph } from '@/components/ui/Paragraph/Paragraph';
@@ -9,7 +9,7 @@ import './InitContent.scss';
 import '@/components/ui/Button/Button.scss';
 
 export const InitContent = () => {
-    const { latestNews, recomendedRoutes, loading } = useNewsInit();
+    const { latestNews, recomendedRoutes, loading } = useInitContent();
     
     return (
         <main className='InitContent'>

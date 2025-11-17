@@ -35,7 +35,7 @@ export const ArticleCard = ( {element}: articleProps) => {
                 <div>
                     <Link
                         className='ArticleCard-title'
-                        href={`/blog/categories/&{categoria}/${slug}`}>
+                        href={`/blog/categories/${categoria}/${slug}`}>
                         <h5>{titulo}</h5>
                     </Link>
                     <div className="ArticleCard-box">
