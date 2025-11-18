@@ -15,11 +15,14 @@
             width: 80%;
         }
     }
-    &-h1 {
-        font-size: 2rem;
+    &-h2 {
+        font-size: 1.7rem;
         text-transform: uppercase;
-        margin-bottom: 1rem;
+        margin: 1.5rem 0;
         cursor: pointer;
+        @include m.telefono-l {
+            font-size: 2rem;
+        }    
         @include m.tablet {
             font-size: 2.5rem;
             margin-bottom: 2rem;

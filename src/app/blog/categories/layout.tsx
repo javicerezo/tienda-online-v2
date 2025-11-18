@@ -1,4 +1,5 @@
 import { CategoryNav } from "@/components/layout/Blog/Header/CategoryNav";
+import '@/components/layout/Blog/Categories/Categories.scss';
 
 export default function Layout (
     { children }: { children: React.ReactNode }
@@ -7,7 +8,7 @@ export default function Layout (
         <> 
             <section className='Categories'>
                 <div className='Categories-container'>
-                    <h1 className="Categories-h1">Blog de Montaña</h1>
+                    <h2 className="Categories-h2">Blog de Montaña</h2>
                     <CategoryNav />
                     {children}
                 </div>
