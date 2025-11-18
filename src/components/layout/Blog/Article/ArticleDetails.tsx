@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { auth, db } from "@/lib/firebase/firebase.client";
+import { onAuthStateChanged } from "firebase/auth";
 import { collection, doc, getDocs, getDoc, addDoc, orderBy, query, where, serverTimestamp } from "firebase/firestore";
 import { docToNews } from '@/utils/functions/docToNews';
 import { formatDate } from "@/utils/functions/formatDate";
@@ -96,32 +97,39 @@ export const ArticleDetails = ({ article }: ArticleDetailsProps) => {
 
     // Comprobamos si user está logueado
     useEffect(() => {
-        const user = auth.currentUser;
-        (async () => {
-            if(!user) {
-                setUserInfo(null);
-                console.log("No hay usuario autenticado");
-                return ;
-            }
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
+        if (!user) {
+            setUserInfo(null);
+            return;
+        }
 
-            try {
-                const orderRef = doc(db, "users", user.uid);
-                const snap = await getDoc(orderRef);
+        try {
+            const userRef = doc(db, "users", user.uid);
+            const snap = await getDoc(userRef);
 
-                if(snap.exists()) {
-                    const data = snap.data() as { name?: string; email?: string };
-                    setUserInfo({
-                        uid: user.uid,
-                        name: data.name ?? '',
-                        email: data.email ?? ''
-                    });
-                }
-            } catch {
-                setUserInfo(null);
-                setStatus('error');
-                setFeedback('Error en la base de datos al cargar el usuario');
+            if (snap.exists()) {
+                const data = snap.data() as { name?: string; email?: string };
+                setUserInfo({
+                    uid: user.uid,
+                    name: data.name ?? "",
+                    email: data.email ?? "",
+                });
+            } else {
+                setUserInfo({
+                    uid: user.uid,
+                    name: "",
+                    email: user.email ?? "",
+                });
             }
-        })();
+        } catch {
+            setUserInfo(null);
+            setStatus("error");
+            setFeedback("Error en la base de datos al cargar el usuario");
+        }
+    });
+
+    // limpiar el listener al desmontar
+    return () => unsubscribe();
     }, []);
 
     // Comprobamos que existe el artículo (article se pasa por Prop gracias a Next)
