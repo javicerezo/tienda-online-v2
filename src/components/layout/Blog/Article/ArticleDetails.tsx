@@ -5,6 +5,7 @@ import { auth, db } from "@/lib/firebase/firebase.client";
 import { collection, doc, getDocs, getDoc, addDoc, orderBy, query, where, serverTimestamp } from "firebase/firestore";
 import { docToNews } from '@/utils/functions/docToNews';
 import { formatDate } from "@/utils/functions/formatDate";
+import { useInitContent } from "@/utils/hooks/useInitContent";
 
 import { Paragraph } from '@/components/ui/Paragraph/Paragraph';
 import { FaRegComment } from "react-icons/fa6";
@@ -13,6 +14,7 @@ import Image from "next/image";
 import type { newsDB, commentDB, ArticleDetailsProps } from '@/utils/types/new';
 import './ArticleDetails.scss';
 import '@/components/ui/Button/Button.scss';
+import { ArticleCard } from "./ArticleCard";
 
 const sleep = (delay: number) => {
     return new Promise<void>((resolve) => setTimeout(resolve, delay));
@@ -26,16 +28,7 @@ export const ArticleDetails = ({ article }: ArticleDetailsProps) => {
     const [ status, setStatus ] = useState<"idle" | "spinner" | "success" | "error">("idle");
     const [ feedback, setFeedback ] = useState<string>("");
 
-    /**
-     * Formatea la fecha para mostrarla
-     */
-    // const dateLabel = item?.createdAt
-    // ? item?.createdAt.toLocaleDateString('es-ES', {
-    //     day: '2-digit',
-    //     month: 'short',
-    //     year: 'numeric',
-    //   })
-    // : '';
+    const { latestNews, loading } = useInitContent();
 
     /**
      * Comprueba si existe usuario y artículo, valida el comentario y hace petición al backend para subirlo a la base de datos
@@ -197,10 +190,15 @@ export const ArticleDetails = ({ article }: ArticleDetailsProps) => {
             <div className="ArticleDetails-boxRecomended">
                 <h3 className="ArticleDetails-h3">Artículos más recientes</h3>
                 <ul className="ArticleDetails-ul">
-
-                    <p>mostrar </p>
-                    <p>mostrar </p>
-                    <p>mostrar </p>
+                    {loading && (
+                        <Paragraph text="cargando últimos artículos" styleGreen={true} />
+                    )}
+                    {latestNews.map( element => (
+                        <ArticleCard 
+                            key={element.id}
+                            element={element}    
+                        />
+                    ))}
                 </ul>
             </div>
             <div className="ArticleDetails-boxComments" id="Comments">
