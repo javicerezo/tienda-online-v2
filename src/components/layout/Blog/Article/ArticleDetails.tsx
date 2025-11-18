@@ -1,48 +1,142 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import { db } from "@/lib/firebase/firebase.client";
-import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
+import { auth, db } from "@/lib/firebase/firebase.client";
+import { collection, doc, getDocs, getDoc, addDoc, orderBy, query, where, serverTimestamp } from "firebase/firestore";
 import { docToNews } from '@/utils/functions/docToNews';
+import { formatDate } from "@/utils/functions/formatDate";
 
 import { Paragraph } from '@/components/ui/Paragraph/Paragraph';
 import { FaRegComment } from "react-icons/fa6";
 import Image from "next/image";
 
-import type { newsDB, commentDB } from '@/utils/types/new';
+import type { newsDB, commentDB, ArticleDetailsProps } from '@/utils/types/new';
 import './ArticleDetails.scss';
+import '@/components/ui/Button/Button.scss';
 
-type ArticleDetailsProps = {
-    article: string; // viene de params.categoria
+const sleep = (delay: number) => {
+    return new Promise<void>((resolve) => setTimeout(resolve, delay));
 };
 
-
 export const ArticleDetails = ({ article }: ArticleDetailsProps) => {
-    const [item, setItem] = useState<newsDB | undefined>(undefined);
+    const [ item, setItem ] = useState<newsDB | undefined>(undefined);
+    const [ userInfo, setUserInfo ] = useState<{uid: string, name: string, email: string} | null>(null);
     const [commentArticle, setCommentArticle] = useState<commentDB[]>([]);
 
-    /**
-     * Formatea la fecha para mostrarla 
-     */
-    const dateLabel = item?.createdAt
-    ? item?.createdAt.toLocaleDateString('es-ES', {
-        day: '2-digit',
-        month: 'short',
-        year: 'numeric',
-      })
-    : '';
+    const [ status, setStatus ] = useState<"idle" | "spinner" | "success" | "error">("idle");
+    const [ feedback, setFeedback ] = useState<string>("");
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    /**
+     * Formatea la fecha para mostrarla
+     */
+    // const dateLabel = item?.createdAt
+    // ? item?.createdAt.toLocaleDateString('es-ES', {
+    //     day: '2-digit',
+    //     month: 'short',
+    //     year: 'numeric',
+    //   })
+    // : '';
+
+    /**
+     * Comprueba si existe usuario y artículo, valida el comentario y hace petición al backend para subirlo a la base de datos
+     * @param e evento de formulario
+     */
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log('no hagas nada')
+
+        // Comprobamos user y artículo por mayor seguridad
+        if (!userInfo || !item) {
+            setStatus("error");
+            setFeedback("Debes iniciar sesión para poder comentar.");
+            return;
+        }
+
+        const form = e.currentTarget;
+        const formData = new FormData(e.currentTarget);
+        const commentText = formData.get("comment")?.toString().trim() ?? "";
+
+        // Validamos el comentario
+        if (!commentText) {
+            setStatus("error");
+            setFeedback("Hay que rellenar el comentario para poder enviarlo.");
+            return;
+        }
+
+        setStatus("spinner");
+        await sleep(1000);
+
+        // Subimos comentario a la base de datos
+        try {
+            const commentsRef = collection(db, "news", item.id, "comments");
+
+            const docRef = await addDoc(commentsRef, {
+                text: commentText,
+                author: userInfo.name,
+                emailAuthor: userInfo.email,
+                createdAt: serverTimestamp(),
+            });
+
+            // actualizar la lista en el front
+            setCommentArticle(prev => [
+                ...prev,
+                {
+                    id: docRef.id,
+                    text: commentText,
+                    author: userInfo.name,
+                    createdAt: new Date(), // para mostrar algo inmediato
+                },
+            ]);
+
+            setStatus("success");
+            setFeedback("Comentario agregado satisfactoriamente");
+            form.reset();
+        } catch (err) {
+            console.error("Error al guardar comentario:", err);
+            setStatus("error");
+            setFeedback("Error en la base de datos, inténtalo de nuevo por favor");
+        } finally {
+            await sleep(2500);
+            setStatus("idle");
+            setFeedback("");
+        }
     }
 
+    // Comprobamos si user está logueado
+    useEffect(() => {
+        const user = auth.currentUser;
+        (async () => {
+            if(!user) {
+                setUserInfo(null);
+                console.log("No hay usuario autenticado");
+                return ;
+            }
+
+            try {
+                const orderRef = doc(db, "users", user.uid);
+                const snap = await getDoc(orderRef);
+
+                if(snap.exists()) {
+                    const data = snap.data() as { name?: string; email?: string };
+                    setUserInfo({
+                        uid: user.uid,
+                        name: data.name ?? '',
+                        email: data.email ?? ''
+                    });
+                }
+            } catch {
+                setUserInfo(null);
+                setStatus('error');
+                setFeedback('Error en la base de datos al cargar el usuario');
+            }
+        })();
+    }, []);
+
+    // Comprobamos que existe el artículo (article se pasa por Prop gracias a Next)
     useEffect(() => {
         if (!article) return;
 
         (async () => {
             try {
-                //consulta para el artículo
                 const q = query(collection(db, 'news'), where('slug', '==', article));
                 const snap = await getDocs(q);
 
@@ -60,10 +154,10 @@ export const ArticleDetails = ({ article }: ArticleDetailsProps) => {
                 const articleId = docSnap.id;
                 const q2 = query(collection(db, 'news', articleId, 'comments'), orderBy('createdAt', 'asc'));
                 const snapComments = await getDocs(q2);
-                
+
                 const commentsResult: commentDB[] = snapComments.docs.map( comment => {
                     const data = comment.data();
-                    
+
                     return {
                         id: comment.id,
                         text: data.text,
@@ -76,7 +170,7 @@ export const ArticleDetails = ({ article }: ArticleDetailsProps) => {
 
             } catch (e) {
                 console.error('Firestore error (category):', e);
-            } 
+            }
             })();
     }, [article]);
 
@@ -87,23 +181,23 @@ export const ArticleDetails = ({ article }: ArticleDetailsProps) => {
             <div className="ArticleDetails-article">
                 <h5 className="ArticleDetails-title">{item.titulo}</h5>
                 <div className="ArticleDetails-up">
-                    <p className="ArticleDetails-date">{dateLabel}</p>
+                    <p className="ArticleDetails-date">{formatDate(item.createdAt)}</p>
                     <a href="#Comments" className="ArticleDetails-blue"><FaRegComment /></a>
                     <a href="#Comments" className="ArticleDetails-blue">Deja tu comentario</a>
                 </div>
-                <Image 
+                <Image
                     className='ArticleDetails-img'
                     width={140} height={60}
-                    src={`/assets/imgs/blog/${item.imagen}`} 
-                    alt="imagen" 
-                    loading="lazy" 
-                /> 
+                    src={`/assets/imgs/blog/${item.imagen}`}
+                    alt="imagen"
+                    loading="lazy"
+                />
                 <p className="ArticleDetails-text">{item.desarrollo}</p>
             </div>
             <div className="ArticleDetails-boxRecomended">
                 <h3 className="ArticleDetails-h3">Artículos más recientes</h3>
                 <ul className="ArticleDetails-ul">
-                    {/* // todo artículos recomendados */}
+
                     <p>mostrar </p>
                     <p>mostrar </p>
                     <p>mostrar </p>
@@ -116,17 +210,16 @@ export const ArticleDetails = ({ article }: ArticleDetailsProps) => {
                         <Paragraph text="aún no hay comentarios" styleGreen={true} />
                     )}
                     {commentArticle.map( element => (
-                        <li className="ArticleDetails-listComment-comment" key={element.id}>
-                            <div className="ArticleDetails-listComment-up">
-                                <p className="ArticleDetails-listComment-p">{element.author}</p>
-                                <p className="ArticleDetails-listComment-p">{element.author}</p>
+                        <li className="ArticleDetails-listComments-comment" key={element.id}>
+                            <div className="ArticleDetails-listComments-up">
+                                <p className="ArticleDetails-listComments-p">{formatDate(element.createdAt)}</p>
+                                <p className="ArticleDetails-listComments-p">{element.author}</p>
                             </div>
-                            <div className="ArticleDetails-listComment-down">
-                                <p className="ArticleDetails-listComment-text">{element.text}</p>
+                            <div className="ArticleDetails-listComments-down">
+                                <p className="ArticleDetails-listComments-text">{element.text}</p>
                             </div>
                         </li>
                     ))}
-
                 </div>
 
                 <form className="ArticleDetails-form" onSubmit={handleSubmit}>
@@ -134,19 +227,57 @@ export const ArticleDetails = ({ article }: ArticleDetailsProps) => {
                     <div className="ArticleDetails-form-container">
                         <div className="ArticleDetails-fieldsetContainer">
                             <fieldset className="ArticleDetails-fieldset">
-                                <p>Tu alias:</p>
-                                <input  
+                                <p className="ArticleDetails-p">Tu alias:</p>
+                                <input
+                                    className={`ArticleDetails-input ${!userInfo?.name ? 'ArticleDetails-input--disabled' : ''}`}
                                     name="alias"
-                                    type="text" 
-                                    required
+                                    type="text"
+                                    placeholder={userInfo?.name}
+                                    readOnly
                                 />
                             </fieldset>
                             <fieldset className="ArticleDetails-fieldset">
-                                <textarea name="comment" id="commentId" cols={30} rows={10}></textarea>
+                                <p className="ArticleDetails-p">Tu comentario:</p>
+                                <textarea
+                                    className={`ArticleDetails-input ${!userInfo?.name ? 'ArticleDetails-input--disabled' : ''}`}
+                                    name="comment"
+                                    cols={30}
+                                    rows={10}
+                                    required
+                                    disabled={!userInfo?.name}
+                                ></textarea>
                             </fieldset>
                             <fieldset className="ArticleDetails-fieldsetContainer--mod">
-                                <button className="Button Button--amarillo">Enviar</button>
+                                <button
+                                    className={`Button Button--amarillo ${!userInfo?.name ? 'ArticleDetails-button--disabled' : ''}`}
+                                    type="submit"
+                                    disabled={!userInfo?.name}
+                                >Enviar</button>
                             </fieldset>
+
+                            {/* SI NO HAY USER NO SE PUEDE COMENTAR */}
+                            <div>
+                                <div className={`ArticleDetails-spinner ${status === "spinner" ? "ArticleDetails-spinner--show" : ""}`}>
+                                    <div className="sk-chase">
+                                        <div className="sk-chase-dot"></div>
+                                        <div className="sk-chase-dot"></div>
+                                        <div className="sk-chase-dot"></div>
+                                        <div className="sk-chase-dot"></div>
+                                        <div className="sk-chase-dot"></div>
+                                        <div className="sk-chase-dot"></div>
+                                    </div>
+                                </div>
+                                {!userInfo?.name && (
+                                    <Paragraph text="Debes iniciar sesión para poder comentar." styleGreen={false} />
+                                )}
+                                {status === "success" && (
+                                    <Paragraph text={feedback} styleGreen={true} />
+                                )}
+                                {status === "error" && (
+                                    <Paragraph text={feedback} styleGreen={false} />
+                                )}
+                            </div>
+
                         </div>
                         <ul className="ArticleDetails-norms">
                             <li className="ArticleDetails-li">Normas de uso:</li>
@@ -155,88 +286,11 @@ export const ArticleDetails = ({ article }: ArticleDetailsProps) => {
                             <li className="ArticleDetails-li">Contengan mensajes ofensivos, discriminatorios, racistas o xenófobos</li>
                             <li className="ArticleDetails-li">Promuevan o apoyen actividades ilegales</li>
                             <li className="ArticleDetails-li">Suministren información acerca de usuarios sin su consentimiento</li>
-                            <li className="ArticleDetails-li">Contengan spam</li> 
+                            <li className="ArticleDetails-li">Contengan spam</li>
                         </ul>
-                    </div>
-                    <div className="ArticleDetails-response">
-                        {/* FEEDBACK */}
                     </div>
                 </form>
             </div>
         </div>
     )
 }
-
-
-// main.c-entradaDetalle     
-//         .c-entradaDetalle__contenedor
-//             
-
-
-
-//             .c-entradaDetalle__boxRecientes 
-//                 h3.c-entradaDetalle__recientes Artículos más recientes 
-//                 include ./layout/bloque_entradas-recomendadas
-
-//             .c-entradaDetalle__boxComentarios(id="comentarios")
-//                 h3.c-entradaDetalle__h3--mod Comentarios
-//                 .c-entradaDetalle__listadoComentarios
-//                     each entr in entrada
-//                         each comentario in listadoComentarios
-//                             if(entr.id == comentario.comentarioId)
-//                                 .c-entradaDetalle__listadoComentarios-comentario
-//                                     .c-entradaDetalle__listadoComentarios-arriba
-//                                         p.c-entradaDetalle__listadoComentarios-p #{comentario.alias} -
-//                                         p.c-entradaDetalle__listadoComentarios-p.js-entradaDetalle__listadoComentarios-fecha #{comentario.createdAt}
-//                                     .c-entradaDetalle__listadoComentarios-abajo 
-//                                         p.c-entradaDetalle__listadoComentarios-texto #{comentario.comentario}
-
-
-
-//                 each entr in entrada 
-//                     each categoria in todasCategorias
-//                         if(entr.tipoId == categoria.id)
-//                             h3.c-entradaDetalle__h3 Comentarios
-
-
-
-
-
-
-
-
-
-//                             form.c-entradaDetalle__form.js-entradaDetalle__form(action=`/entradas/${categoria.categoria}/${entr.titulo}` method="POST")
-//                                 h5.c-entradaDetalle__form-h5 Deja tu comentario
-
-//                                 .c-entradaDetalle__form-contenedor
-//                                     .c-entradaDetalle__fieldsetContenedor
-//                                         fieldset.c-entradaDetalle__fieldset
-//                                             p Tu alias:
-//                                             input.js-entradaDetalle__fieldset-alias(type="text", name="alias", value=alias) 
-//                                             input.c-entradaDetalle__fieldset-id(type="text", name="comentarioId", value=`${entr.id}`) 
-//                                         fieldset.c-entradaDetalle__fieldset
-//                                             p Deja tu comentario:
-//                                             textarea.js-entradaDetalle__fieldset-textarea(name="comentario", cols="30", rows="10")= comentario
-//                                         fieldset.c-entradaDetalle__fieldsetContenedor--mod
-//                                             input.c-button.c-button--amarillo.js-entradaDetalle__fieldset-boton(type="submit", value="enviar")
-
-
-
-//                                     ul.c-entradaDetalle__normas
-//                                         li.c-entradaDetalle__normas-li Normas de uso:
-//                                         li.c-entradaDetalle__normas-li Se reserva el derecho a eliminar aquellos comentarios que: 
-//                                         li.c-entradaDetalle__normas-li No se ajusten al tema del artículo.
-//                                         li.c-entradaDetalle__normas-li Contengan mensajes ofensivos, discriminatorios, racistas o xenófobos. 
-//                                         li.c-entradaDetalle__normas-li Promuevan o apoyen actividades ilegales. 
-//                                         li.c-entradaDetalle__normas-li Suministren información acerca de usuarios sin su consentiento.
-//                                         li.c-entradaDetalle__normas-li Contengan spam. 
-
-
-//                             .js-entradaDetalle__contenedorMensaje                            
-//                                 if(mensaje)
-//                                     each m in mensaje
-//                                         if(m.tipo == 'alerta')
-//                                             p.u-mensaje.u-mensaje--alerta= m.contenido
-//                                         if(m.tipo == 'exito')
-//                                             p.u-mensaje.u-mensaje--exito= m.contenido

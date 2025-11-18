@@ -14,6 +14,10 @@ export interface articleProps {
     element: newsDB;
 }
 
+export interface ArticleDetailsProps {
+    article: string; // viene de params.categoria
+};
+
 export interface commentDB {
   id: string;
   text: string;
