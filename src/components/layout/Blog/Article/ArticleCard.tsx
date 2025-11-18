@@ -1,3 +1,5 @@
+import { formatDate } from '@/utils/functions/formatDate';
+
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -7,17 +9,6 @@ import './ArticleCard.scss';
 
 export const ArticleCard = ( {element}: articleProps) => {
     const { categoria, createdAt, desarrollo, titulo, slug, imagen } = element;
-
-    /**
-     * Formatea la fecha para mostrarla 
-     */
-    const dateLabel = createdAt
-    ? createdAt.toLocaleDateString('es-ES', {
-        day: '2-digit',
-        month: 'short',
-        year: 'numeric',
-      })
-    : '';
 
     return (
         <li className='ArticleCard'>
@@ -44,7 +35,7 @@ export const ArticleCard = ( {element}: articleProps) => {
                             href={`/blog/categories/${categoria}`}>
                             {categoria}
                         </Link>
-                        <p className='ArticleCard-date'>{dateLabel}</p>
+                        <p className='ArticleCard-date'>{formatDate(createdAt)}</p>
                     </div>
                     <p className="ArticleCard-text">{desarrollo}</p>
                 </div>
