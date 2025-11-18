@@ -34,11 +34,11 @@
         @include m.position(absolute, 3rem, 0, null, 0);
         padding: 0.1rem;
         opacity: 0;
-        height: calc(100vh - 3rem);
         pointer-events: none;
         visibility: hidden;
         backdrop-filter: blur(3px);
         transition: all 0.7s ease-in;
+        height: calc(100vh - 3rem);
         &--show {
             opacity: 1;
             pointer-events: initial;
@@ -53,6 +53,7 @@
             opacity: 1;
             pointer-events: initial;
             visibility: visible;
+            height: auto;
         }
     }
     &-link {
