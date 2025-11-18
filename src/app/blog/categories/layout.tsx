@@ -1,4 +1,4 @@
-import { CategoryNav } from "@/components/layout/Blog/Header/CategoryNav";
+import { CategoryNav } from "@/components/layout/Blog/HeaderBlog/CategoryNav";
 import '@/components/layout/Blog/Categories/Categories.scss';
 
 export default function Layout (

@@ -1,11 +1,11 @@
-import { Header } from "@/components/layout/Blog/Header/Header";
+import { HeaderBlog } from "@/components/layout/Blog/HeaderBlog/HeaderBlog";
 
 export default function Layout (
     { children }: { children: React.ReactNode }
 ) {
     return (
         <section> 
-            <Header />
+            <HeaderBlog />
 
             {children}
         </section>

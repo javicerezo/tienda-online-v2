@@ -105,10 +105,10 @@ export const Nav = ( {showMenuBars, openSeeker, searchProductseeker}:navProps ) 
                     href="/">La tienda</Link>
                 <Link 
                     className={`Nav-a ${pathName === "/blog" ? "Nav-a--activo" : ""} `} 
-                    href="/blog" target='_blank'>Blog escalada</Link>
+                    href="/blog">Blog escalada</Link>
                 <Link 
                     className={`Nav-a ${pathName === "/club" ? "Nav-a--activo" : ""} `} 
-                    href="/club" target='_blank'>Club montaña</Link>
+                    href="/club">Club montaña</Link>
             </div>
         </nav>
     );

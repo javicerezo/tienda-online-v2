@@ -1,15 +1,12 @@
 @use '@/styles/settings/variables' as v;
 @use '@/styles/settings/mixins' as m;
 
-.Header {
-    background-color: transparent;
-    @include m.position(absolute, 0, 0, null, 0);
-    z-index: 80;
+.HeaderBlog {
+    @include m.position(relative, 0, 0, null, 0);
     @include m.flex (column, nowrap, center, center);
-    &--mod {
-        position: relative;
-        background-color: var(--color-fondo);
-    }
+    background-color: transparent;
+    background-color: var(--color-fondo);
+    z-index: 80;
     &-container {
         width: 100%;
         position: relative;
@@ -34,20 +31,18 @@
     }
     &-nav {
         @include m.flex (column, nowrap, center, center);
-        @include m.position(absolute, 3.5244rem, 0, null, 0);
+        @include m.position(absolute, 3rem, 0, null, 0);
         padding: 0.1rem;
         opacity: 0;
+        height: calc(100vh - 3rem);
         pointer-events: none;
         visibility: hidden;
-        backdrop-filter: blur(2px);
+        backdrop-filter: blur(3px);
         transition: all 0.7s ease-in;
         &--show {
             opacity: 1;
             pointer-events: initial;
             visibility: visible;
-        }
-        @include m.telefono-l {
-            @include m.position(absolute, 5.9988rem, 0, null, 0);
         }
         @include m.tablet {
             @include m.flex (row, nowrap, center, center);
@@ -80,7 +75,8 @@
         }
     }
     &-burger {
-        padding: 0.5rem;
+        position: relative;
+        margin: 1rem;
         @include m.flex(row, nowrap, center, center);
         svg {
             width: 1.5rem;
@@ -88,6 +84,20 @@
         }
         @include m.tablet {
             display: none;
+        }
+    }
+    &-icon {
+        @include m.position(absolute, null, null, null, null);
+        width: 100%;
+        transition: opacity 1s ease, transform 1.5s ease;
+        filter: drop-shadow(0 0 1px white);
+        &--hidden {
+            opacity: 0;
+            transform:  rotate(-90deg);
+        }
+        &--visible {
+            opacity: 1;
+            transform: rotate(0);
         }
     }
 }
