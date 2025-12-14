@@ -120,7 +120,7 @@ export const Signup = () => {
                             className="Signup-p"
                             href="/user/login">Volver a login</Link>
                     </div>
-                    <button className="Signup-boton Button Button--amarillo" type='submit'>Suscribirme</button>
+                    <button className="Signup-boton Button Button--amarillo" type='submit'>Sign up</button>
 
                     {/* FEEDBACK AL USUARIO */}
                     <div className="Signup-divResponse">

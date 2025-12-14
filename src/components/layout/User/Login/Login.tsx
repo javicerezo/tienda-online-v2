@@ -134,7 +134,7 @@ export const Login = () => {
                         </Link>
                         <FaArrowRightLong />
                     </div>
-                    <button className="Login-boton Button Button--amarillo" type='submit'>Suscribirme</button>
+                    <button className="Login-boton Button Button--amarillo" type='submit'>Login</button>
 
                     {/* FEEDBACK AL USUARIO */}
                     <div className="Signup-divResponse">
